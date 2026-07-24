@@ -4,7 +4,20 @@ void	ra(t_stack *taba)
 {
 	t_list	*tmp;
 
-	t_list tmp = t_stack->first_node;
-	t_stack->last_node->next = t_stack->first_node;
-	
+	tmp = taba->first_node;
+	taba->first_node = taba->first_node->next;
+	tmp->next = NULL;
+	taba->last_node->next = tmp;
+	taba->last_node = tmp;
+}
+
+void	rb(t_stack *tabb)
+{
+	t_list	*tmp;
+
+	tmp = tabb->first_node;
+	tabb->first_node = tabb->first_node->next;
+	tmp->next = NULL;
+	tabb->last_node->next = tmp;
+	tabb->last_node = tmp;
 }
