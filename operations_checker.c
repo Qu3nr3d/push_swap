@@ -5,7 +5,7 @@
 t_stack *create_stack(int n, ...)
 {
 	int i;
-	int *number;
+	int number;
 	t_list *head;
 	t_stack *stack;
 	va_list numbers;
@@ -17,8 +17,7 @@ t_stack *create_stack(int n, ...)
 	i = 0;
 	while (i < n)
 	{
-		number = calloc(1, sizeof(int));
-		*number = va_arg(numbers, int);
+		number = va_arg(numbers, int);
 		ft_lstadd_back(&head, ft_lstnew(number));
 		i++;
 	}
@@ -30,14 +29,14 @@ t_stack *create_stack(int n, ...)
 void display_stack(t_list *tab)
 {
 	t_list *node;
-	int* number;
+	int number;
 
 	node = tab;
 	while (node)
 	{
-		number = (int*)(node->content);
+		number = node->number;
 		printf("| ");
-		printf("%d", *number);
+		printf("%d", number);
 		printf(" |");
 		node = node->next;
 		printf("\n");
@@ -49,13 +48,17 @@ int main(void)
 {
 	t_stack *stack_a = create_stack(5, 1, 2, 3, 4, 5);
 	t_stack *stack_b = create_stack(5, 9, 8, 7, 6, 5);
+	
 	printf("Stack a: rotate...\n");
 	display_stack((stack_a->first_node));
-	ra(stack_a);
+	ra(stack_a->first_node, stack_a->last_node);
 	display_stack((stack_a->first_node));
-	printf("Stack a: reverse rotate...\n");
+	printf("Stack b: reverse rotate...\n");
 	display_stack((stack_b->first_node));
-	rra(stack_b);
+	rrb(stack_b->first_node, stack_b->last_node);
 	display_stack((stack_b->first_node));
+	
+
+
 	return (0);
 }

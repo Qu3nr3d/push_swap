@@ -1,23 +1,28 @@
 #include "push_swap.h"
 
-void	ra(t_stack *taba)
+void	ra(t_list *first, t_list *last)
 {
 	t_list	*tmp;
 
-	tmp = taba->first_node;
-	taba->first_node = taba->first_node->next;
-	tmp->next = NULL;
-	taba->last_node->next = tmp;
-	taba->last_node = tmp;
+	tmp = first;
+	first->next->prev = NULL;
+	first->next = NULL;
+	last->next = first;
 }
 
-void	rb(t_stack *tabb)
+void	rb(t_list *first, t_list *last)
 {
 	t_list	*tmp;
 
-	tmp = tabb->first_node;
-	tabb->first_node = tabb->first_node->next;
-	tmp->next = NULL;
-	tabb->last_node->next = tmp;
-	tabb->last_node = tmp;
+	tmp = first;
+	first->next->prev = NULL;
+	first->next = NULL;
+	last->next = first;
 }
+
+void	rr(t_list *first_a, t_list *first_b, t_list *last_a, t_list *last_b)
+{
+	ra(first_a, last_a);
+	rb(first_b, last_b);
+}
+

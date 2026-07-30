@@ -2,8 +2,9 @@
 
 typedef struct s_list
 {
-	void			*content;
+	int				number;
 	struct s_list	*next;
+	struct s_list	*prev;
 }	t_list;
 
 typedef struct s_stack
@@ -18,11 +19,13 @@ void	ss(t_list *taba, t_list *tabb, int sizea, int sizeb);
 void	pa(t_list **taba, t_list **tabb);
 void	pb(t_list **taba, t_list **tabb);
 void	simple_sort(t_stack *stack_a, t_stack *stack_b);
-t_list	*ft_lstnew(void *content);
+t_list	*ft_lstnew(int number);
 int		t_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ra(t_stack *taba);
-void	rb(t_stack *tabb);
-void	rra(t_stack *taba);
-void	rrb(t_stack *tabb);
+void	ra(t_list *first, t_list *last);
+void	rb(t_list *first, t_list *last);
+void	rr(t_list *first_a, t_list *first_b, t_list *last_a, t_list *last_b);
+void	rra(t_list *first, t_list *last);
+void	rrb(t_list *first, t_list *last);
+void rrr(t_list *first_a, t_list *last_a, t_list *first_b, t_list *last_b);

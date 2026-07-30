@@ -1,38 +1,29 @@
 #include "push_swap.h"
 
-static t_list	*find_next_to_last(t_list *tab, int size)
-{
-	int		i;
-	t_list	*next_to_last;
-
-	next_to_last = tab;
-	i = 0;
-	while (i < size - 2)
-	{
-		next_to_last = next_to_last->next;
-		i++;
-	}
-	return (next_to_last);
-}
-
-void	rra(t_stack *taba)
+void	rra(t_list *first, t_list *last)
 {
 	t_list	*tmp;
 
-	tmp = taba->last_node;
-	taba->last_node->next = taba->first_node;
-	taba->last_node = find_next_to_last(taba->first_node, taba->size);
-	taba->last_node->next = NULL;
-	taba->first_node = tmp;
+	tmp = last;
+	last->prev->next = NULL;
+	last->prev = NULL;
+	first->prev = last;
+	last->next = first;
 }
 
-void	rrb(t_stack *tabb)
+void	rrb(t_list *first, t_list *last)
 {
 	t_list	*tmp;
 
-	tmp = tabb->last_node;
-	tabb->last_node->next = tabb->first_node;
-	tabb->last_node = find_next_to_last(tabb->first_node, tabb->size);
-	tabb->last_node->next = NULL;
-	tabb->first_node = tmp;
+	tmp = last;
+	last->prev->next = NULL;
+	last->prev = NULL;
+	first->prev = last;
+	last->next = first;
+}
+
+void rrr(t_list *first_a, t_list *last_a, t_list *first_b, t_list *last_b)
+{
+	rra(first_a, last_a);
+	rrb(first_b, last_b);
 }

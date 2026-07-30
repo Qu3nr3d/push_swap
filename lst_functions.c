@@ -1,14 +1,15 @@
 #include "push_swap.h"
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew(int number)
 {
 	t_list	*new_node;
 
 	new_node = calloc(1, sizeof(t_list));
 	if (!new_node)
 		return(NULL);
-	new_node->content = content;
+	new_node->number = number;
 	new_node->next = NULL;
+	new_node->prev = NULL;
 	return (new_node);
 }
 
@@ -59,4 +60,5 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	}
 	last = ft_lstlast(*lst);
 	last->next = new;
+	new->prev = last;
 }
