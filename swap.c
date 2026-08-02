@@ -1,4 +1,6 @@
 #include "push_swap.h"
+
+//trzeba przepisac prev moe
 void sa(t_list *tab, int size) {
     int helper;
 
@@ -9,6 +11,7 @@ void sa(t_list *tab, int size) {
     tab->next->number = helper;
 }
 
+//trzeba przepisac prev
 void sb(t_list *tab, int size) {
     int helper;
 

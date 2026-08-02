@@ -6,7 +6,9 @@ void pa(t_list **taba, t_list **tabb) {
         return ;
     p = *tabb;
     *tabb = (*tabb)->next;
+    (*tabb)->prev = NULL;
     p->next = *taba;
+    p->prev = NULL;
     *taba = p;
 }
 
@@ -16,6 +18,8 @@ void pb(t_list **taba, t_list **tabb) {
         return ;
     p = *taba;
     *taba = (*taba)->next;
+    (*taba)->prev = NULL;
     p->next = *tabb;
+    p->prev = NULL;
     *tabb = p;
 }

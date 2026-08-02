@@ -1,5 +1,6 @@
 #include "push_swap.h"
 
+//zabezpieczyc NULL
 void	rra(t_list **first, t_list **last)
 {
 	t_list	*tmp;
@@ -10,6 +11,7 @@ void	rra(t_list **first, t_list **last)
 	tmp->prev = NULL;
 	tmp->next = *first;
 	*first = tmp;
+	
 }
 
 void	rrb(t_list **first, t_list **last)
