@@ -48,17 +48,33 @@ int main(void)
 {
 	t_stack *stack_a = create_stack(5, 1, 2, 3, 4, 5);
 	t_stack *stack_b = create_stack(5, 9, 8, 7, 6, 5);
-	
+	/*
 	printf("Stack a: rotate...\n");
 	display_stack((stack_a->first_node));
-	ra(stack_a->first_node, stack_a->last_node);
+	ra(&stack_a->first_node, &stack_a->last_node);
 	display_stack((stack_a->first_node));
 	printf("Stack b: reverse rotate...\n");
 	display_stack((stack_b->first_node));
-	rrb(stack_b->first_node, stack_b->last_node);
+	rrb(&stack_b->first_node, &stack_b->last_node);
 	display_stack((stack_b->first_node));
 	
+	printf("Stack a: swap...\n");
+	display_stack((stack_a->first_node));
+	sa(stack_a->first_node, stack_a->size);
+	display_stack((stack_a->first_node));
+	*/
+	printf("Stack a\n");
+	display_stack((stack_a->first_node));
+	printf("Stack b\n");
+	display_stack((stack_b->first_node));
+	printf("after sorting...\n");
+	sort(stack_a, stack_b);
+	printf("Stack a\n");
+	display_stack((stack_a->first_node));
+	printf("Stack b\n");
+	display_stack((stack_b->first_node));
 
 
+	
 	return (0);
 }
