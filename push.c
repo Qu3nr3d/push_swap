@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void pa(t_list **taba, t_list **tabb) {
+void pa(t_list **taba, t_list **tabb, t_list **lasta) {
     t_list *p;
     if (*tabb == NULL)
         return ;
@@ -10,9 +10,11 @@ void pa(t_list **taba, t_list **tabb) {
     p->next = *taba;
     p->prev = NULL;
     *taba = p;
+    if (!*lasta)
+		*lasta = p;
 }
 
-void pb(t_list **taba, t_list **tabb) {
+void pb(t_list **taba, t_list **tabb, t_list **lastb) {
     t_list *p;
     if (*taba == NULL)
         return ;
@@ -22,4 +24,6 @@ void pb(t_list **taba, t_list **tabb) {
     p->next = *tabb;
     p->prev = NULL;
     *tabb = p;
+	if (!*lastb)
+		*lastb = p;
 }

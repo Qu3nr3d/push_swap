@@ -67,15 +67,13 @@ int main(void)
 	display_stack((stack_a->first_node));
 	printf("Stack b\n");
 	display_stack((stack_b->first_node));
-	printf("after sorting...\n");
 	sort(stack_a, stack_b);
-	printf("stack a prefirst: %d\n", stack_b->first_node->number);
-	printf("stack a prefirst: %p\n", stack_b->last_node);
-	printf("Stack a\n");
-	display_stack((stack_a->first_node));
-	printf("Stack b\n");
-	display_stack((stack_b->first_node));
-	printf("Stack a last node:\n");
+	printf("after sorting...\n");
+	printf("stack a first_node: %d\n", stack_a->first_node->number);
+	printf("stack a last_node: %d\n", stack_a->last_node->number);
+	printf("stack b first_node: %d\n", stack_b->first_node->number);
+	printf("stack b last_node: %d\n", stack_b->last_node->number);
+
 
 	return (0);
 }

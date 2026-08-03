@@ -2,7 +2,6 @@
 #include "stdio.h"
 void display_stack(t_list *tab);
 
-// nie wiem czemu wskazuje na rzeczy ze stack b
 void put_to_stack_b(t_stack *stack_a, t_stack *stack_b, t_list *node_a)
 {
 	printf("number: %d\n", node_a->number);
@@ -12,7 +11,7 @@ void put_to_stack_b(t_stack *stack_a, t_stack *stack_b, t_list *node_a)
 		if (node_a->prev)
 			node_a = node_a->prev;
 	}
-	pb(&stack_a->first_node, &stack_b->first_node);
+	pb(&stack_a->first_node, &stack_b->first_node, &stack_b->last_node);
 	printf("display_stack a:\n");
 	display_stack(stack_a->first_node);
 	printf("display_stack b\n");

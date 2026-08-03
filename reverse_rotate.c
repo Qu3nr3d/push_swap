@@ -10,8 +10,8 @@ void	rra(t_list **first, t_list **last)
 	(*last)->next = NULL;
 	tmp->prev = NULL;
 	tmp->next = *first;
+	(*first)->prev = tmp;
 	*first = tmp;
-	
 }
 
 void	rrb(t_list **first, t_list **last)
@@ -23,6 +23,7 @@ void	rrb(t_list **first, t_list **last)
 	(*last)->next = NULL;
 	tmp->prev = NULL;
 	tmp->next = *first;
+	(*first)->prev = tmp;
 	*first = tmp;
 }
 
