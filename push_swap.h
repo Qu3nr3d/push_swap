@@ -17,8 +17,8 @@ typedef struct s_stack
 void	sa(t_list *tab, int size);
 void	sb(t_list *tab, int size);
 void	ss(t_list *taba, t_list *tabb, int sizea, int sizeb);
-void	pa(t_list **taba, t_list **tabb, t_list **lasta);
-void	pb(t_list **taba, t_list **tabb, t_list **lastb);
+void	pa(t_list **taba, t_list **tabb, t_list **last_a);
+void	pb(t_list **tabb, t_list **taba, t_list **last_b);
 void	simple_sort(t_stack *stack_a, t_stack *stack_b);
 t_list	*ft_lstnew(int number);
 int		t_lstsize(t_list *lst);
@@ -32,3 +32,4 @@ void	rrb(t_list **first, t_list **last);
 void	rrr(t_list **first_a, t_list **last_a, t_list **first_b, t_list **last_b);
 void	sort(t_stack *stack_a, t_stack *stack_b);
 void	put_to_stack_b(t_stack *stack_a, t_stack *stack_b, t_list *node_a);
+void	put_to_stack_a(t_stack *stack_a, t_stack *stack_b);

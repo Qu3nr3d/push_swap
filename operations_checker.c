@@ -2,17 +2,16 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-t_stack *create_stack(int n, ...)
+t_stack create_stack(int n, ...)
 {
 	int i;
 	int number;
 	t_list *head;
-	t_stack *stack;
+	t_stack stack;
 	va_list numbers;
 
     va_start(numbers, n);
-	stack = calloc(1, sizeof(t_stack));
-	stack->size = n;
+	stack.size = n;
 	head = NULL;
 	i = 0;
 	while (i < n)
@@ -21,8 +20,8 @@ t_stack *create_stack(int n, ...)
 		ft_lstadd_back(&head, ft_lstnew(number));
 		i++;
 	}
-	stack->first_node = head;
-	stack->last_node = ft_lstlast(head);
+	stack.first_node = head;
+	stack.last_node = ft_lstlast(head);
 	return (stack);
 }
 
@@ -44,8 +43,8 @@ void display_stack(t_list *tab)
 
 int main(void)
 {
-	t_stack *stack_a = create_stack(5, 1, 2, 3, 4, 5);
-	t_stack *stack_b = create_stack(0);
+	t_stack stack_a = create_stack(5, 4, 3, 2, 5, 1);
+	t_stack stack_b = create_stack(0);
 	/*
 	printf("Stack a: rotate...\n");
 	display_stack((stack_a->first_node));
@@ -64,15 +63,43 @@ int main(void)
 	display_stack((stack_a->first_node));
 	*/
 	printf("Stack a\n");
-	display_stack((stack_a->first_node));
+	display_stack((stack_a.first_node));
 	printf("Stack b\n");
-	display_stack((stack_b->first_node));
-	sort(stack_a, stack_b);
+	display_stack((stack_b.first_node));
+	sort(&stack_a, &stack_b);
 	printf("after sorting...\n");
-	printf("stack a first_node: %d\n", stack_a->first_node->number);
-	printf("stack a last_node: %d\n", stack_a->last_node->number);
-	printf("stack b first_node: %d\n", stack_b->first_node->number);
-	printf("stack b last_node: %d\n", stack_b->last_node->number);
+	printf("Stack a\n");
+	display_stack((stack_a.first_node));
+	printf("Stack b\n");
+	display_stack((stack_b.first_node));
+	/*
+	printf("stack a first_node: %d\n", stack_a.first_node->number);
+	printf("stack a last_node: %d\n", stack_a.last_node->number);
+	printf("stack b first_node: %d\n", stack_b.first_node->number);
+	printf("stack b last_node: %d\n", stack_b.last_node->number);
+	printf("Stack a\n");
+	for (t_list *first = stack_a.first_node; first != NULL; first = first->next)
+		printf("%d\n", first->number);
+	printf("\n");
+	for (t_list *last = stack_a.last_node; last != NULL; last = last->prev)
+		printf("%d\n", last->number);
+	printf("Stack b\n");
+	for (t_list *first = stack_b.first_node; first != NULL; first = first->next)
+		printf("%d\n", first->number);
+	printf("\n");
+	for (t_list *last = stack_b.last_node; last != NULL; last = last->prev)
+		printf("%d\n", last->number);
+	*/
+
+	printf("before connecting...\n");
+	put_to_stack_a(&stack_a, &stack_b);
+
+	printf("after connecting...\n");
+	printf("Stack a\n");
+	display_stack((stack_a.first_node));
+	printf("Stack b\n");
+	display_stack((stack_b.first_node));
+	
 
 
 	return (0);

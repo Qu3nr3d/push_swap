@@ -5,6 +5,8 @@ void	rra(t_list **first, t_list **last)
 {
 	t_list	*tmp;
 
+	if (*first == *last)
+		return;
 	tmp = *last;
 	*last = (*last)->prev;
 	(*last)->next = NULL;
@@ -18,6 +20,8 @@ void	rrb(t_list **first, t_list **last)
 {
 	t_list	*tmp;
 
+	if (*first == *last)
+		return;
 	tmp = *last;
 	*last = (*last)->prev;
 	(*last)->next = NULL;
