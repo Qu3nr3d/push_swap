@@ -1,28 +1,41 @@
 #include "push_swap.h"
 
-//trzeba przepisac prev moze
-void sa(t_list *tab, int size) {
-    int helper;
+void sa(t_stack *stack) {
+    t_list *first;
+    t_list *second;
 
-    if (size < 2)
+    if (stack->size < 2)
         return ;
-    helper = tab->number;
-    tab->number = tab->next->number;
-    tab->next->number = helper;
+    first = stack->first_node;
+    second = stack->first_node->next;
+    first->next = second->next;
+    if (second->next)
+        second->next->prev = first;
+    second->next = first;
+    second->prev = NULL;
+    first->prev = second;
+    stack->first_node = second;
 }
 
-//trzeba przepisac prev moze
-void sb(t_list *tab, int size) {
-    int helper;
+void sb(t_stack *stack) {
+    t_list *first;
+    t_list *second;
 
-    if (size < 2)
+    if (stack->size < 2)
         return ;
-    helper = tab->number;
-    tab->number = tab->next->number;
-    tab->next->number = helper;
+    first = stack->first_node;
+    second = stack->first_node->next;
+    first->next = second->next;
+    if (second->next)
+        second->next->prev = first;
+    second->next = first;
+    second->prev = NULL;
+    first->prev = second;
+    stack->first_node = second;
 }
 
-void ss(t_list *taba, t_list *tabb, int sizea, int sizeb) {
-    sa(taba, sizea);
-    sb(tabb, sizeb);
+void ss(t_stack *stack)
+{
+    sa(stack);
+    sb(stack);
 }

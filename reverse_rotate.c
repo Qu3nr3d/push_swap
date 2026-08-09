@@ -1,38 +1,38 @@
 #include "push_swap.h"
 
 //zabezpieczyc NULL
-void	rra(t_list **first, t_list **last)
+void	rra(t_stack *stack)
 {
-	t_list	*tmp;
+	t_list	*last;
 
-	if (*first == *last)
+	if (stack->size < 2)
 		return;
-	tmp = *last;
-	*last = (*last)->prev;
-	(*last)->next = NULL;
-	tmp->prev = NULL;
-	tmp->next = *first;
-	(*first)->prev = tmp;
-	*first = tmp;
+	last = stack->last_node;
+	stack->last_node = last->prev;
+	stack->last_node->next = NULL;
+	last->prev = NULL;
+	last->next = stack->first_node;
+	stack->first_node->prev = last;
+	stack->first_node = last;
 }
 
-void	rrb(t_list **first, t_list **last)
+void	rrb(t_stack *stack)
 {
-	t_list	*tmp;
+	t_list	*last;
 
-	if (*first == *last)
+	if (stack->size < 2)
 		return;
-	tmp = *last;
-	*last = (*last)->prev;
-	(*last)->next = NULL;
-	tmp->prev = NULL;
-	tmp->next = *first;
-	(*first)->prev = tmp;
-	*first = tmp;
+	last = stack->last_node;
+	stack->last_node = last->prev;
+	stack->last_node->next = NULL;
+	last->prev = NULL;
+	last->next = stack->first_node;
+	stack->first_node->prev = last;
+	stack->first_node = last;
 }
 
-void rrr(t_list **first_a, t_list **last_a, t_list **first_b, t_list **last_b)
+void rrr(t_stack *stack)
 {
-	rra(first_a, last_a);
-	rrb(first_b, last_b);
+	rra(stack);
+	rrb(stack);
 }

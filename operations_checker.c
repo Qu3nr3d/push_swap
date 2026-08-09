@@ -43,8 +43,8 @@ void display_stack(t_list *tab)
 
 int main(void)
 {
-	t_stack stack_a = create_stack(0);
-	t_stack stack_b = create_stack(1, 43);
+	t_stack stack_a = create_stack(3, 2,3,4);
+	t_stack stack_b = create_stack(3, 5,6,7);
 	/*
 	// printf("Stack a: rotate...\n");
 	// display_stack((stack_a->first_node));
@@ -100,13 +100,19 @@ int main(void)
 	// printf("Stack b\n");
 	// display_stack((stack_b.first_node));
 
-	pa(&stack_a, &stack_b);
+	// pa(&stack_a, &stack_b);
+	// printf("stack a\n");
+	// display_stack((stack_a.first_node));
+	// printf("Stack b\n");
+	// display_stack((stack_b.first_node));
+
+	rra(&stack_a);
 	printf("stack a\n");
 	display_stack((stack_a.first_node));
-	printf("Stack b\n");
-	display_stack((stack_b.first_node));
-	
 
+	rrb(&stack_b);
+	printf("stack a\n");
+	display_stack((stack_b.first_node));
 
 	return (0);
 }
