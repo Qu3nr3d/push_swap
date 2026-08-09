@@ -1,35 +1,47 @@
 #include "push_swap.h"
 
-void pa(t_list **taba, t_list **tabb, t_list **last_a) {
+void pa(t_stack *stack_a, t_stack *stack_b)
+{
     t_list *p;
-    if (*tabb == NULL)
+    if (stack_b->size == 0)
         return ;
-    p = *tabb;
-    *tabb = (*tabb)->next;
-    if (*tabb)
-        (*tabb)->prev = NULL;
-    p->next = *taba;
-    p->prev = NULL;
-    if (*taba)
-        (*taba)->prev = p;
+    p = stack_b->first_node;
+    stack_b->first_node = p->next;
+    if (stack_b->first_node != NULL)
+        stack_b->first_node->prev = NULL;
     else
-        *last_a = p;
-    *taba = p;
+        stack_b->last_node = NULL;
+    p->next = stack_a->first_node;
+    p->prev = NULL;
+    if (stack_a->first_node != NULL)
+        stack_a->first_node->prev = p;
+    else
+        stack_a->last_node = p;
+
+    stack_a->first_node = p;
+    stack_a->size++;
+    stack_b->size--;
 }
 
-void pb(t_list **tabb, t_list **taba, t_list **last_b) {
+void pb(t_stack *stack_a, t_stack *stack_b)
+{
     t_list *p;
-    if (*taba == NULL)
+    if (stack_a->size == 0)
         return ;
-    p = *taba;
-    *taba = (*taba)->next;
-    if (*taba)
-        (*taba)->prev = NULL;
-    p->next = *tabb;
-    p->prev = NULL;
-    if (*tabb)
-        (*tabb)->prev = p;
+    p = stack_a->first_node;
+    stack_a->first_node = p->next;
+    if (stack_a->first_node != NULL)
+        stack_a->first_node->prev = NULL;
     else
-        *last_b = p;
-    *tabb = p;
+        stack_a->last_node = NULL;
+    p->next = stack_b->first_node;
+    p->prev = NULL;
+    if (stack_b->first_node != NULL)
+        stack_b->first_node->prev = p;
+    else
+        stack_b->last_node = p;
+
+    stack_b->first_node = p;
+    stack_b->size++;
+    stack_a->size--;
 }
