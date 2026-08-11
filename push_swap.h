@@ -33,3 +33,4 @@ void	rrr(t_stack *stack);
 void	sort(t_stack *stack_a, t_stack *stack_b);
 void	put_to_stack_b(t_stack *stack_a, t_stack *stack_b, t_list *node_a);
 void	put_to_stack_a(t_stack *stack_a, t_stack *stack_b);
+void medium_sort(t_stack *stack_a, t_stack *stack_b);
