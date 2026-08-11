@@ -10,6 +10,7 @@ t_list	*ft_lstnew(int number)
 	new_node->number = number;
 	new_node->next = NULL;
 	new_node->prev = NULL;
+	new_node->index = 0;
 	return (new_node);
 }
 

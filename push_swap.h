@@ -5,6 +5,7 @@ typedef struct s_list
 	int				number;
 	struct s_list	*next;
 	struct s_list	*prev;
+	int				index;
 }	t_list;
 
 typedef struct s_stack
@@ -21,7 +22,7 @@ void	pa(t_stack *stack_a, t_stack *stack_b);
 void	pb(t_stack *stack_a, t_stack *stack_b);
 void	simple_sort(t_stack *stack_a, t_stack *stack_b);
 t_list	*ft_lstnew(int number);
-int		t_lstsize(t_list *lst);
+int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ra(t_stack *stack);
