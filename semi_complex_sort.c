@@ -1,62 +1,174 @@
 #include "push_swap.h"
 
-int	ft_sqrt(int nb)
+static int	get_block_size(int size)
 {
-    int i;
+	int	root;
+	int	chunks;
 
-    if (nb <= 0)
-        return (0);
-    i = 1;
-    while (i <= nb / i)
-        i++;
-    return (i - 1);
+	if (size <= 0)
+		return (0);
+	root = 1;
+	while (root + 1 <= size / (root + 1))
+		root++;
+	chunks = 1;
+	while (chunks * 2 <= root)
+		chunks *= 2;
+	if (size % chunks == 0)
+		return (size / chunks);
+	return (size / chunks + 1);
 }
 
-void bubble_sort(t_stack *stack) {
-    int i;
-    int j;
-    int swapped;
+static int	find_max_pos(const t_stack *stack)
+{
+	t_list	*node;
+	int		max;
+	int		max_pos;
+	int		pos;
 
-    i = 0;
-    while (i < stack->size - 1) {
-        swapped = 0;
-        j = 0;
-        while (j < stack->size -1) {
-            if (stack->first_node->number < stack->first_node->next->number) {
-                sb(stack);
-                swapped = 1;
-            }
-            rb(stack);
-            j++;
-        }
-        while (j-- > 0)
-            rrb(stack);
-        if (!swapped)
-            break;
-        i++;
-    }
+	node = stack->first_node;
+	max = node->number;
+	max_pos = 0;
+	pos = 0;
+	while (node)
+	{
+		if (node->number > max)
+		{
+			max = node->number;
+			max_pos = pos;
+		}
+		node = node->next;
+		pos++;
+	}
+	return (max_pos);
 }
 
-void medium_sort(t_stack *stack_a, t_stack *stack_b) {
-    int block_size = ft_sqrt(stack_a->size);
-    int i = 0;
-    int remaining = stack_a->size;
-    int current_block_size;
-    while (remaining > 0) {
-        if (remaining < block_size)
-            current_block_size = remaining;
-        else
-            current_block_size = block_size;
-        while (current_block_size > i++)
-            pb(stack_a, stack_b);
-        bubble_sort(stack_b);
-        i = 0;
-        while (i++ < current_block_size)
-            pa(stack_a, stack_b);
-        i = 0;
-        while (i++ < current_block_size)
-            ra(stack_a);
-        remaining -= current_block_size;
-        i = 0;
-    }
+static void	move_max_to_top_b(t_stack *stack_b, int *counter)
+{
+	int	pos;
+	int	steps;
+
+	pos = find_max_pos(stack_b);
+	if (pos <= stack_b->size / 2)
+	{
+		while (pos-- > 0)
+			rb(stack_b, counter);
+	}
+	else
+	{
+		steps = stack_b->size - pos;
+		while (steps-- > 0)
+			rrb(stack_b, counter);
+	}
+}
+
+static void	sort_block(t_stack *stack_a, t_stack *stack_b,
+		int block_size, int *counter)
+{
+	int	i;
+
+	i = 0;
+	while (i++ < block_size)
+		pb(stack_a, stack_b, counter);
+	while (stack_b->size > 0)
+	{
+		move_max_to_top_b(stack_b, counter);
+		pa(stack_a, stack_b, counter);
+	}
+	i = 0;
+	while (i++ < block_size)
+		ra(stack_a, counter);
+}
+
+static void	merge_values(t_stack *stack_a, t_stack *stack_b,
+		int *left, int *right, int *counter)
+{
+	while (*left > 0 && *right > 0)
+	{
+		if (stack_a->first_node->number < stack_b->last_node->number)
+		{
+			ra(stack_a, counter);
+			(*right)--;
+		}
+		else
+		{
+			rrb(stack_b, counter);
+			pa(stack_a, stack_b, counter);
+			ra(stack_a, counter);
+			(*left)--;
+		}
+	}
+	while ((*right)-- > 0)
+		ra(stack_a, counter);
+	while ((*left)-- > 0)
+	{
+		rrb(stack_b, counter);
+		pa(stack_a, stack_b, counter);
+		ra(stack_a, counter);
+	}
+}
+
+static void	merge_blocks(t_stack *stack_a, t_stack *stack_b,
+		int left_size, int right_size, int *counter)
+{
+	int	left;
+	int	right;
+	int	i;
+
+	left = left_size;
+	right = right_size;
+	i = 0;
+	while (i++ < left_size)
+		pb(stack_a, stack_b, counter);
+	merge_values(stack_a, stack_b, &left, &right, counter);
+}
+
+static void	merge_pass(t_stack *stack_a, t_stack *stack_b,
+	int total_size, int size, int *counter)
+{
+	int	processed;
+	int	right_size;
+
+	processed = 0;
+	while (processed < total_size)
+	{
+		right_size = size;
+		if (right_size > total_size - processed - size)
+			right_size = total_size - processed - size;
+		merge_blocks(stack_a, stack_b, size, right_size, counter);
+		processed += size + right_size;
+	}
+}
+
+static void	merge_all_blocks(t_stack *stack_a, t_stack *stack_b,
+		int total_size, int block_size, int *counter)
+{
+	int	size;
+
+	size = block_size;
+	while (size < total_size)
+	{
+		merge_pass(stack_a, stack_b, total_size, size, counter);
+		size *= 2;
+	}
+}
+
+void	medium_sort(t_stack *stack_a, t_stack *stack_b, int *counter)
+{
+	int	block_size;
+	int	remaining;
+	int	current_block_size;
+
+	if (stack_a->size <= 1)
+		return ;
+	block_size = get_block_size(stack_a->size);
+	remaining = stack_a->size;
+	while (remaining > 0)
+	{
+		current_block_size = block_size;
+		if (remaining < block_size)
+			current_block_size = remaining;
+		sort_block(stack_a, stack_b, current_block_size, counter);
+		remaining -= current_block_size;
+	}
+	merge_all_blocks(stack_a, stack_b, stack_a->size, block_size, counter);
 }

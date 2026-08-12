@@ -43,12 +43,13 @@ void display_stack(t_list *tab)
 
 int main(void)
 {
-	t_stack stack_a = create_stack(9, 7,1,5,8,0,3,6,2,4);
+	t_stack stack_a = create_stack(7, 1,2,3,4,5,6,7);
 	t_stack stack_b = create_stack(0);
+	int counter = 0;
 
-	medium_sort(&stack_a, &stack_b);
+	medium_sort(&stack_a, &stack_b, &counter);
 	printf("stack a\n");
 	display_stack((stack_a.first_node));
-
+	printf("%i ilosc ruchow", counter);
 	return (0);
 }
