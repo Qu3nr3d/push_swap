@@ -32,9 +32,9 @@ void	rb(t_stack *stack, int *counter)
     (*counter)++;
 }
 
-void	rr(t_stack *stack, int *counter)
+void	rr(t_stack *stack_a, t_stack *stack_b, int *counter)
 {
-	ra(stack, counter);
-	rb(stack, counter);
+	ra(stack_a, counter);
+	rb(stack_b, counter);
 }
 

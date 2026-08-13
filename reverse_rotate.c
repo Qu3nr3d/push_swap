@@ -32,8 +32,8 @@ void	rrb(t_stack *stack, int *counter)
     (*counter)++;
 }
 
-void rrr(t_stack *stack, int *counter)
+void rrr(t_stack *stack_a, t_stack *stack_b, int *counter)
 {
-	rra(stack, counter);
-	rrb(stack, counter);
+	rra(stack_a, counter);
+	rrb(stack_b, counter);
 }
