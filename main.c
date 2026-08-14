@@ -56,5 +56,48 @@ void display_stack(t_list *tab)
 
 int	main(int argc, char **argv)
 {
+	int i = 1;
+	int flag = 0;
+	int bench = 0;
+	t_stack stack_a;
+	t_list *p;
+	t_list *node
+	t_stack stack_b;
+	t_operations operations;
+	char *is_bench;
+	char *is_strategy;
+	operations = {0};
+	if(!ft_strcmp("--bench", argv[1]))
+	{
+		is_bench = argv[1];
+		bench++;
+		i++;
+	}
+	if(bench == 1)
+	{
+		IS_ARG(argv[2]);
+		is_strategy = argv[2];
+	}
+	else
+	{
+		IS_ARG(argv[1]);
+		is_strategy = argv[2];
+	}
+	while(i <= argc)
+	{
+		node = ft_lstnew(argv[i]);
+		if(i == 2)
+			stack_a->first_node = node;
+		else
+			ft_lstadd_back(node, p);
+		i++;
+	}
+	stack_a->last_node = node;
 
+	if(bench)
+		benchmark(is_strategy, &stack_a, &stack_b, &operations);
+	else if(flag)
+		strategy(is_strategy, &stack_a, &stack_b, &operations);
+	else
+		compute_disorder(&stack_a, &stack_b, &operations);
 }

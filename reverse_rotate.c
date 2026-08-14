@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void	rra(t_stack *stack, int *counter)
+void	rra(t_stack *stack, t_operations *operations)
 {
 	t_list	*last;
 
@@ -13,10 +13,12 @@ void	rra(t_stack *stack, int *counter)
 	last->next = stack->first_node;
 	stack->first_node->prev = last;
 	stack->first_node = last;
-    (*counter)++;
+	operations->use_rra++;
+	write(1, "rra\n", 4);
+
 }
 
-void	rrb(t_stack *stack, int *counter)
+void	rrb(t_stack *stack, t_operations *operations)
 {
 	t_list	*last;
 
@@ -29,11 +31,15 @@ void	rrb(t_stack *stack, int *counter)
 	last->next = stack->first_node;
 	stack->first_node->prev = last;
 	stack->first_node = last;
-    (*counter)++;
+	operations->use_rrb++;
+	write(1, "rra\n", 4);
 }
 
-void rrr(t_stack *stack_a, t_stack *stack_b, int *counter)
+void rrr(t_stack *stack_a, t_stack *stack_b, t_operations *operations)
 {
-	rra(stack_a, counter);
-	rrb(stack_b, counter);
+	rra(stack_a, operations);
+	rrb(stack_b, operations);
+	operations->use_rrr++;
+    write(1, "rrr\n", 4);
+
 }
