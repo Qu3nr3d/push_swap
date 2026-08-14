@@ -56,22 +56,5 @@ void display_stack(t_list *tab)
 
 int	main(int argc, char **argv)
 {
-	t_stack	a;
-	t_stack	b;
-	t_config	config;
-	int		counter;
 
-	if (argc == 1)
-		return (0);
-	if (!parse_flags(argc, argv, &config))
-		return (print_error());
-	if (config.first_number >= argc)
-		return (0);
-	if (!create_stack_from_args(&a, argv, config.first_number, argc))
-		return (print_error());
-	init_stack_b(&b);
-	counter = 0;
-	run_sort(&a, &b, config.strategy, &counter);
-	printf("%d\n", counter);
-	return (0);
 }
