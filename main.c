@@ -56,6 +56,52 @@ void display_stack(t_list *tab)
 
 int	main(int argc, char **argv)
 {
+	t_flags	flags;
+	t_stack stack_a;
+	t_stack stack_b;
+	t_metrics metrics;
+
+	if (argc == 1)
+		return (3);
+	initialize_flags(argc, argv, &flags);
+	//printf("bench: %i\n", flags.is_bench);
+	//printf("simple: %i\n", flags.is_simple);
+	//printf("medium: %i\n", flags.is_medium);
+	//printf("complex: %i\n", flags.is_complex);
+	initialize_stacks(&stack_a, &stack_b);
+	parse(argc, argv, &stack_a);
+	display_stack(stack_a.first_node);
+	// mozliwe ze tu trzeba bedzie ifa usunac
+	if (flags.is_bench == 1)
+		initialize_metrics(&metrics, flags, stack_a);
+	printf("disorder: %f\n", metrics.disorder);
+	printf("strategy: %s\n", metrics.strategy);
+	printf("total_ops: %i\n", metrics.total_ops);
+	printf("operations:\n");
+	printf(" %i\n", metrics.operations.use_pa);
+	printf(" %i\n", metrics.operations.use_pb);
+	printf(" %i\n", metrics.operations.use_sa);
+	printf(" %i\n", metrics.operations.use_sb);
+	printf(" %i\n", metrics.operations.use_ss);
+	printf(" %i\n", metrics.operations.use_ra);
+	printf(" %i\n", metrics.operations.use_rb);
+	printf(" %i\n", metrics.operations.use_rr);
+	printf(" %i\n", metrics.operations.use_rra);
+	printf(" %i\n", metrics.operations.use_rrb);
+	printf(" %i\n", metrics.operations.use_rrr);
+	complex_sort(&stack_a, &stack_b, &metrics.operations);
+	display_stack(stack_a.first_node);
+	
+	return (0);
+	/*
+	int	is_bench;
+	int	is_strategy_selector;
+
+	is_bench = 0;
+	is_strategy_selector = 0;
+
+
+
 	int i = 1;
 	int flag = 0;
 	int bench = 0;
@@ -100,4 +146,5 @@ int	main(int argc, char **argv)
 		strategy(is_strategy, &stack_a, &stack_b, &operations);
 	else
 		compute_disorder(&stack_a, &stack_b, &operations);
+	*/
 }

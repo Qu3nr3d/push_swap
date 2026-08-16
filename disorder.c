@@ -1,31 +1,31 @@
 #include "push_swap.h"
 
-float compute_disorder(t_stack *a)
+float compute_disorder(t_stack stack_a)
 {
-    int mistakes = 0;
-    int total_pairs = 0;
-    int i = 0;
-    int j = 0;
+    int mistakes;
+    int total_pairs;
     t_list *node;
+    t_list *tmp;
 
-    node = a->first_node;
-    while(i < a->size)
+    mistakes = 0;
+    total_pairs = 0;
+    node = stack_a.first_node;
+    tmp = NULL;
+    while (node)
     {
-        j = i + 1;
-        while(j < a->size - 1)
+        tmp = node->next;
+        while (node->next)
         {
             total_pairs += 1;
             if(node->number > node->next->number)
                 mistakes += 1;
-            j++
             node = node->next;
         }
-        i++;
-        node = a->first_node;
+        node = tmp;
     }
     return (mistakes / total_pairs);
 }
-
+/*
 void strategy(char *str, t_stack *stack_a, t_stack *stack_b, t_operations *operations)
 {
     float disorder;
@@ -57,17 +57,4 @@ void benchmark(char *str, t_stack *stack_a, t_stack *stack_b, t_operations *oper
     }
     strategy(str, stack_a, stack_b, operations);
 }
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-		if (s1[i] - s2[i] != 0)
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	return (s1[i] - s2[i]);
-}
+*/

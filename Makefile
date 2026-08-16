@@ -6,10 +6,15 @@ SRC = $(shell find ! -name "rotate.c" ! -name "swap.c" ! -name "push.c" -name "*
 
 all: 
 	$(CC) -g $(CFLAGS) lst_functions.c \
-	push_swap.h \
 	push.c \
 	swap.c \
 	rotate.c \
 	reverse_rotate.c \
-	medium_sort.c \
 	disorder.c \
+	flags.c \
+	main.c \
+	push_swap.h \
+	push_swap_utils_1.c \
+	push_swap_utils_2.c \
+	complex_sort.c \
+	parsing.c
