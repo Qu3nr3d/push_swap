@@ -16,32 +16,38 @@ static int	reverse_rotate_stack(t_stack *stack)
 	return (1);
 }
 
-void	rra(t_stack *stack, t_ops *ops)
+void	rra(t_stack *a, t_ops *ops, int is_bench)
 {
-	if (!reverse_rotate_stack(stack))
+	if (!reverse_rotate_stack(a))
 		return ;
-	ops->use_rra++;
-	write(1, "rra\n", 4);
+	if (is_bench)
+		ops->use_rra++;
+	else
+		write(1, "rra\n", 4);
 }
 
-void	rrb(t_stack *stack, t_ops *ops)
+void	rrb(t_stack *b, t_ops *ops, int is_bench)
 {
-	if (!reverse_rotate_stack(stack))
+	if (!reverse_rotate_stack(b))
 		return ;
-	ops->use_rrb++;
-	write(1, "rrb\n", 4);
+	if (is_bench)
+		ops->use_rrb++;
+	else
+		write(1, "rrb\n", 4);
 }
 
-void	rrr(t_stack *stack_a, t_stack *stack_b,
-		t_ops *ops)
+void	rrr(t_stack *a, t_stack *b,
+		t_ops *ops, int is_bench)
 {
 	int	a_changed;
 	int	b_changed;
 
-	a_changed = reverse_rotate_stack(stack_a);
-	b_changed = reverse_rotate_stack(stack_b);
+	a_changed = reverse_rotate_stack(a);
+	b_changed = reverse_rotate_stack(b);
 	if (!a_changed && !b_changed)
 		return ;
-	ops->use_rrr++;
-	write(1, "rrr\n", 4);
+	if (is_bench)
+		ops->use_rrr++;
+	else
+		write(1, "rrr\n", 4);
 }

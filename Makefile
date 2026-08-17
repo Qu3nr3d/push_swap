@@ -19,5 +19,4 @@ all:
 	push_swap_utils_2.c \
 	complex_sort.c \
 	parse.c \
-	simple_sort.c \
-	print.c
+	print.c \

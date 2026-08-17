@@ -21,31 +21,37 @@ static int	swap_stack(t_stack *stack)
     return (1);
 }
 
-void	sa(t_stack *stack, t_ops *ops)
+void	sa(t_stack *a, t_ops *ops, int is_bench)
 {
-    if (!swap_stack(stack))
+    if (!swap_stack(a))
         return ;
-    ops->use_sa++;
-    write(1, "sa\n", 3);
+    if (is_bench)
+        ops->use_sa++;
+    else
+        write(1, "sa\n", 3);
 }
 
-void	sb(t_stack *stack, t_ops *ops)
+void	sb(t_stack *b, t_ops *ops, int is_bench)
 {
-    if (!swap_stack(stack))
+    if (!swap_stack(b))
         return ;
-    ops->use_sb++;
-    write(1, "sb\n", 3);
+    if (is_bench)
+        ops->use_sb++;
+    else
+        write(1, "sb\n", 3);
 }
 
-void	ss(t_stack *stack_a, t_stack *stack_b, t_ops *ops)
+void	ss(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
 {
     int	a_changed;
     int	b_changed;
 
-    a_changed = swap_stack(stack_a);
-    b_changed = swap_stack(stack_b);
+    a_changed = swap_stack(a);
+    b_changed = swap_stack(b);
     if (!a_changed && !b_changed)
         return ;
-    ops->use_ss++;
-    write(1, "ss\n", 3);
+    if (is_bench)
+        ops->use_ss++;
+    else
+        write(1, "ss\n", 3);
 }

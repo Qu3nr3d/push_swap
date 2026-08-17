@@ -104,60 +104,60 @@ void indexate(t_stack *stack)
 }
 // koniec indeksacji
 
-void put_to_stack_b(t_stack *stack_a, t_stack *stack_b, t_list *node_a, t_ops *ops)
+void put_to_b(t_stack *a, t_stack *b, t_list *node_a, t_ops *ops, int is_bench)
 {
 	int rotate_ops;
 	//printf("number: %d\n", node_a->number);
 
 	rotate_ops = 0;
-	while (stack_a->first_node->index != node_a->index)
+	while (a->first_node->index != node_a->index)
 	{
-		ra(stack_a, ops);
+		ra(a, ops, is_bench);
 		rotate_ops++;
 	}
-	pb(stack_a, stack_b, ops);
+	pb(a, b, ops, is_bench);
 	while (rotate_ops)
 	{
-		rra(stack_a, ops);
+		rra(a, ops, is_bench);
 		rotate_ops--;
 	}
 	// printf("display_stack a:\n");
-	// display_stack(stack_a->first_node);
+	// display_stack(a->first_node);
 	// printf("display_stack b\n");
-	// display_stack(stack_b->first_node);
+	// display_stack(b->first_node);
 	
 }
 
-void put_to_stack_a(t_stack *stack_a, t_stack *stack_b, t_ops *ops)
+void put_to_a(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
 {
-	// to stack_b->first_node jest brzydkie chyba, przepisac
-	while (stack_b->first_node)
+	// to b->first_node jest brzydkie chyba, przepisac
+	while (b->first_node)
 	{
-		rrb(stack_b, ops);
-		// printf("number: %d\n", stack_b->first_node->number);
-		pa(stack_a, stack_b, ops);
+		rrb(b, ops, is_bench);
+		// printf("number: %d\n", b->first_node->number);
+		pa(a, b, ops, is_bench);
 		// printf("display_stack a:\n");
-		// display_stack(stack_a->first_node);
+		// display_stack(a->first_node);
 		// printf("display_stack b\n");
-		// display_stack(stack_b->first_node);
-		ra(stack_a, ops);
+		// display_stack(b->first_node);
+		ra(a, ops, is_bench);
 	}
 }
 
-void complex_sort(t_stack *stack_a, t_stack *stack_b, t_ops *ops)
+void complex_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
 {
 	t_list *tmpa;
 	int i;
 	int max_digits;
 
-	tmpa = stack_a->first_node;
+	tmpa = a->first_node;
 	i = 0;
-	max_digits = find_number_of_digits(find_max_number(*stack_a));
+	max_digits = find_number_of_digits(find_max_number(*a));
 	//printf("stack a numbers:\n");
-	//display_stack(stack_a->first_node);
-	indexate(stack_a);
+	//display_stack(a->first_node);
+	indexate(a);
 	//printf("stack a indexes:\n");
-	//display_indexes(stack_a->first_node);
+	//display_indexes(a->first_node);
 	while (i < max_digits)
 	{
 		while (tmpa)
@@ -165,23 +165,23 @@ void complex_sort(t_stack *stack_a, t_stack *stack_b, t_ops *ops)
 			if (tmpa->index & (1 << i))
 			{
 				//printf("number:%i\n", tmpa->number);
-				put_to_stack_b(stack_a, stack_b, tmpa, ops);
-				tmpa = stack_a->first_node;
+				put_to_b(a, b, tmpa, ops, is_bench);
+				tmpa = a->first_node;
 				//printf("stack a after pushing:\n");
-				//display_stack(stack_a->first_node);
+				//display_stack(a->first_node);
 				//printf("stack b after pushing:\n");
-				//display_stack(stack_b->first_node);
+				//display_stack(b->first_node);
 			}
 			else
 				tmpa = tmpa->next;
 		}
-		put_to_stack_a(stack_a, stack_b, ops);
-		tmpa = stack_a->first_node;
+		put_to_a(a, b, ops, is_bench);
+		tmpa = a->first_node;
 		//printf("%i\n", i);
 		//printf("display_stack a:\n");
-		//display_stack(stack_a->first_node);
+		//display_stack(a->first_node);
 		//printf("display_stack b\n");
-		//display_stack(stack_b->first_node);
+		//display_stack(b->first_node);
 		i++;
 	}
 }
