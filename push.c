@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-void pa(t_stack *stack_a, t_stack *stack_b, t_operations *operations)
+void pa(t_stack *stack_a, t_stack *stack_b, t_ops *ops)
 {
     t_list *p;
     if (stack_b->size == 0)
@@ -20,11 +20,11 @@ void pa(t_stack *stack_a, t_stack *stack_b, t_operations *operations)
     stack_a->first_node = p;
     stack_a->size++;
     stack_b->size--;
-    operations->use_pa++;
+    ops->use_pa++;
     write(1, "pa\n", 3);
 }
 
-void pb(t_stack *stack_a, t_stack *stack_b, t_operations *operations)
+void pb(t_stack *stack_a, t_stack *stack_b, t_ops *ops)
 {
     t_list *p;
     if (stack_a->size == 0)
@@ -44,7 +44,7 @@ void pb(t_stack *stack_a, t_stack *stack_b, t_operations *operations)
     stack_b->first_node = p;
     stack_b->size++;
     stack_a->size--;
-    operations->use_pb++;
+    ops->use_pb++;
     write(1, "pb\n", 3);
 
 }

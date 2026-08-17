@@ -65,7 +65,7 @@ static int	find_extreme_pos(const t_stack *stack, int ascending)
 	return (extreme_pos);
 }
 
-static void	move_extreme_top_b(t_stack *b, int ascending, t_operations *operations)
+static void	move_extreme_top_b(t_stack *b, int ascending, t_ops *ops)
 {
 	int	pos;
 	int	steps;
@@ -74,36 +74,36 @@ static void	move_extreme_top_b(t_stack *b, int ascending, t_operations *operatio
 	if (pos <= b->size / 2)
 	{
 		while (pos-- > 0)
-			rb(b, operations);
+			rb(b, ops);
 	}
 	else
 	{
 		steps = b->size - pos;
 		while (steps-- > 0)
-			rrb(b, operations);
+			rrb(b, ops);
 	}
 }
 
 static void	sort_block(t_stack *a, t_stack *b,
-		int size, int ascending, t_operations *operations)
+		int size, int ascending, t_ops *ops)
 {
 	int	i;
 
 	i = 0;
 	while (i++ < size)
-		pb(a, b, operations);
+		pb(a, b, ops);
 	while (b->size > 0)
 	{
-		move_extreme_top_b(b, ascending, operations);
-		pa(a, b, operations);
+		move_extreme_top_b(b, ascending, ops);
+		pa(a, b, ops);
 	}
 	i = 0;
 	while (i++ < size)
-		ra(a, operations);
+		ra(a, ops);
 }
 
 static void	merge_values(t_stack *a, t_stack *b,
-		t_merge *merge, t_operations *operations)
+		t_merge *merge, t_ops *ops)
 {
 	while (merge->left > 0 && merge->right > 0)
 	{
@@ -112,27 +112,27 @@ static void	merge_values(t_stack *a, t_stack *b,
 			|| (!merge->ascending
 				&& a->first_node->number > b->first_node->number))
 		{
-			ra(a, operations);
+			ra(a, ops);
 			merge->right--;
 		}
 		else
 		{
-			pa(a, b, operations);
-			ra(a, operations);
+			pa(a, b, ops);
+			ra(a, ops);
 			merge->left--;
 		}
 	}
 	while (merge->right-- > 0)
-		ra(a, operations);
+		ra(a, ops);
 	while (merge->left-- > 0)
 	{
-		pa(a, b, operations);
-		ra(a, operations);
+		pa(a, b, ops);
+		ra(a, ops);
 	}
 }
 
 static void	merge_pass(t_stack *a, t_stack *b,
-		int total, int size, int level, t_operations *operations)
+		int total, int size, int level, t_ops *ops)
 {
 	t_merge	merge;
 	int		processed;
@@ -152,15 +152,15 @@ static void	merge_pass(t_stack *a, t_stack *b,
 		merge.ascending = get_orientation(pair, level);
 		i = 0;
 		while (i++ < size)
-			pb(a, b, operations);
-		merge_values(a, b, &merge, operations);
+			pb(a, b, ops);
+		merge_values(a, b, &merge, ops);
 		processed += size + right_size;
 		pair++;
 	}
 }
 
 static void	merge_all(t_stack *a, t_stack *b,
-		int total, int block_size, int depth, t_operations *operations)
+		int total, int block_size, int depth, t_ops *ops)
 {
 	int	size;
 	int	level;
@@ -169,13 +169,13 @@ static void	merge_all(t_stack *a, t_stack *b,
 	level = depth - 1;
 	while (size < total)
 	{
-		merge_pass(a, b, total, size, level, operations);
+		merge_pass(a, b, total, size, level, ops);
 		size *= 2;
 		level--;
 	}
 }
 
-void	medium_sort(t_stack *a, t_stack *b, t_operations *operations)
+void	medium_sort(t_stack *a, t_stack *b, t_ops *ops)
 {
 	int	block;
 	int	remaining;
@@ -199,8 +199,8 @@ void	medium_sort(t_stack *a, t_stack *b, t_operations *operations)
 		if (remaining < block)
 			current = remaining;
 		sort_block(a, b, current,
-			get_orientation(index++, depth), operations);
+			get_orientation(index++, depth), ops);
 		remaining -= current;
 	}
-	merge_all(a, b, a->size, block, depth, operations);
+	merge_all(a, b, a->size, block, depth, ops);
 }

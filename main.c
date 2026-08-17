@@ -77,20 +77,32 @@ int	main(int argc, char **argv)
 	printf("disorder: %f\n", metrics.disorder);
 	printf("strategy: %s\n", metrics.strategy);
 	printf("total_ops: %i\n", metrics.total_ops);
-	printf("operations:\n");
-	printf(" %i\n", metrics.operations.use_pa);
-	printf(" %i\n", metrics.operations.use_pb);
-	printf(" %i\n", metrics.operations.use_sa);
-	printf(" %i\n", metrics.operations.use_sb);
-	printf(" %i\n", metrics.operations.use_ss);
-	printf(" %i\n", metrics.operations.use_ra);
-	printf(" %i\n", metrics.operations.use_rb);
-	printf(" %i\n", metrics.operations.use_rr);
-	printf(" %i\n", metrics.operations.use_rra);
-	printf(" %i\n", metrics.operations.use_rrb);
-	printf(" %i\n", metrics.operations.use_rrr);
-	complex_sort(&stack_a, &stack_b, &metrics.operations);
+	printf("ops before:\n");
+	printf(" %i\n", metrics.ops.use_pa);
+	printf(" %i\n", metrics.ops.use_pb);
+	printf(" %i\n", metrics.ops.use_sa);
+	printf(" %i\n", metrics.ops.use_sb);
+	printf(" %i\n", metrics.ops.use_ss);
+	printf(" %i\n", metrics.ops.use_ra);
+	printf(" %i\n", metrics.ops.use_rb);
+	printf(" %i\n", metrics.ops.use_rr);
+	printf(" %i\n", metrics.ops.use_rra);
+	printf(" %i\n", metrics.ops.use_rrb);
+	printf(" %i\n", metrics.ops.use_rrr);
+	complex_sort(&stack_a, &stack_b, &metrics.ops);
 	display_stack(stack_a.first_node);
+	printf("ops after:\n");
+	printf(" %i\n", metrics.ops.use_pa);
+	printf(" %i\n", metrics.ops.use_pb);
+	printf(" %i\n", metrics.ops.use_sa);
+	printf(" %i\n", metrics.ops.use_sb);
+	printf(" %i\n", metrics.ops.use_ss);
+	printf(" %i\n", metrics.ops.use_ra);
+	printf(" %i\n", metrics.ops.use_rb);
+	printf(" %i\n", metrics.ops.use_rr);
+	printf(" %i\n", metrics.ops.use_rra);
+	printf(" %i\n", metrics.ops.use_rrb);
+	printf(" %i\n", metrics.ops.use_rrr);
 	
 	return (0);
 	/*
@@ -109,10 +121,10 @@ int	main(int argc, char **argv)
 	t_list *p;
 	t_list *node
 	t_stack stack_b;
-	t_operations operations;
+	t_ops ops;
 	char *is_bench;
 	char *is_strategy;
-	operations = {0};
+	ops = {0};
 	if(!ft_strcmp("--bench", argv[1]))
 	{
 		is_bench = argv[1];
@@ -141,10 +153,10 @@ int	main(int argc, char **argv)
 	stack_a->last_node = node;
 
 	if(bench)
-		benchmark(is_strategy, &stack_a, &stack_b, &operations);
+		benchmark(is_strategy, &stack_a, &stack_b, &ops);
 	else if(flag)
-		strategy(is_strategy, &stack_a, &stack_b, &operations);
+		strategy(is_strategy, &stack_a, &stack_b, &ops);
 	else
-		compute_disorder(&stack_a, &stack_b, &operations);
+		compute_disorder(&stack_a, &stack_b, &ops);
 	*/
 }

@@ -104,22 +104,22 @@ void indexate(t_stack *stack)
 }
 // koniec indeksacji
 
-void put_to_stack_b(t_stack *stack_a, t_stack *stack_b, t_list *node_a, t_operations *operations)
+void put_to_stack_b(t_stack *stack_a, t_stack *stack_b, t_list *node_a, t_ops *ops)
 {
-	int rotate_operations;
+	int rotate_ops;
 	//printf("number: %d\n", node_a->number);
 
-	rotate_operations = 0;
+	rotate_ops = 0;
 	while (stack_a->first_node->index != node_a->index)
 	{
-		ra(stack_a, operations);
-		rotate_operations++;
+		ra(stack_a, ops);
+		rotate_ops++;
 	}
-	pb(stack_a, stack_b, operations);
-	while (rotate_operations)
+	pb(stack_a, stack_b, ops);
+	while (rotate_ops)
 	{
-		rra(stack_a, operations);
-		rotate_operations--;
+		rra(stack_a, ops);
+		rotate_ops--;
 	}
 	// printf("display_stack a:\n");
 	// display_stack(stack_a->first_node);
@@ -128,23 +128,23 @@ void put_to_stack_b(t_stack *stack_a, t_stack *stack_b, t_list *node_a, t_operat
 	
 }
 
-void put_to_stack_a(t_stack *stack_a, t_stack *stack_b, t_operations *operations)
+void put_to_stack_a(t_stack *stack_a, t_stack *stack_b, t_ops *ops)
 {
 	// to stack_b->first_node jest brzydkie chyba, przepisac
 	while (stack_b->first_node)
 	{
-		rrb(stack_b, operations);
+		rrb(stack_b, ops);
 		// printf("number: %d\n", stack_b->first_node->number);
-		pa(stack_a, stack_b, operations);
+		pa(stack_a, stack_b, ops);
 		// printf("display_stack a:\n");
 		// display_stack(stack_a->first_node);
 		// printf("display_stack b\n");
 		// display_stack(stack_b->first_node);
-		ra(stack_a, operations);
+		ra(stack_a, ops);
 	}
 }
 
-void complex_sort(t_stack *stack_a, t_stack *stack_b, t_operations *operations)
+void complex_sort(t_stack *stack_a, t_stack *stack_b, t_ops *ops)
 {
 	t_list *tmpa;
 	int i;
@@ -165,7 +165,7 @@ void complex_sort(t_stack *stack_a, t_stack *stack_b, t_operations *operations)
 			if (tmpa->index & (1 << i))
 			{
 				//printf("number:%i\n", tmpa->number);
-				put_to_stack_b(stack_a, stack_b, tmpa, operations);
+				put_to_stack_b(stack_a, stack_b, tmpa, ops);
 				tmpa = stack_a->first_node;
 				//printf("stack a after pushing:\n");
 				//display_stack(stack_a->first_node);
@@ -175,7 +175,7 @@ void complex_sort(t_stack *stack_a, t_stack *stack_b, t_operations *operations)
 			else
 				tmpa = tmpa->next;
 		}
-		put_to_stack_a(stack_a, stack_b, operations);
+		put_to_stack_a(stack_a, stack_b, ops);
 		tmpa = stack_a->first_node;
 		//printf("%i\n", i);
 		//printf("display_stack a:\n");
