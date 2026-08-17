@@ -27,24 +27,15 @@ float compute_disorder(t_stack stack_a)
     return ((float)mistakes / (float)total_pairs);
 }
 
-char *choose_strategy(t_flags flags, float disorder)
+void choose_algorithm(t_flags *flags, float disorder)
 {
-	char *strategy;
-
-	if (!flags.is_simple && !flags.is_medium && !flags.is_complex)
+    if (!flags->is_simple && !flags->is_medium && !flags->is_complex)
 	{
-		if (disorder < 0.2)
-			flags.is_simple = 1;
-		else if (disorder > 0.2 && disorder < 0.5)
-			flags.is_medium = 1;
-		else
-			flags.is_complex = 1;
+	    if (disorder < 0.2)
+		    flags->is_simple = 1;
+	    else if (disorder > 0.2 && disorder < 0.5)
+		    flags->is_medium = 1;
+	    else
+		    flags->is_complex = 1;
 	}
-	if (flags.is_simple)
-		strategy = ft_strdup("Simple / O(n^2)");
-	else if (flags.is_medium)
-		strategy = ft_strdup("Medium / O(n\xFBn)");
-	else
-		strategy = ft_strdup("Complex / O(nlogn)");
-	return (strategy);
 }

@@ -2,8 +2,6 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = $(shell find ! -name "rotate.c" ! -name "swap.c" ! -name "push.c" -name "*.c" -name "push_swap.h")
-
 all: 
 	$(CC) -g $(CFLAGS) lst_functions.c \
 	push.c \
@@ -20,3 +18,6 @@ all:
 	complex_sort.c \
 	parse.c \
 	print.c \
+	simple_sort.c \
+	medium_sort.c \
+	metrics.c

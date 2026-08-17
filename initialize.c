@@ -28,11 +28,3 @@ t_ops initialize_ops()
 	ops.use_rrr = 0;
 	return (ops);
 }
-
-void initialize_metrics(t_metrics *metrics, t_flags flags, t_stack stack_a)
-{
-	metrics->disorder = compute_disorder(stack_a);
-	metrics->strategy = choose_strategy(flags, metrics->disorder);
-	metrics->total_ops = 0;
-	metrics->ops = initialize_ops();
-}

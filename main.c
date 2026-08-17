@@ -54,41 +54,39 @@ void display_stack(t_list *tab)
 // 	return (0);
 // }
 
+void sort(t_stack *a, t_stack *b, t_ops *ops, t_flags flags)
+{
+	if (flags.is_simple)
+		simple_sort(a, b, ops, flags.is_bench);
+	else if (flags.is_medium)
+		medium_sort(a, b, ops, flags.is_bench);
+	else
+		complex_sort(a, b, ops, flags.is_bench);
+}
+
 int	main(int argc, char **argv)
 {
 	t_flags	flags;
 	t_stack stack_a;
 	t_stack stack_b;
 	t_metrics metrics;
+	float disorder;
 	
 	if (argc == 1)
-		return (3);
+		return (2);
 	initialize_flags(argc, argv, &flags);
 	initialize_stacks(&stack_a, &stack_b);
 	if (!parse(argc, argv, &stack_a))
 		return (write(2, "Error\n", 6), 1);
-	display_stack(stack_a.first_node);
-	// mozliwe ze tu trzeba bedzie ifa usunac
-	if (flags.is_bench == 1)
+	disorder = compute_disorder(stack_a);
+	choose_algorithm(&flags, disorder);
+	if (flags.is_bench)
 		initialize_metrics(&metrics, flags, stack_a);
-	complex_sort(&stack_a, &stack_b, &metrics.ops, flags.is_bench);
-	display_stack(stack_a.first_node);
-	print_benchmark(metrics);
-	return (0);
-
-	/*
-	if (argc == 1)
-		return (0);
-	initialize_stacks(&stack_a, &stack_b);
-	ops = initialize_ops();
-	if (!parse(argc, argv, &stack_a))
-		return (write(2, "Error\n", 6), 1);
-	printf("PRZED:\n");
-	display_stack(stack_a.first_node);
-	printf("disorder: %.2f\n", compute_disorder(stack_a) * 100);
-	simple_sort(&stack_a, &stack_b, &ops);
-	printf("PO\n");
-	display_stack(stack_a.first_node);
-	*/
+	sort(&stack_a, &stack_b, &metrics.ops, flags);
+	if (flags.is_bench)
+	{
+		update_metrics(&metrics);
+		print_benchmark(metrics);
+	}
 	return (0);
 }

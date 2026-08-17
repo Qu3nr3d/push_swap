@@ -43,7 +43,7 @@ static int	rotation_value(int pos, int size)
 	return (-(size - pos));
 }
 
-static void	build_base(t_stack *a, t_stack *b, t_ops *ops)
+static void	build_base(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
 {
 	int	total;
 	int	done;
@@ -57,10 +57,10 @@ static void	build_base(t_stack *a, t_stack *b, t_ops *ops)
 		if (a->first_node->number >= last)
 		{
 			last = a->first_node->number;
-			ra(a, ops);
+			ra(a, ops, is_bench);
 		}
 		else
-			pb(a, b, ops);
+			pb(a, b, ops, is_bench);
 		done++;
 	}
 }
@@ -112,50 +112,50 @@ static t_move	find_best_move(t_stack *a, t_stack *b)
 }
 
 static void	rotate_both(t_stack *a, t_stack *b,
-		t_move *move, t_ops *ops)
+		t_move *move, t_ops *ops, int is_bench)
 {
 	while (move->a_rot > 0 && move->b_rot > 0)
 	{
-		rr(a, b, ops);
+		rr(a, b, ops, is_bench);
 		move->a_rot--;
 		move->b_rot--;
 	}
 	while (move->a_rot < 0 && move->b_rot < 0)
 	{
-		rrr(a, b, ops);
+		rrr(a, b, ops, is_bench);
 		move->a_rot++;
 		move->b_rot++;
 	}
 }
 
 static void	execute_move(t_stack *a, t_stack *b,
-		t_move move, t_ops *ops)
+		t_move move, t_ops *ops, int is_bench)
 {
-	rotate_both(a, b, &move, ops);
+	rotate_both(a, b, &move, ops, is_bench);
 	while (move.a_rot > 0)
 	{
-		ra(a, ops);
+		ra(a, ops, is_bench);
 		move.a_rot--;
 	}
 	while (move.a_rot < 0)
 	{
-		rra(a, ops);
+		rra(a, ops, is_bench);
 		move.a_rot++;
 	}
 	while (move.b_rot > 0)
 	{
-		rb(b, ops);
+		rb(b, ops, is_bench);
 		move.b_rot--;
 	}
 	while (move.b_rot < 0)
 	{
-		rrb(b, ops);
+		rrb(b, ops, is_bench);
 		move.b_rot++;
 	}
-	pa(a, b, ops);
+	pa(a, b, ops, is_bench);
 }
 
-static void	rotate_min_top(t_stack *a, t_ops *ops)
+static void	rotate_min_top(t_stack *a, t_ops *ops, int is_bench)
 {
 	t_list	*node;
 	int		pos;
@@ -174,13 +174,13 @@ static void	rotate_min_top(t_stack *a, t_ops *ops)
 	pos = rotation_value(pos + 1, a->size);
 	if (pos >= 0)
 		while (pos-- > 0)
-			ra(a, ops);
+			ra(a, ops, is_bench);
 	else
 		while (pos++ < 0)
-			rra(a, ops);
+			rra(a, ops, is_bench);
 }
 
-void	simple_sort(t_stack *a, t_stack *b, t_ops *ops)
+void	simple_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
 {
 	t_list	*node;
 	t_move	move;
@@ -192,11 +192,11 @@ void	simple_sort(t_stack *a, t_stack *b, t_ops *ops)
 		node = node->next;
 	if (!node->next)
 		return ;
-	build_base(a, b, ops);
+	build_base(a, b, ops, is_bench);
 	while (b->size > 0)
 	{
 		move = find_best_move(a, b);
-		execute_move(a, b, move, ops);
+		execute_move(a, b, move, ops, is_bench);
 	}
-	rotate_min_top(a, ops);
+	rotate_min_top(a, ops, is_bench);
 }
