@@ -15,7 +15,9 @@ all:
 	main.c \
 	push_swap.h \
 	initialize.c \
-	push_swap_utils.c \
+	push_swap_utils_1.c \
+	push_swap_utils_2.c \
 	complex_sort.c \
 	parse.c \
-	simple_sort.c
+	simple_sort.c \
+	print.c

@@ -59,6 +59,7 @@ int		parse(int argc, char *args[], t_stack *stack_a);
 void	initialize_metrics(t_metrics *metrics, t_flags flags, t_stack stack_a);
 float	compute_disorder(t_stack stack_a);
 char	*choose_strategy(t_flags flags, float disorder);
+void	print_benchmark(t_metrics metrics);
 void	sa(t_stack *stack, t_ops *ops);
 void	sb(t_stack *stack, t_ops *ops);
 void	ss(t_stack *stack_a, t_stack *stack_b, t_ops *ops);
@@ -80,6 +81,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 int		is_number(char *n);
 int		ft_atoi(const char *nptr, int *error);
 char	*ft_strdup(const char *s);
+char	*ft_itoa(int n);
 int		is_flag(char *str);
 
 
