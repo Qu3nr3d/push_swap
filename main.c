@@ -59,7 +59,7 @@ int	main(int argc, char **argv)
 	// t_flags	flags;
 	t_stack stack_a;
 	t_stack stack_b;
-	t_operations operations;
+	t_ops ops;
 	// t_stack stack_b;
 	// t_metrics metrics;
 	//
@@ -80,19 +80,19 @@ int	main(int argc, char **argv)
 	// printf("disorder: %f\n", metrics.disorder);
 	// printf("strategy: %s\n", metrics.strategy);
 	// printf("total_ops: %i\n", metrics.total_ops);
-	// printf("operations:\n");
-	// printf(" %i\n", metrics.operations.use_pa);
-	// printf(" %i\n", metrics.operations.use_pb);
-	// printf(" %i\n", metrics.operations.use_sa);
-	// printf(" %i\n", metrics.operations.use_sb);
-	// printf(" %i\n", metrics.operations.use_ss);
-	// printf(" %i\n", metrics.operations.use_ra);
-	// printf(" %i\n", metrics.operations.use_rb);
-	// printf(" %i\n", metrics.operations.use_rr);
-	// printf(" %i\n", metrics.operations.use_rra);
-	// printf(" %i\n", metrics.operations.use_rrb);
-	// printf(" %i\n", metrics.operations.use_rrr);
-	// complex_sort(&stack_a, &stack_b, &metrics.operations);
+	// printf("ops:\n");
+	// printf(" %i\n", metrics.ops.use_pa);
+	// printf(" %i\n", metrics.ops.use_pb);
+	// printf(" %i\n", metrics.ops.use_sa);
+	// printf(" %i\n", metrics.ops.use_sb);
+	// printf(" %i\n", metrics.ops.use_ss);
+	// printf(" %i\n", metrics.ops.use_ra);
+	// printf(" %i\n", metrics.ops.use_rb);
+	// printf(" %i\n", metrics.ops.use_rr);
+	// printf(" %i\n", metrics.ops.use_rra);
+	// printf(" %i\n", metrics.ops.use_rrb);
+	// printf(" %i\n", metrics.ops.use_rrr);
+	// complex_sort(&stack_a, &stack_b, &metrics.ops);
 	// display_stack(stack_a.first_node);
 	//
 	// return (0);
@@ -100,13 +100,13 @@ int	main(int argc, char **argv)
 	if (argc == 1)
 		return (0);
 	initialize_stacks(&stack_a, &stack_b);
-	operations = initialize_operations();
+	ops = initialize_ops();
 	if (!parse(argc, argv, &stack_a))
 		return (write(2, "Error\n", 6), 1);
 	printf("PRZED:\n");
 	display_stack(stack_a.first_node);
 	printf("disorder: %.2f\n", compute_disorder(stack_a) * 100);
-	simple_sort(&stack_a, &stack_b, &operations);
+	simple_sort(&stack_a, &stack_b, &ops);
 	printf("PO\n");
 	display_stack(stack_a.first_node);
 	return (0);

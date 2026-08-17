@@ -21,23 +21,23 @@ static int	swap_stack(t_stack *stack)
     return (1);
 }
 
-void	sa(t_stack *stack, t_operations *operations)
+void	sa(t_stack *stack, t_ops *ops)
 {
     if (!swap_stack(stack))
         return ;
-    operations->use_sa++;
+    ops->use_sa++;
     write(1, "sa\n", 3);
 }
 
-void	sb(t_stack *stack, t_operations *operations)
+void	sb(t_stack *stack, t_ops *ops)
 {
     if (!swap_stack(stack))
         return ;
-    operations->use_sb++;
+    ops->use_sb++;
     write(1, "sb\n", 3);
 }
 
-void	ss(t_stack *stack_a, t_stack *stack_b, t_operations *operations)
+void	ss(t_stack *stack_a, t_stack *stack_b, t_ops *ops)
 {
     int	a_changed;
     int	b_changed;
@@ -46,6 +46,6 @@ void	ss(t_stack *stack_a, t_stack *stack_b, t_operations *operations)
     b_changed = swap_stack(stack_b);
     if (!a_changed && !b_changed)
         return ;
-    operations->use_ss++;
+    ops->use_ss++;
     write(1, "ss\n", 3);
 }

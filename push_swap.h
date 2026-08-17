@@ -6,7 +6,7 @@
 # include <stddef.h>
 # include <unistd.h>
 
-typedef struct s_operations
+typedef struct s_ops
 {
 	int	use_pa;
 	int	use_pb;
@@ -19,14 +19,14 @@ typedef struct s_operations
 	int	use_rra;
 	int	use_rrb;
 	int	use_rrr;
-} t_operations;
+} t_ops;
 
 typedef struct s_metrics
 {
 	float			disorder;
 	char			*strategy;
 	int				total_ops;
-	t_operations	operations;
+	t_ops	ops;
 } t_metrics;
 
 typedef struct s_flags
@@ -52,35 +52,36 @@ typedef struct s_stack
 	int		size;
 }	t_stack;
 
-void	sa(t_stack *stack, t_operations *operations);
-void	sb(t_stack *stack, t_operations *operations);
-void	ss(t_stack *stack_a, t_stack *stack_b, t_operations *operations);
-void	pa(t_stack *stack_a, t_stack *stack_b, t_operations *operations);
-void	pb(t_stack *stack_a, t_stack *stack_b, t_operations *operations);
-void	ra(t_stack *stack, t_operations *operations);
-void	rb(t_stack *stack, t_operations *operations);
-void	rr(t_stack *stack_a, t_stack *stack_b, t_operations *operations);
-void	rra(t_stack *stack, t_operations *operations);
-void	rrb(t_stack *stack, t_operations *operations);
-void    rrr(t_stack *stack_a, t_stack *stack_b, t_operations *operations);
+void	initialize_flags(int number_of_args, char *args[], t_flags *flags);
+t_ops	initialize_ops();
+void	initialize_stacks (t_stack *stack_a, t_stack *stack_b);
+int		parse(int argc, char *args[], t_stack *stack_a);
+void	initialize_metrics(t_metrics *metrics, t_flags flags, t_stack stack_a);
+float	compute_disorder(t_stack stack_a);
+char	*choose_strategy(t_flags flags, float disorder);
+void	sa(t_stack *stack, t_ops *ops);
+void	sb(t_stack *stack, t_ops *ops);
+void	ss(t_stack *stack_a, t_stack *stack_b, t_ops *ops);
+void	pa(t_stack *stack_a, t_stack *stack_b, t_ops *ops);
+void	pb(t_stack *stack_a, t_stack *stack_b, t_ops *ops);
+void	ra(t_stack *stack, t_ops *ops);
+void	rb(t_stack *stack, t_ops *ops);
+void	rr(t_stack *stack_a, t_stack *stack_b, t_ops *ops);
+void	rra(t_stack *stack, t_ops *ops);
+void	rrb(t_stack *stack, t_ops *ops);
+void    rrr(t_stack *stack_a, t_stack *stack_b, t_ops *ops);
+void	simple_sort(t_stack *stack_a, t_stack *stack_b, t_ops *ops);
+void	medium_sort(t_stack *stack_a, t_stack *stack_b, t_ops *ops);
+void	complex_sort(t_stack *stack_a, t_stack *stack_b, t_ops *ops);
 t_list	*ft_lstnew(int number);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
-void	simple_sort(t_stack *stack_a, t_stack *stack_b, t_operations *operations);
-void    medium_sort(t_stack *stack_a, t_stack *stack_b, t_operations *operations);
-void	complex_sort(t_stack *stack_a, t_stack *stack_b, t_operations *operations);
-void	put_to_stack_b(t_stack *stack_a, t_stack *stack_b, t_list *node_a, t_operations *operations);
-void	put_to_stack_a(t_stack *stack_a, t_stack *stack_b, t_operations *operations);
-int     parse(int argc, char *args[], t_stack *stack_a);
-void    initialize_flags(int number_of_args, char *args[], t_flags *flags);
-int     is_number(char *n);
-void    initialize_stacks (t_stack *stack_a, t_stack *stack_b);
-int	    ft_atoi(const char *nptr, int *number);
+int		is_number(char *n);
+int		ft_atoi(const char *nptr, int *error);
 char	*ft_strdup(const char *s);
-int	    is_flag(char *str);
-float   compute_disorder(t_stack stack_a);
-void    initialize_metrics(t_metrics *metrics, t_flags flags, t_stack stack_a);
-t_operations initialize_operations();
+int		is_flag(char *str);
+
+
 
 #endif

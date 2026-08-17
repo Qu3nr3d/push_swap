@@ -16,24 +16,24 @@ static int	reverse_rotate_stack(t_stack *stack)
 	return (1);
 }
 
-void	rra(t_stack *stack, t_operations *operations)
+void	rra(t_stack *stack, t_ops *ops)
 {
 	if (!reverse_rotate_stack(stack))
 		return ;
-	operations->use_rra++;
+	ops->use_rra++;
 	write(1, "rra\n", 4);
 }
 
-void	rrb(t_stack *stack, t_operations *operations)
+void	rrb(t_stack *stack, t_ops *ops)
 {
 	if (!reverse_rotate_stack(stack))
 		return ;
-	operations->use_rrb++;
+	ops->use_rrb++;
 	write(1, "rrb\n", 4);
 }
 
 void	rrr(t_stack *stack_a, t_stack *stack_b,
-		t_operations *operations)
+		t_ops *ops)
 {
 	int	a_changed;
 	int	b_changed;
@@ -42,6 +42,6 @@ void	rrr(t_stack *stack_a, t_stack *stack_b,
 	b_changed = reverse_rotate_stack(stack_b);
 	if (!a_changed && !b_changed)
 		return ;
-	operations->use_rrr++;
+	ops->use_rrr++;
 	write(1, "rrr\n", 4);
 }

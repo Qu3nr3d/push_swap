@@ -16,13 +16,14 @@ int is_number(char *n)
 	return (1);
 }
 
-int	ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr, int *error)
 {
-	int	ret;
+	long long number;
 	int	sign;
 
-	ret = 0;
+	number = 0;
 	sign = 1;
+	*error = 0;
 	if (*nptr == '-' || *nptr == '+')
 	{
 		if (*nptr == '-')
@@ -31,11 +32,12 @@ int	ft_atoi(const char *nptr)
 	}
 	while (*nptr >= '0' && *nptr <= '9')
 	{
-		ret *= 10;
-		ret += (int){*nptr - '0'};
+		number = number * 10 + (*nptr - '0');
+		if (number * sign > 2147483647LL || number * sign < -2147483648LL)
+			return (*error = 1, 0);
 		nptr++;
 	}
-	return (sign * ret);
+	return ((int)number * sign);
 }
 
 size_t	ft_strlen(const char *s)
