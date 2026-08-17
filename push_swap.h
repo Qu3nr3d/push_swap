@@ -35,6 +35,7 @@ typedef struct s_flags
 	int	is_simple;
 	int	is_medium;
 	int	is_complex;
+	int is_adaptive;
 } t_flags;
 
 typedef struct s_list
