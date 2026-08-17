@@ -56,107 +56,58 @@ void display_stack(t_list *tab)
 
 int	main(int argc, char **argv)
 {
-	t_flags	flags;
+	// t_flags	flags;
 	t_stack stack_a;
 	t_stack stack_b;
-	t_metrics metrics;
+	t_operations operations;
+	// t_stack stack_b;
+	// t_metrics metrics;
+	//
+	// if (argc == 1)
+	// 	return (3);
+	// initialize_flags(argc, argv, &flags);
+	// //printf("bench: %i\n", flags.is_bench);
+	// //printf("simple: %i\n", flags.is_simple);
+	// //printf("medium: %i\n", flags.is_medium);
+	// //printf("complex: %i\n", flags.is_complex);
+	// initialize_stacks(&stack_a, &stack_b);
+	// if (!parse(argc, argv, &stack_a))
+	// 	return (write(2, "Error\n", 6), 1);
+	// display_stack(stack_a.first_node);
+	// // mozliwe ze tu trzeba bedzie ifa usunac
+	// if (flags.is_bench == 1)
+	// 	initialize_metrics(&metrics, flags, stack_a);
+	// printf("disorder: %f\n", metrics.disorder);
+	// printf("strategy: %s\n", metrics.strategy);
+	// printf("total_ops: %i\n", metrics.total_ops);
+	// printf("operations:\n");
+	// printf(" %i\n", metrics.operations.use_pa);
+	// printf(" %i\n", metrics.operations.use_pb);
+	// printf(" %i\n", metrics.operations.use_sa);
+	// printf(" %i\n", metrics.operations.use_sb);
+	// printf(" %i\n", metrics.operations.use_ss);
+	// printf(" %i\n", metrics.operations.use_ra);
+	// printf(" %i\n", metrics.operations.use_rb);
+	// printf(" %i\n", metrics.operations.use_rr);
+	// printf(" %i\n", metrics.operations.use_rra);
+	// printf(" %i\n", metrics.operations.use_rrb);
+	// printf(" %i\n", metrics.operations.use_rrr);
+	// complex_sort(&stack_a, &stack_b, &metrics.operations);
+	// display_stack(stack_a.first_node);
+	//
+	// return (0);
 
 	if (argc == 1)
-		return (3);
-	initialize_flags(argc, argv, &flags);
-	//printf("bench: %i\n", flags.is_bench);
-	//printf("simple: %i\n", flags.is_simple);
-	//printf("medium: %i\n", flags.is_medium);
-	//printf("complex: %i\n", flags.is_complex);
+		return (0);
 	initialize_stacks(&stack_a, &stack_b);
-	parse(argc, argv, &stack_a);
+	operations = initialize_operations();
+	if (!parse(argc, argv, &stack_a))
+		return (write(2, "Error\n", 6), 1);
+	printf("PRZED:\n");
 	display_stack(stack_a.first_node);
-	// mozliwe ze tu trzeba bedzie ifa usunac
-	if (flags.is_bench == 1)
-		initialize_metrics(&metrics, flags, stack_a);
-	printf("disorder: %f\n", metrics.disorder);
-	printf("strategy: %s\n", metrics.strategy);
-	printf("total_ops: %i\n", metrics.total_ops);
-	printf("ops before:\n");
-	printf(" %i\n", metrics.ops.use_pa);
-	printf(" %i\n", metrics.ops.use_pb);
-	printf(" %i\n", metrics.ops.use_sa);
-	printf(" %i\n", metrics.ops.use_sb);
-	printf(" %i\n", metrics.ops.use_ss);
-	printf(" %i\n", metrics.ops.use_ra);
-	printf(" %i\n", metrics.ops.use_rb);
-	printf(" %i\n", metrics.ops.use_rr);
-	printf(" %i\n", metrics.ops.use_rra);
-	printf(" %i\n", metrics.ops.use_rrb);
-	printf(" %i\n", metrics.ops.use_rrr);
-	complex_sort(&stack_a, &stack_b, &metrics.ops);
+	printf("disorder: %.2f\n", compute_disorder(stack_a) * 100);
+	simple_sort(&stack_a, &stack_b, &operations);
+	printf("PO\n");
 	display_stack(stack_a.first_node);
-	printf("ops after:\n");
-	printf(" %i\n", metrics.ops.use_pa);
-	printf(" %i\n", metrics.ops.use_pb);
-	printf(" %i\n", metrics.ops.use_sa);
-	printf(" %i\n", metrics.ops.use_sb);
-	printf(" %i\n", metrics.ops.use_ss);
-	printf(" %i\n", metrics.ops.use_ra);
-	printf(" %i\n", metrics.ops.use_rb);
-	printf(" %i\n", metrics.ops.use_rr);
-	printf(" %i\n", metrics.ops.use_rra);
-	printf(" %i\n", metrics.ops.use_rrb);
-	printf(" %i\n", metrics.ops.use_rrr);
-	
 	return (0);
-	/*
-	int	is_bench;
-	int	is_strategy_selector;
-
-	is_bench = 0;
-	is_strategy_selector = 0;
-
-
-
-	int i = 1;
-	int flag = 0;
-	int bench = 0;
-	t_stack stack_a;
-	t_list *p;
-	t_list *node
-	t_stack stack_b;
-	t_ops ops;
-	char *is_bench;
-	char *is_strategy;
-	ops = {0};
-	if(!ft_strcmp("--bench", argv[1]))
-	{
-		is_bench = argv[1];
-		bench++;
-		i++;
-	}
-	if(bench == 1)
-	{
-		IS_ARG(argv[2]);
-		is_strategy = argv[2];
-	}
-	else
-	{
-		IS_ARG(argv[1]);
-		is_strategy = argv[2];
-	}
-	while(i <= argc)
-	{
-		node = ft_lstnew(argv[i]);
-		if(i == 2)
-			stack_a->first_node = node;
-		else
-			ft_lstadd_back(node, p);
-		i++;
-	}
-	stack_a->last_node = node;
-
-	if(bench)
-		benchmark(is_strategy, &stack_a, &stack_b, &ops);
-	else if(flag)
-		strategy(is_strategy, &stack_a, &stack_b, &ops);
-	else
-		compute_disorder(&stack_a, &stack_b, &ops);
-	*/
 }

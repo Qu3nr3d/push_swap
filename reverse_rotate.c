@@ -1,11 +1,11 @@
 #include "push_swap.h"
 
-void	rra(t_stack *stack, t_ops *ops)
+static int	reverse_rotate_stack(t_stack *stack)
 {
 	t_list	*last;
 
 	if (stack->size < 2)
-		return;
+		return (0);
 	last = stack->last_node;
 	stack->last_node = last->prev;
 	stack->last_node->next = NULL;
@@ -13,33 +13,35 @@ void	rra(t_stack *stack, t_ops *ops)
 	last->next = stack->first_node;
 	stack->first_node->prev = last;
 	stack->first_node = last;
-	ops->use_rra++;
-	write(1, "rra\n", 4);
-
+	return (1);
 }
 
-void	rrb(t_stack *stack, t_ops *ops)
+void	rra(t_stack *stack, t_operations *operations)
 {
-	t_list	*last;
-
-	if (stack->size < 2)
-		return;
-	last = stack->last_node;
-	stack->last_node = last->prev;
-	stack->last_node->next = NULL;
-	last->prev = NULL;
-	last->next = stack->first_node;
-	stack->first_node->prev = last;
-	stack->first_node = last;
-	ops->use_rrb++;
+	if (!reverse_rotate_stack(stack))
+		return ;
+	operations->use_rra++;
 	write(1, "rra\n", 4);
 }
 
-void rrr(t_stack *stack_a, t_stack *stack_b, t_ops *ops)
+void	rrb(t_stack *stack, t_operations *operations)
 {
-	rra(stack_a, ops);
-	rrb(stack_b, ops);
-	ops->use_rrr++;
-    write(1, "rrr\n", 4);
+	if (!reverse_rotate_stack(stack))
+		return ;
+	operations->use_rrb++;
+	write(1, "rrb\n", 4);
+}
 
+void	rrr(t_stack *stack_a, t_stack *stack_b,
+		t_operations *operations)
+{
+	int	a_changed;
+	int	b_changed;
+
+	a_changed = reverse_rotate_stack(stack_a);
+	b_changed = reverse_rotate_stack(stack_b);
+	if (!a_changed && !b_changed)
+		return ;
+	operations->use_rrr++;
+	write(1, "rrr\n", 4);
 }

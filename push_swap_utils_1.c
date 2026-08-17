@@ -1,17 +1,21 @@
 #include "push_swap.h"
 
-int	ft_isdigit(int c)
+int	is_number(char *str)
 {
-	return (c >= '0' && c <= '9');
-}
+	int	i;
 
-int is_number(char *n)
-{
-	while (*n)
+	if (!str || !str[0])
+		return (0);
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (!str[i])
+		return (0);
+	while (str[i])
 	{
-		if (!ft_isdigit(*n))
+		if (str[i] < '0' || str[i] > '9')
 			return (0);
-		n++;
+		i++;
 	}
 	return (1);
 }
@@ -26,13 +30,14 @@ void initialize_stacks (t_stack *stack_a, t_stack *stack_b)
 	stack_b->size = 0;
 }
 
-int	ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr, int *error)
 {
-	int	ret;
+	long long number;
 	int	sign;
 
-	ret = 0;
+	number = 0;
 	sign = 1;
+	*error = 0;
 	if (*nptr == '-' || *nptr == '+')
 	{
 		if (*nptr == '-')
@@ -41,11 +46,12 @@ int	ft_atoi(const char *nptr)
 	}
 	while (*nptr >= '0' && *nptr <= '9')
 	{
-		ret *= 10;
-		ret += (int){*nptr - '0'};
+		number = number * 10 + (*nptr - '0');
+		if (number * sign > 2147483647LL || number * sign < -2147483648LL)
+			return (*error = 1, 0);
 		nptr++;
 	}
-	return (sign * ret);
+	return ((int)number * sign);
 }
 
 char *choose_strategy(t_flags flags, float disorder)

@@ -14,7 +14,8 @@ all:
 	flags.c \
 	main.c \
 	push_swap.h \
-	push_swap_utils.c \
-	initialize.c \
+	push_swap_utils_1.c \
+	push_swap_utils_2.c \
 	complex_sort.c \
-	parse.c
+	parsing.c \
+	simple_sort.c

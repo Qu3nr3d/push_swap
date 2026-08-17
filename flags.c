@@ -7,10 +7,12 @@ int	str_is_equal(char *s1, char *s2)
 	i = 0;
 	while (s1[i] && s2[i])
 	{
-		if (s1[i] - s2[i] != 0)
+		if (s1[i] != s2[i])
 			return (0);
 		i++;
 	}
+	if (s1[i] || s2[i])
+		return (0);
 	return (1);
 }
 
@@ -58,4 +60,19 @@ void initialize_flags(int number_of_args, char *args[], t_flags *flags)
 		}
 		i++;
 	}
+}
+
+int	is_flag(char *str)
+{
+	if (str_is_equal("--bench", str))
+		return (1);
+	if (str_is_equal("--simple", str))
+		return (1);
+	if (str_is_equal("--medium", str))
+		return (1);
+	if (str_is_equal("--complex", str))
+		return (1);
+	if (str_is_equal("--adaptive", str))
+		return (1);
+	return (0);
 }
