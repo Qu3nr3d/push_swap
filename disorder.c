@@ -6,7 +6,7 @@
 /*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/17 19:20:27 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/17 19:35:51 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/17 22:15:54 by kgirczyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,22 @@ void	choose_algorithm(t_flags *flags, float disorder)
 	}
 }
 
+static long	round_float(double n)
+{
+	if (n >= 0)
+		return ((long)(n * 100 + 0.5));
+	return ((long)(n * 100 - 0.5));
+}
+
 static int	put_num(char *s, long n, int i)
 {
-	int	d;
+	long	d;
 
+	if (n == 0)
+	{
+		s[i++] = '0';
+		return (i);
+	}
 	d = 1;
 	while (n / d >= 10)
 		d *= 10;
@@ -72,23 +84,28 @@ static int	get_len(long x, int neg)
 	int	len;
 
 	len = 1;
-	while (x / 100 >= 10)
+	x /= 100;
+	while (x >= 10)
 	{
 		x /= 10;
 		len++;
 	}
-	return (len + 4 + neg);
+	return (len + 3 + neg);
 }
 
-static void	fill_float(char *s, long x, int len, int neg)
+static void	fill_float(char *s, long x, int neg)
 {
-	s[len - 1] = '\0';
-	s[len - 2] = '0' + x % 10;
-	s[len - 3] = '0' + x / 10 % 10;
-	s[len - 4] = '.';
-	put_num(s, x / 100, neg);
+	int	i;
+
+	i = 0;
 	if (neg)
-		s[0] = '-';
+		s[i++] = '-';
+
+	i = put_num(s, x / 100, i);
+	s[i++] = '.';
+	s[i++] = '0' + x / 10 % 10;
+	s[i++] = '0' + x % 10;
+	s[i] = '\0';
 }
 
 char	*float_to_str(double n)
@@ -106,6 +123,6 @@ char	*float_to_str(double n)
 	s = malloc(len);
 	if (!s)
 		return (NULL);
-	fill_float(s, x, len, neg);
+	fill_float(s, x, neg);
 	return (s);
 }

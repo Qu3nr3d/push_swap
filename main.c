@@ -74,7 +74,8 @@ int	main(int argc, char **argv)
 	
 	if (argc == 1)
 		return (2);
-	initialize_flags(argc, argv, &flags);
+	if(!initialize_flags(argc, argv, &flags))
+		return(write(2, "Error\n", 6));
 	initialize_stacks(&stack_a, &stack_b);
 	if (!parse(argc, argv, &stack_a))
 		return (write(2, "Error\n", 6), 1);
@@ -88,5 +89,6 @@ int	main(int argc, char **argv)
 		update_metrics(&metrics);
 		print_benchmark(metrics);
 	}
+	display_stack(stack_a.first_node);
 	return (0);
 }

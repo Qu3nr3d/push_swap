@@ -16,23 +16,37 @@ int	str_is_equal(char *s1, char *s2)
 	return (1);
 }
 
+static int check_strategy(t_flags *flags)
+{
+	return (flags->is_simple || flags->is_medium
+			 || flags->is_complex || flags->is_adaptive);
+}
+
 int check_flags(char *str, t_flags *flags)
 {
 	if (str_is_equal("--bench", str))
-		flags->is_bench++;
-	else if (str_is_equal("--simple", str))
-		flags->is_simple++;
-	else if (str_is_equal("--medium", str))
-		flags->is_medium++;
-	else if (str_is_equal("--complex", str))
-		flags->is_complex++;
-	else
-		return (0);
+	{
+		if(flags->is_bench)
+			return (0);
+		flags->is_bench = 1;
+	}
+	else if (is_flag(str))
+	{
+		if(check_strategy(flags))
+			return (0);
+		else if (str_is_equal("--simple", str))
+			flags->is_simple = 1;
+		else if (str_is_equal("--medium", str))
+			flags->is_medium = 1;
+		else if (str_is_equal("--complex", str))
+			flags->is_complex = 1;
+		else
+			flags->is_adaptive = 1;
+	}
 	return (1);
 }
 
-// jeszcze trzeba bedzie dla number_of_args = 1, 2 i 3 ogarnac + jak bedzie wiecej razy bench i simple itd
-void initialize_flags(int argc, char *args[], t_flags *flags)
+int initialize_flags(int argc, char *args[], t_flags *flags)
 {
 	int	i;
 
@@ -44,11 +58,10 @@ void initialize_flags(int argc, char *args[], t_flags *flags)
 	flags->is_adaptive = 0;
 	while (i < argc)
 	{
-		if (is_flag(argv[i]) && !check_flags(argv[i], flags))
+		if (is_flag(args[i]) && !check_flags(args[i], flags))
 			return (0);
 		i++;
 	}
-	i = 0;
 	return (1);
 }
 

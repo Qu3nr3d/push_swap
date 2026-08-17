@@ -53,7 +53,7 @@ typedef struct s_stack
 	int		size;
 }	t_stack;
 
-void	initialize_flags(int number_of_args, char *args[], t_flags *flags);
+int	initialize_flags(int argc, char *args[], t_flags *flags);
 t_ops	initialize_ops();
 void	initialize_stacks (t_stack *stack_a, t_stack *stack_b);
 int		parse(int argc, char *args[], t_stack *stack_a);
