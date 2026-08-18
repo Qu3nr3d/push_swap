@@ -22,8 +22,7 @@ void	ra(t_stack *a, t_ops *ops, int is_bench)
 		return ;
 	if (is_bench)
 		ops->use_ra++;
-	else
-		write(1, "ra\n", 3);
+	write(1, "ra\n", 3);
 }
 
 void	rb(t_stack *b, t_ops *ops, int is_bench)
@@ -32,8 +31,7 @@ void	rb(t_stack *b, t_ops *ops, int is_bench)
 		return ;
 	if (is_bench)
 		ops->use_rb++;
-	else
-		write(1, "rb\n", 3);
+	write(1, "rb\n", 3);
 }
 
 void	rr(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
@@ -47,6 +45,5 @@ void	rr(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
 		return ;
 	if (is_bench)
 		ops->use_rr++;
-	else
-		write(1, "rr\n", 3);
+	write(1, "rr\n", 3);
 }

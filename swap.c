@@ -27,8 +27,7 @@ void	sa(t_stack *a, t_ops *ops, int is_bench)
         return ;
     if (is_bench)
         ops->use_sa++;
-    else
-        write(1, "sa\n", 3);
+    write(1, "sa\n", 3);
 }
 
 void	sb(t_stack *b, t_ops *ops, int is_bench)
@@ -37,8 +36,7 @@ void	sb(t_stack *b, t_ops *ops, int is_bench)
         return ;
     if (is_bench)
         ops->use_sb++;
-    else
-        write(1, "sb\n", 3);
+    write(1, "sb\n", 3);
 }
 
 void	ss(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
@@ -52,6 +50,5 @@ void	ss(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
         return ;
     if (is_bench)
         ops->use_ss++;
-    else
-        write(1, "ss\n", 3);
+    write(1, "ss\n", 3);
 }

@@ -1,5 +1,5 @@
-[bench] disorder: 46.93%
-[bench] strategy: Medium / O(nûn)
-[bench] total_ops: 1088
-[bench] sa: 0 sb: 0 ss: 0 pa: 256 pb: 256
-[bench] ra: 400 rb: 89 rr: 0 rra: 0 rrb: 87 rrr: 0
+[bench] disorder: 53.68%
+[bench] strategy: Complex / O(nlogn)
+[bench] total_ops: 16937
+[bench] sa: 0 sb: 0 ss: 0 pa: 319 pb: 319
+[bench] ra: 8153 rb: 0 rr: 0 rra: 7834 rrb: 312 rrr: 0
