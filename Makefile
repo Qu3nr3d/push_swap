@@ -2,8 +2,11 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-all: 
-	$(CC) -g $(CFLAGS) lst_functions.c \
+NAME = push_swap
+
+OBJS = $(SRC:.c=.o)
+
+SRCS = lst_functions.c \
 	push.c \
 	swap.c \
 	rotate.c \
@@ -21,3 +24,13 @@ all:
 	simple_sort.c \
 	medium_sort.c \
 	metrics.c
+
+all: $(NAME) 
+
+$(NAME):
+	@$(CC) -g $(CFLAGS) $(SRCS) -o $(NAME)
+
+clean:
+	@rm -f $(NAME)
+
+re: clean all

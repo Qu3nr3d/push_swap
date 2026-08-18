@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-// initialize_flags is located in flags.c
+// initialize_flags is located in flags.c and initialize_metrics in metrics.c
 void initialize_stacks (t_stack *stack_a, t_stack *stack_b)
 {
 	stack_a->first_node = NULL;

@@ -89,6 +89,6 @@ int	main(int argc, char **argv)
 		update_metrics(&metrics);
 		print_benchmark(metrics);
 	}
-	display_stack(stack_a.first_node);
+	ft_lstclear(&stack_a.first_node);
 	return (0);
 }

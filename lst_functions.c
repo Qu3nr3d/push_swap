@@ -63,3 +63,20 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	last->next = new;
 	new->prev = last;
 }
+
+void	ft_lstclear(t_list **lst)
+{
+	t_list	*current;
+	t_list	*tmp;
+
+	if (!lst | !*lst)
+		return ;
+	current = *lst;
+	while (current)
+	{
+		tmp = current;
+		current = current->next;
+		free(tmp);
+	}
+	*lst = NULL;
+}

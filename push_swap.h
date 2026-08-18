@@ -93,6 +93,7 @@ void	complex_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
 t_list	*ft_lstnew(int number);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
+void	ft_lstclear(t_list **lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 int		is_number(char *n);
 int		ft_atoi(const char *nptr, int *error);
