@@ -1,17 +1,21 @@
 #include "push_swap.h"
 
-int	ft_isdigit(int c)
+int	is_number(char *str)
 {
-	return (c >= '0' && c <= '9');
-}
+	int	i;
 
-int is_number(char *n)
-{
-	while (*n)
+	if (!str || !str[0])
+		return (0);
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (!str[i])
+		return (0);
+	while (str[i])
 	{
-		if (!ft_isdigit(*n))
+		if (str[i] < '0' || str[i] > '9')
 			return (0);
-		n++;
+		i++;
 	}
 	return (1);
 }

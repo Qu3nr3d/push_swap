@@ -1,12 +1,5 @@
 #include "push_swap.h"
 
-typedef struct s_merge
-{
-	int	left;
-	int	right;
-	int	ascending;
-}	t_merge;
-
 static int	get_block_size(int size)
 {
 	int	root;

@@ -39,9 +39,15 @@ void print_operations(t_metrics metrics)
 
 void print_benchmark(t_metrics metrics)
 {
+	char *disorder;
+
+	disorder = float_to_str(metrics.disorder * 100);
+	if (!disorder)
+		return ;
 	print_on_stderr("[bench] disorder: ");
-	//disorder trzbea zamienic float na char
-	print_on_stderr("\n");
+	print_on_stderr(disorder);
+	print_on_stderr("%\n");
+	free(disorder);
 	print_on_stderr("[bench] strategy: ");
 	print_on_stderr(metrics.strategy);
 	print_on_stderr("\n");

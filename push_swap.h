@@ -6,6 +6,20 @@
 # include <stddef.h>
 # include <unistd.h>
 
+typedef struct s_move
+{
+	int	a_rot;
+	int	b_rot;
+	int	cost;
+}	t_move;
+
+typedef struct s_merge
+{
+	int	left;
+	int	right;
+	int	ascending;
+}	t_merge;
+
 typedef struct s_ops
 {
 	int	use_pa;
@@ -85,6 +99,7 @@ int		ft_atoi(const char *nptr, int *error);
 char	*ft_strdup(const char *s);
 char	*ft_itoa(int n);
 int		is_flag(char *str);
+char	*float_to_str(double n);
 
 
 

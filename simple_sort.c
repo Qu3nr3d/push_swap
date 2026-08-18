@@ -1,12 +1,5 @@
 #include "push_swap.h"
 
-typedef struct s_move
-{
-	int	a_rot;
-	int	b_rot;
-	int	cost;
-}	t_move;
-
 static int	fits_between(int left, int right, int value)
 {
 	if (left < right)

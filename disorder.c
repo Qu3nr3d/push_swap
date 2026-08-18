@@ -45,7 +45,7 @@ void	choose_algorithm(t_flags *flags, float disorder)
 	{
 		if (disorder < 0.2)
 			flags->is_simple = 1;
-		else if (disorder > 0.2 && disorder < 0.5)
+		else if (disorder < 0.5)
 			flags->is_medium = 1;
 		else
 			flags->is_complex = 1;
@@ -108,7 +108,7 @@ static void	fill_float(char *s, long x, int neg)
 	s[i] = '\0';
 }
 
-char	*float_to_str(double n)
+char	*float_to_str(double const n)
 {
 	char	*s;
 	long	x;
@@ -120,7 +120,7 @@ char	*float_to_str(double n)
 	if (neg)
 		x = -x;
 	len = get_len(x, neg);
-	s = malloc(len);
+	s = malloc(len + 1);
 	if (!s)
 		return (NULL);
 	fill_float(s, x, neg);
