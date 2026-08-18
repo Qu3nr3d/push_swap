@@ -22,6 +22,21 @@ static int check_strategy(t_flags *flags)
 			 || flags->is_complex || flags->is_adaptive);
 }
 
+int	is_flag(char *str)
+{
+	if (str_is_equal("--bench", str))
+		return (1);
+	if (str_is_equal("--simple", str))
+		return (1);
+	if (str_is_equal("--medium", str))
+		return (1);
+	if (str_is_equal("--complex", str))
+		return (1);
+	if (str_is_equal("--adaptive", str))
+		return (1);
+	return (0);
+}
+
 int check_flags(char *str, t_flags *flags)
 {
 	if (str_is_equal("--bench", str))
@@ -62,21 +77,9 @@ int initialize_flags(int argc, char *args[], t_flags *flags)
 			return (0);
 		i++;
 	}
+	if (!flags->is_simple && !flags->is_medium && !flags->is_complex)
+	 	flags->is_adaptive = 1;
 	return (1);
 }
 
 
-int	is_flag(char *str)
-{
-	if (str_is_equal("--bench", str))
-		return (1);
-	if (str_is_equal("--simple", str))
-		return (1);
-	if (str_is_equal("--medium", str))
-		return (1);
-	if (str_is_equal("--complex", str))
-		return (1);
-	if (str_is_equal("--adaptive", str))
-		return (1);
-	return (0);
-}

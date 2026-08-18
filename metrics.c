@@ -5,11 +5,26 @@ char *create_strategy_str(t_flags flags)
 	char *strategy;
 
 	if (flags.is_simple)
-		strategy = ft_strdup("Simple / O(n^2)");
+	{
+		if (!flags.is_adaptive)
+			strategy = ft_strdup("Simple / O(n^2)");
+		else
+			strategy = ft_strdup("Adaptive / O(n^2)");
+	}
 	else if (flags.is_medium)
-		strategy = ft_strdup("Medium / O(n\xFBn)");
+	{
+		if (!flags.is_adaptive)
+			strategy = ft_strdup("Medium / O(n√n)");
+		else
+			strategy = ft_strdup("Adaptive / O(n√n)");
+	}
 	else
-		strategy = ft_strdup("Complex / O(nlogn)");
+	{
+		if (!flags.is_adaptive)
+			strategy = ft_strdup("Complex / O(nlogn)");
+		else
+			strategy = ft_strdup("Adaptive / O(nlogn)");
+	}
 	return (strategy);
 }
 

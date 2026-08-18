@@ -99,6 +99,7 @@ int		is_number(char *n);
 int		ft_atoi(const char *nptr, int *error);
 char	*ft_strdup(const char *s);
 char	*ft_itoa(int n);
+char	*ft_strjoin(char const *s1, char const *s2);
 int		is_flag(char *str);
 char	*float_to_str(double n);
 
