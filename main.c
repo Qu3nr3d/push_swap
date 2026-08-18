@@ -82,12 +82,16 @@ int	main(int argc, char **argv)
 	disorder = compute_disorder(stack_a);
 	choose_algorithm(&flags, disorder);
 	if (flags.is_bench)
-		initialize_metrics(&metrics, flags, stack_a);
+	{
+		if (!initialize_metrics(&metrics, flags, stack_a))
+			return (write(2, "Error\n", 6), 1);
+	}
 	sort(&stack_a, &stack_b, &metrics.ops, flags);
 	if (flags.is_bench)
 	{
 		update_metrics(&metrics);
-		print_benchmark(metrics);
+		if (!print_benchmark(metrics))
+			return (write(2, "Error\n", 6), 1);
 	}
 	ft_lstclear(&stack_a.first_node);
 	return (0);

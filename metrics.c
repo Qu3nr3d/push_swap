@@ -13,12 +13,15 @@ char *create_strategy_str(t_flags flags)
 	return (strategy);
 }
 
-void initialize_metrics(t_metrics *metrics, t_flags flags, t_stack stack_a)
+int initialize_metrics(t_metrics *metrics, t_flags flags, t_stack stack_a)
 {
 	metrics->disorder = compute_disorder(stack_a);
 	metrics->strategy = create_strategy_str(flags);
+	if (!metrics->strategy)
+		return (0);
 	metrics->total_ops = 0;
 	metrics->ops = initialize_ops();
+	return (1);
 }
 
 void update_metrics(t_metrics *metrics)
