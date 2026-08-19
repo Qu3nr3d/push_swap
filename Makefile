@@ -23,7 +23,8 @@ SRCS = lst_functions.c \
 	print.c \
 	simple_sort.c \
 	medium_sort.c \
-	metrics.c
+	metrics.c \
+	indexate_utils.c
 
 all: $(NAME) 
 

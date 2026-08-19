@@ -5,6 +5,7 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <unistd.h>
+# include <limits.h>
 
 typedef struct s_move
 {
@@ -102,6 +103,11 @@ char	*ft_itoa(int n);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		is_flag(char *str);
 char	*float_to_str(double n);
+int find_number_of_digits(int n);
+int find_max_number(t_stack stack);
+t_list	*find_node_with_first_max(t_stack stack, int max);
+t_list *find_node_with_prev_max(t_stack stack, int *next_max);
+t_list	*find_node_with_last_max(t_stack stack);
 
 
 

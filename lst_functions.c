@@ -69,7 +69,7 @@ void	ft_lstclear(t_list **lst)
 	t_list	*current;
 	t_list	*tmp;
 
-	if (!lst | !*lst)
+	if (!lst || !*lst)
 		return ;
 	current = *lst;
 	while (current)
