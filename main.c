@@ -35,6 +35,50 @@ void display_index(t_list *tab)
 	printf("\n");
 }
 
+char* index_in_binary(int n)
+{
+	int digits_num;
+	int nbr;
+	char *binary;
+
+	digits_num = 0;
+	nbr = n;
+	while (nbr)
+	{
+		nbr /= 2;
+		digits_num++;
+		//printf("%d\n", n);
+	}
+	binary = malloc(digits_num * sizeof(char) + 1);
+	binary[digits_num] = '\0';
+	//printf("n: %d\n", n);
+	while(--digits_num > -1)
+	{
+		//printf("digits_num: %d\n", digits_num);
+		binary[digits_num] = (char){n % 2 + '0'};
+		//printf("char: %c\n", (char){n % 2 + '0'});
+		//printf("str: %s\n", binary);
+		n /= 2;
+	}
+	return (binary);
+}
+
+void display_index_in_binary(t_list *tab)
+{
+	t_list *node;
+
+	node = tab;
+	while (node)
+	{
+		printf("| ");
+		printf("%s", index_in_binary(node->index));
+		printf(" |");
+		node = node->next;
+		printf("\n");
+	}
+	printf("\n");
+}
+
 void sort(t_stack *a, t_stack *b, t_ops *ops, t_flags flags)
 {
 	if (flags.is_simple)
@@ -69,12 +113,14 @@ int	main(int argc, char **argv)
 	if(!initialize_flags(argc, argv, &flags))
 		return(write(2, "Error\n", 6));
 	initialize_stacks(&stack_a, &stack_b);
+	
 	if (!parse(argc, argv, &stack_a))
 		return (write(2, "Error\n", 6), 1);
 	disorder = compute_disorder(stack_a);
 	choose_algorithm(&flags, disorder);
 	if (!initialize_metrics(&metrics, flags, stack_a))
 		return (write(2, "Error\n", 6), 1);
+	//display_stack(stack_a.first_node);
 	sort(&stack_a, &stack_b, &metrics.ops, flags);
 	if (flags.is_bench)
 	{
@@ -82,8 +128,7 @@ int	main(int argc, char **argv)
 		if (!print_benchmark(metrics))
 			return (write(2, "Error\n", 6), 1);
 	}
-	display_stack(stack_a.first_node);
-	display_index(stack_a.first_node);
+	//display_stack(stack_a.first_node);
 	free_stacks(&stack_a, &stack_b);
 	return (0);
 }

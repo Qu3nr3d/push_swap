@@ -22,7 +22,7 @@ void pa(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
     b->size--;
     if (is_bench)
         ops->use_pa++;
-    //write(1, "pa\n", 3);
+    write(1, "pa\n", 3);
 }
 
 void pb(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
@@ -47,6 +47,6 @@ void pb(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
     a->size--;
     if (is_bench)
         ops->use_pb++;
-    //write(1, "pb\n", 3);
+    write(1, "pb\n", 3);
 
 }

@@ -1,6 +1,9 @@
 #include "push_swap.h"
 #include "stdio.h"
 void display_stack(t_list *tab);
+void display_index(t_list *tab);
+void display_index_in_binary(t_list *tab);
+char* index_in_binary(int n);
 
 void indexate(t_stack *stack)
 {
@@ -67,6 +70,8 @@ int is_sorted(t_stack a)
 	t_list *node;
 
 	node = a.first_node;
+	//printf("display stack in is_sorted:\n");
+	//display_stack(a.first_node);
 	while (node->next)
 	{
 		if (node->number > node->next->number)
@@ -80,46 +85,58 @@ void complex_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
 {
 	int i;
 	int j;
-	//int max_digits;
+	int max_digits;
+	int size;
 
 	i = 0;
 	j = 0;
-	//max_digits = find_number_of_digits(a->size);
+	max_digits = find_number_of_digits(a->size);
 	//printf("stack a numbers:\n");
 	//display_stack(a->first_node);
 	indexate(a);
 	//printf("stack a indexes:\n");
-	//display_indexes(a->first_node);
-	while (!is_sorted(*a))
+	//display_index(a->first_node);
+	//display_index_in_binary(a->first_node);
+	size = a->size;
+	while (i < max_digits)
 	{
-		while (a->first_node && j < a->size)
+		while (a->first_node && j < size)
 		{
 			if ((a->first_node->index & (1 << i)) == 0)
 			{
-				//printf("number:%i\n", tmpa->number);
+				//printf("number:%s\n", index_in_binary(a->first_node->index));
 				
 				pb(a, b, ops, is_bench);
-				//printf("stack a after pushing:\n");
-				//display_stack(a->first_node);
-				//printf("stack b after pushing:\n");
-				//display_stack(b->first_node);
+				//printf("stack a after pushing to b:\n");
+				//display_index(a->first_node);
+				//display_index_in_binary(a->first_node);
+				//printf("stack b after pushing to b:\n");
+				//display_index(b->first_node);
+				//display_index_in_binary(b->first_node);
 			}
 			else
+			{
+				//printf("number:%s\n", index_in_binary(a->first_node->index));
 				ra(a, ops, is_bench);
+				//printf("stack a after rotation:\n");
+				//display_index(a->first_node);
+				//display_index_in_binary(a->first_node);
+			}
 			j++;
+			//printf("size: %d\n", size);
+			//printf("j: %d\n", j);
 		}
 		while (b->first_node)
+		{
 			pa(a, b, ops, is_bench);
+		}
+		//printf("stack a after one sort:\n");
+		//display_index(a->first_node);
+		//display_index_in_binary(a->first_node);
 		j = 0;
 		i++;
-	}
-		// put_to_a(a, b, ops, is_bench);
-		// tmpa = a->first_node;
-		//printf("%i\n", i);
-		//printf("display_stack a:\n");
+		//printf("display stack in sort:\n");
 		//display_stack(a->first_node);
-		//printf("display_stack b\n");
-		//display_stack(b->first_node);
-		// i++;
+	}
 }
 
