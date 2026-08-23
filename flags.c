@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   flags.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kgirczyc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/23 16:55:19 by kgirczyc          #+#    #+#             */
+/*   Updated: 2026/08/23 16:56:40 by kgirczyc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	str_is_equal(char *s1, char *s2)
@@ -16,10 +28,10 @@ int	str_is_equal(char *s1, char *s2)
 	return (1);
 }
 
-static int check_strategy(t_flags *flags)
+static int	check_strategy(t_flags *flags)
 {
 	return (flags->is_simple || flags->is_medium
-			 || flags->is_complex || flags->is_adaptive);
+		|| flags->is_complex || flags->is_adaptive);
 }
 
 int	is_flag(char *str)
@@ -37,17 +49,17 @@ int	is_flag(char *str)
 	return (0);
 }
 
-int check_flags(char *str, t_flags *flags)
+int	check_flags(char *str, t_flags *flags)
 {
 	if (str_is_equal("--bench", str))
 	{
-		if(flags->is_bench)
+		if (flags->is_bench)
 			return (0);
 		flags->is_bench = 1;
 	}
 	else if (is_flag(str))
 	{
-		if(check_strategy(flags))
+		if (check_strategy(flags))
 			return (0);
 		else if (str_is_equal("--simple", str))
 			flags->is_simple = 1;
@@ -61,7 +73,7 @@ int check_flags(char *str, t_flags *flags)
 	return (1);
 }
 
-int initialize_flags(int argc, char *args[], t_flags *flags)
+int	initialize_flags(int argc, char *args[], t_flags *flags)
 {
 	int	i;
 
@@ -78,8 +90,6 @@ int initialize_flags(int argc, char *args[], t_flags *flags)
 		i++;
 	}
 	if (!flags->is_simple && !flags->is_medium && !flags->is_complex)
-	 	flags->is_adaptive = 1;
+		flags->is_adaptive = 1;
 	return (1);
 }
-
-

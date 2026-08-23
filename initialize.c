@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initialize.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kgirczyc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/23 16:58:39 by kgirczyc          #+#    #+#             */
+/*   Updated: 2026/08/23 16:59:36 by kgirczyc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 // initialize_flags is located in flags.c and initialize_metrics in metrics.c
-void initialize_stacks (t_stack *stack_a, t_stack *stack_b)
+void	initialize_stacks(t_stack *stack_a, t_stack *stack_b)
 {
 	stack_a->first_node = NULL;
 	stack_a->last_node = NULL;
@@ -11,9 +23,9 @@ void initialize_stacks (t_stack *stack_a, t_stack *stack_b)
 	stack_b->size = 0;
 }
 
-t_ops initialize_ops()
+t_ops	initialize_ops(void)
 {
-	t_ops ops;
+	t_ops	ops;
 
 	ops.use_pa = 0;
 	ops.use_pb = 0;

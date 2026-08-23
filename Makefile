@@ -4,8 +4,6 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = push_swap
 
-OBJS = $(SRC:.c=.o)
-
 SRCS = lst_functions.c \
 	push.c \
 	swap.c \
@@ -25,12 +23,20 @@ SRCS = lst_functions.c \
 	medium_sort.c \
 	metrics.c
 
+OBJS = $(SRCS:.c=.o)
+
 all: $(NAME) 
 
-$(NAME):
-	@$(CC) -g $(CFLAGS) $(SRCS) -o $(NAME)
+$(NAME): $(OBJS)
+	@$(CC) -g $(CFLAGS) $(OBJS) -o $(NAME)
+
+%.o: %.c push_swap.h
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
+	@rm -f $(OBJS)
+
+fclean: clean
 	@rm -f $(NAME)
 
 re: clean all

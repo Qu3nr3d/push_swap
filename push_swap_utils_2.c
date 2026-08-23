@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_utils_2.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/23 16:44:41 by kgirczyc          #+#    #+#             */
+/*   Updated: 2026/08/23 17:58:15 by kgirczyc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static size_t	nbr_len(int n)
@@ -18,11 +30,9 @@ static size_t	nbr_len(int n)
 	return (len);
 }
 
-// trzbea przepisac aby bylo mniej linijek
 char	*ft_itoa(int n)
 {
 	int		i;
-	char	digit;
 	char	*str;
 
 	if (n == 0)
@@ -30,10 +40,9 @@ char	*ft_itoa(int n)
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
 	i = nbr_len(n);
-	str = malloc((i + 1) * sizeof(char));
+	str = malloc(i + 1);
 	if (!str)
 		return (NULL);
-	digit = 0;
 	if (n < 0)
 	{
 		str[0] = '-';
@@ -42,10 +51,8 @@ char	*ft_itoa(int n)
 	str[i--] = '\0';
 	while (n > 0)
 	{
-		digit = (char){n % 10 + 48};
+		str[i--] = (char){n % 10 + 48};
 		n /= 10;
-		str[i] = digit;
-		i--;
 	}
 	return (str);
 }

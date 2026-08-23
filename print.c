@@ -1,22 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/23 17:17:02 by kgirczyc          #+#    #+#             */
+/*   Updated: 2026/08/23 17:21:18 by kgirczyc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-typedef struct s_str_ops
-{
-	char	*str_total_ops;
-	char	*str_pa;
-	char	*str_pb;
-	char	*str_sa;
-	char	*str_sb;
-	char	*str_ss;
-	char	*str_ra;
-	char	*str_rb;
-	char	*str_rr;
-	char	*str_rra;
-	char	*str_rrb;
-	char	*str_rrr;
-} t_str_ops;
-
-int is_error_in_allocation(t_str_ops str_ops)
+int	is_error_in_allocation(t_str_ops str_ops)
 {
 	if (!str_ops.str_total_ops)
 		return (1);
@@ -45,8 +41,7 @@ int is_error_in_allocation(t_str_ops str_ops)
 	return (0);
 }
 
-
-int convert_ops_to_str(t_metrics metrics, t_str_ops *str_ops)
+int	convert_ops_to_str(t_metrics metrics, t_str_ops *str_ops)
 {
 	str_ops->str_total_ops = ft_itoa(metrics.total_ops);
 	str_ops->str_pa = ft_itoa(metrics.ops.use_pa);
@@ -65,16 +60,7 @@ int convert_ops_to_str(t_metrics metrics, t_str_ops *str_ops)
 	return (1);
 }
 
-void print_on_stderr(char *s)
-{
-	while (*s)
-	{
-		write(2, s, 1);
-		s++;
-	}
-}
-
-void print_operations(t_str_ops str_ops)
+void	print_operations(t_str_ops str_ops)
 {
 	print_on_stderr("[bench] sa: ");
 	print_on_stderr(str_ops.str_sa);
@@ -102,7 +88,7 @@ void print_operations(t_str_ops str_ops)
 	print_on_stderr("\n");
 }
 
-void free_str_ops(t_str_ops *str_ops)
+void	free_str_ops(t_str_ops *str_ops)
 {
 	free(str_ops->str_total_ops);
 	str_ops->str_total_ops = NULL;
@@ -130,7 +116,7 @@ void free_str_ops(t_str_ops *str_ops)
 	str_ops->str_rrr = NULL;
 }
 
-int print_benchmark(t_metrics metrics)
+int	print_benchmark(t_metrics metrics)
 {
 	char		*disorder;
 	t_str_ops	str_ops;

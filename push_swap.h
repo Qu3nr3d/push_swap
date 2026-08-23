@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/23 17:04:27 by kgirczyc          #+#    #+#             */
+/*   Updated: 2026/08/23 17:20:52 by kgirczyc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-
 
 # include <stdlib.h>
 # include <stddef.h>
@@ -33,15 +44,15 @@ typedef struct s_ops
 	int	use_rra;
 	int	use_rrb;
 	int	use_rrr;
-} t_ops;
+}	t_ops;
 
 typedef struct s_metrics
 {
 	float			disorder;
 	char			*strategy;
 	int				total_ops;
-	t_ops	ops;
-} t_metrics;
+	t_ops			ops;
+}	t_metrics;
 
 typedef struct s_flags
 {
@@ -49,8 +60,8 @@ typedef struct s_flags
 	int	is_simple;
 	int	is_medium;
 	int	is_complex;
-	int is_adaptive;
-} t_flags;
+	int	is_adaptive;
+}	t_flags;
 
 typedef struct s_list
 {
@@ -67,9 +78,25 @@ typedef struct s_stack
 	int		size;
 }	t_stack;
 
-int	initialize_flags(int argc, char *args[], t_flags *flags);
-t_ops	initialize_ops();
-void	initialize_stacks (t_stack *stack_a, t_stack *stack_b);
+typedef struct	s_str_ops
+{
+	char	*str_total_ops;
+	char	*str_pa;
+	char	*str_pb;
+	char	*str_sa;
+	char	*str_sb;
+	char	*str_ss;
+	char	*str_ra;
+	char	*str_rb;
+	char	*str_rr;
+	char	*str_rra;
+	char	*str_rrb;
+	char	*str_rrr;
+}	t_str_ops;
+
+int		initialize_flags(int argc, char *args[], t_flags *flags);
+t_ops	initialize_ops(void);
+void	initialize_stacks(t_stack *stack_a, t_stack *stack_b);
 int		parse(int argc, char *args[], t_stack *stack_a);
 int		initialize_metrics(t_metrics *metrics, t_flags flags, t_stack stack_a);
 float	compute_disorder(t_stack stack_a);
@@ -86,7 +113,7 @@ void	rb(t_stack *b, t_ops *ops, int is_bench);
 void	rr(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
 void	rra(t_stack *a, t_ops *ops, int is_bench);
 void	rrb(t_stack *b, t_ops *ops, int is_bench);
-void    rrr(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
+void	rrr(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
 void	simple_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
 void	medium_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
 void	complex_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
@@ -102,7 +129,6 @@ char	*ft_itoa(int n);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		is_flag(char *str);
 char	*float_to_str(double n);
-
-
+void	print_on_stderr(char *s);
 
 #endif

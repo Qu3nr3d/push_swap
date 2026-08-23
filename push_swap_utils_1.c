@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_utils_1.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/23 16:54:36 by kgirczyc          #+#    #+#             */
+/*   Updated: 2026/08/23 17:20:43 by kgirczyc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 int	is_number(char *str)
@@ -22,8 +34,8 @@ int	is_number(char *str)
 
 int	ft_atoi(const char *nptr, int *error)
 {
-	long long number;
-	int	sign;
+	long long	number;
+	int			sign;
 
 	number = 0;
 	sign = 1;
@@ -73,4 +85,13 @@ char	*ft_strdup(const char *s)
 		i++;
 	}
 	return (str);
+}
+
+void	print_on_stderr(char *s)
+{
+	while (*s)
+	{
+		write(2, s, 1);
+		s++;
+	}
 }

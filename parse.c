@@ -1,10 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kgirczyc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/23 17:08:01 by kgirczyc          #+#    #+#             */
+/*   Updated: 2026/08/23 17:09:25 by kgirczyc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-static int is_duplicate(t_stack *stack, int number) {
-	t_list *node;
+static int	is_duplicate(t_stack *stack, int number)
+{
+	t_list	*node;
 
 	node = stack->first_node;
-	while (node) {
+	while (node)
+	{
 		if (node->number == number)
 			return (1);
 		node = node->next;
@@ -12,10 +26,11 @@ static int is_duplicate(t_stack *stack, int number) {
 	return (0);
 }
 
-static int add_number(t_stack *stack_a, char *arg) {
-	t_list *node;
-	int number;
-	int error;
+static int	add_number(t_stack *stack_a, char *arg)
+{
+	t_list	*node;
+	int		number;
+	int		error;
 
 	number = ft_atoi(arg, &error);
 	if (error)
@@ -24,14 +39,14 @@ static int add_number(t_stack *stack_a, char *arg) {
 		return (0);
 	node = ft_lstnew(number);
 	if (!node)
-		return(0);
+		return (0);
 	ft_lstadd_back(&stack_a->first_node, node);
 	stack_a->last_node = node;
 	stack_a->size++;
 	return (1);
 }
 
-int parse(int argc, char *args[], t_stack *stack_a)
+int	parse(int argc, char *args[], t_stack *stack_a)
 {
 	int	i;
 

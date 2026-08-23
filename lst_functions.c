@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lst_functions.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kgirczyc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/23 17:07:30 by kgirczyc          #+#    #+#             */
+/*   Updated: 2026/08/23 17:07:51 by kgirczyc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 t_list	*ft_lstnew(int number)
@@ -6,7 +18,7 @@ t_list	*ft_lstnew(int number)
 
 	new_node = calloc(1, sizeof(t_list));
 	if (!new_node)
-		return(NULL);
+		return (NULL);
 	new_node->number = number;
 	new_node->next = NULL;
 	new_node->prev = NULL;
