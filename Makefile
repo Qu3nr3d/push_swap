@@ -12,7 +12,6 @@ SRCS = lst_functions.c \
 	disorder.c \
 	flags.c \
 	main.c \
-	push_swap.h \
 	initialize.c \
 	push_swap_utils_1.c \
 	push_swap_utils_2.c \
@@ -20,8 +19,8 @@ SRCS = lst_functions.c \
 	parse.c \
 	print.c \
 	simple_sort.c \
-	medium_sort.c \
-	metrics.c
+	metrics.c \
+	indexate_utils.c
 
 OBJS = $(SRCS:.c=.o)
 

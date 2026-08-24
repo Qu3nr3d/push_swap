@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akacpere@student.42warsaw.pl <akacpere>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:09:43 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/23 17:16:45 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/24 22:11:37 by akacpere@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,13 @@ void	sort(t_stack *a, t_stack *b, t_ops *ops, t_flags flags)
 {
 	if (flags.is_simple)
 		simple_sort(a, b, ops, flags.is_bench);
-	else if (flags.is_medium)
-		medium_sort(a, b, ops, flags.is_bench);
+	// else if (flags.is_medium)
+	// 	medium_sort(a, b, ops, flags.is_bench);
 	else
 		complex_sort(a, b, ops, flags.is_bench);
 }
 
+// robienie free na stacku w razie errorów (napisanie funckji która robi free i printuje błąd) + jeszcze raz valgrindem na koniec sprawdzic w roznych przypadkach
 int	main(int argc, char **argv)
 {
 	t_flags		flags;

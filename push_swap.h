@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: akacpere@student.42warsaw.pl <akacpere>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:04:27 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/23 17:20:52 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/24 22:09:14 by akacpere@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <unistd.h>
+# include <limits.h>
 
 typedef struct s_move
 {
@@ -130,5 +131,10 @@ char	*ft_strjoin(char const *s1, char const *s2);
 int		is_flag(char *str);
 char	*float_to_str(double n);
 void	print_on_stderr(char *s);
+int		find_number_of_digits(int n);
+int		find_max_number(t_stack stack);
+t_list	*find_node_with_first_max(t_stack stack, int max);
+t_list *find_node_with_prev_max(t_stack stack, int *next_max);
+t_list	*find_node_with_last_max(t_stack stack);
 
 #endif
