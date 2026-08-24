@@ -1,0 +1,2 @@
+valgrind ./checker 5 7 89 lol 12
+valgrind ./checker 5 7 89 12 12
