@@ -3,45 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: akacpere@student.42warsaw.pl <akacpere>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:17:02 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/23 17:21:18 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/25 16:35:01 by akacpere@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_error_in_allocation(t_str_ops str_ops)
+static bool	is_error_in_allocation(t_str_ops str_ops)
 {
 	if (!str_ops.str_total_ops)
-		return (1);
+		return (true);
 	if (!str_ops.str_pa)
-		return (1);
+		return (true);
 	if (!str_ops.str_pb)
-		return (1);
+		return (true);
 	if (!str_ops.str_sa)
-		return (1);
+		return (true);
 	if (!str_ops.str_sb)
-		return (1);
+		return (true);
 	if (!str_ops.str_ss)
-		return (1);
+		return (true);
 	if (!str_ops.str_ra)
-		return (1);
+		return (true);
 	if (!str_ops.str_rb)
-		return (1);
+		return (true);
 	if (!str_ops.str_rr)
-		return (1);
+		return (true);
 	if (!str_ops.str_rra)
-		return (1);
+		return (true);
 	if (!str_ops.str_rrb)
-		return (1);
+		return (true);
 	if (!str_ops.str_rrr)
-		return (1);
-	return (0);
+		return (true);
+	return (false);
 }
 
-int	convert_ops_to_str(t_metrics metrics, t_str_ops *str_ops)
+static bool	convert_ops_to_str(t_metrics metrics, t_str_ops *str_ops)
 {
 	str_ops->str_total_ops = ft_itoa(metrics.total_ops);
 	str_ops->str_pa = ft_itoa(metrics.ops.use_pa);
@@ -56,11 +56,11 @@ int	convert_ops_to_str(t_metrics metrics, t_str_ops *str_ops)
 	str_ops->str_rrb = ft_itoa(metrics.ops.use_rrb);
 	str_ops->str_rrr = ft_itoa(metrics.ops.use_rrr);
 	if (is_error_in_allocation(*str_ops))
-		return (0);
-	return (1);
+		return (false);
+	return (true);
 }
 
-void	print_operations(t_str_ops str_ops)
+static void	print_operations(t_str_ops str_ops)
 {
 	print_on_stderr("[bench] sa: ");
 	print_on_stderr(str_ops.str_sa);
@@ -88,7 +88,7 @@ void	print_operations(t_str_ops str_ops)
 	print_on_stderr("\n");
 }
 
-void	free_str_ops(t_str_ops *str_ops)
+static void	free_str_ops(t_str_ops *str_ops)
 {
 	free(str_ops->str_total_ops);
 	str_ops->str_total_ops = NULL;
@@ -116,16 +116,16 @@ void	free_str_ops(t_str_ops *str_ops)
 	str_ops->str_rrr = NULL;
 }
 
-int	print_benchmark(t_metrics metrics)
+bool	print_benchmark(t_metrics metrics)
 {
 	char		*disorder;
 	t_str_ops	str_ops;
 
 	disorder = float_to_str(metrics.disorder * 100);
 	if (!disorder)
-		return (0);
+		return (false);
 	if (!convert_ops_to_str(metrics, &str_ops))
-		return (0);
+		return (false);
 	print_on_stderr("[bench] disorder: ");
 	print_on_stderr(disorder);
 	print_on_stderr("%\n");
@@ -139,5 +139,5 @@ int	print_benchmark(t_metrics metrics)
 	print_on_stderr("\n");
 	print_operations(str_ops);
 	free_str_ops(&str_ops);
-	return (1);
+	return (true);
 }

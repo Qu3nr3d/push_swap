@@ -6,7 +6,7 @@
 /*   By: akacpere@student.42warsaw.pl <akacpere>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:04:27 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/24 22:09:14 by akacpere@st      ###   ########.fr       */
+/*   Updated: 2026/08/25 16:34:23 by akacpere@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stddef.h>
 # include <unistd.h>
 # include <limits.h>
+# include <stdbool.h>
 
 typedef struct s_move
 {
@@ -95,15 +96,15 @@ typedef struct	s_str_ops
 	char	*str_rrr;
 }	t_str_ops;
 
-int		initialize_flags(int argc, char *args[], t_flags *flags);
+bool	initialize_flags(int argc, char *args[], t_flags *flags);
 t_ops	initialize_ops(void);
 void	initialize_stacks(t_stack *stack_a, t_stack *stack_b);
-int		parse(int argc, char *args[], t_stack *stack_a);
-int		initialize_metrics(t_metrics *metrics, t_flags flags, t_stack stack_a);
+bool	parse(int argc, char *args[], t_stack *stack_a);
+bool	initialize_metrics(t_metrics *metrics, t_flags flags, t_stack stack_a);
 float	compute_disorder(t_stack stack_a);
 void	choose_algorithm(t_flags *flags, float disorder);
 void	update_metrics(t_metrics *metrics);
-int		print_benchmark(t_metrics metrics);
+bool	print_benchmark(t_metrics metrics);
 void	sa(t_stack *a, t_ops *ops, int is_bench);
 void	sb(t_stack *b, t_ops *ops, int is_bench);
 void	ss(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
@@ -123,12 +124,12 @@ int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstclear(t_list **lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
-int		is_number(char *n);
+bool	is_number(char *n);
 int		ft_atoi(const char *nptr, int *error);
 char	*ft_strdup(const char *s);
 char	*ft_itoa(int n);
 char	*ft_strjoin(char const *s1, char const *s2);
-int		is_flag(char *str);
+bool	is_flag(char *str);
 char	*float_to_str(double n);
 void	print_on_stderr(char *s);
 int		find_number_of_digits(int n);

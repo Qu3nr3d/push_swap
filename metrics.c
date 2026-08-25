@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   metrics.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akacpere@student.42warsaw.pl <akacpere>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:00:00 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/23 17:02:46 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/25 16:33:29 by akacpere@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-char	*create_strategy_str(t_flags flags)
+static char	*create_strategy_str(t_flags flags)
 {
 	char	*strategy;
 
@@ -40,15 +40,15 @@ char	*create_strategy_str(t_flags flags)
 	return (strategy);
 }
 
-int	initialize_metrics(t_metrics *metrics, t_flags flags, t_stack stack_a)
+bool	initialize_metrics(t_metrics *metrics, t_flags flags, t_stack stack_a)
 {
 	metrics->disorder = compute_disorder(stack_a);
 	metrics->strategy = create_strategy_str(flags);
 	if (!metrics->strategy)
-		return (0);
+		return (false);
 	metrics->total_ops = 0;
 	metrics->ops = initialize_ops();
-	return (1);
+	return (true);
 }
 
 void	update_metrics(t_metrics *metrics)

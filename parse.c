@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akacpere@student.42warsaw.pl <akacpere>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:08:01 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/23 17:09:25 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/25 16:23:17 by akacpere@st      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	is_duplicate(t_stack *stack, int number)
+static bool	is_duplicate(t_stack *stack, int number)
 {
 	t_list	*node;
 
@@ -20,13 +20,13 @@ static int	is_duplicate(t_stack *stack, int number)
 	while (node)
 	{
 		if (node->number == number)
-			return (1);
+			return (true);
 		node = node->next;
 	}
-	return (0);
+	return (false);
 }
 
-static int	add_number(t_stack *stack_a, char *arg)
+static bool	add_number(t_stack *stack_a, char *arg)
 {
 	t_list	*node;
 	int		number;
@@ -34,19 +34,19 @@ static int	add_number(t_stack *stack_a, char *arg)
 
 	number = ft_atoi(arg, &error);
 	if (error)
-		return (0);
+		return (false);
 	if (is_duplicate(stack_a, number))
-		return (0);
+		return (false);
 	node = ft_lstnew(number);
 	if (!node)
-		return (0);
+		return (false);
 	ft_lstadd_back(&stack_a->first_node, node);
 	stack_a->last_node = node;
 	stack_a->size++;
-	return (1);
+	return (true);
 }
 
-int	parse(int argc, char *args[], t_stack *stack_a)
+bool	parse(int argc, char *args[], t_stack *stack_a)
 {
 	int	i;
 
@@ -56,11 +56,11 @@ int	parse(int argc, char *args[], t_stack *stack_a)
 		if (is_flag(args[i]))
 			i++;
 		else if (!is_number(args[i]))
-			return (0);
+			return (false);
 		else if (!add_number(stack_a, args[i++]))
-			return (0);
+			return (false);
 	}
 	if (stack_a->size == 0)
-		return (0);
-	return (1);
+		return (false);
+	return (true);
 }
