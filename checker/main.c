@@ -29,6 +29,8 @@ int main(int argc, char *argv[])
 	t_stack stack_b;
 	char *operation;
 
+	if (argc == 1)
+		return (3);
 	initialize_stacks(&stack_a, &stack_b);
 	if (!parse(argc, argv, &stack_a))
 		return(put_error(&stack_a), 2);
@@ -36,7 +38,13 @@ int main(int argc, char *argv[])
 	operation = ft_calloc(5, sizeof(char));
 	if (!operation)
 		return(put_error(&stack_a), 1);
-
+	int k = 3;
+	while (k--)
+	{
+		read_stdin(operation);
+		printf("operation after creation: %s\n", operation);
+	}
+	return (0);
 }
     //jak nie wyjdzie z malloca albo zly inout to error trzeba wypisac tutaj
     //get next line z readem ze stdinput
