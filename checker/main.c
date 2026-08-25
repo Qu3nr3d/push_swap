@@ -1,5 +1,6 @@
 #include "checker.h"
 #include <stdio.h>
+#include <fcntl.h>
 
 void	display_stack(t_list *tab)
 {
@@ -28,6 +29,7 @@ int main(int argc, char *argv[])
 	t_stack stack_a;
 	t_stack stack_b;
 	char *operation;
+	bool is_EOF;
 
 	if (argc == 1)
 		return (3);
@@ -38,11 +40,12 @@ int main(int argc, char *argv[])
 	operation = ft_calloc(5, sizeof(char));
 	if (!operation)
 		return(put_error(&stack_a), 1);
-	int k = 3;
-	while (k--)
+	int fd = open("steps.txt", O_RDONLY);
+	is_EOF = false;
+	while (!is_EOF)
 	{
-		read_stdin(operation);
-		printf("operation after creation: %s\n", operation);
+		read_stdin(&operation, fd, &is_EOF);
+		printf("%s", operation);
 	}
 	return (0);
 }

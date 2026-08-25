@@ -22,7 +22,7 @@ typedef struct s_stack
 
 void	initialize_stacks(t_stack *stack_a, t_stack *stack_b);
 bool	parse(int argc, char *args[], t_stack *stack_a);
-bool	read_stdin(char *operation);
+bool	read_stdin(char **operation, int fd, bool *is_EOF);
 t_list	*ft_lstnew(int number);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);

@@ -58,27 +58,27 @@ static bool is_newline(char *s)
 	return (false);
 }
 
-static void append_stash(char *operation, char *stash)
+static void append_stash(char **operation, char *stash)
 {
 	int i;
 
 	i = 0;
 	while(stash[i])
 	{
-		operation[i] = stash[i];
+		(*operation)[i] = stash[i];
 		i++;
 	}
 }
 
-static void append_until_endline(char *operation, char *buffer, int index)
+static void append_until_endline(char **operation, char *buffer, int index)
 {
 	int i;
 
 	i = 0;
 	while (buffer[i] != '\n')
-		operation[index++] = buffer[i++];
-	operation[index++] = '\n';
-	operation[index] = '\0';
+		(*operation)[index++] = buffer[i++];
+	(*operation)[index++] = '\n';
+	(*operation)[index] = '\0';
 }
 
 static bool move_to_stash(char **stash, char *buffer, int *stash_size)
@@ -94,35 +94,46 @@ static bool move_to_stash(char **stash, char *buffer, int *stash_size)
 	while (buffer[i] != '\n')
 		i++;
 	i++;
-	*stash = ft_calloc(ft_strlen(buffer) - i + 1, sizeof(char));
-	printf("stash size: %li\n", ft_strlen(buffer) - i + 1);
-	printf("stash pointer: %p\n", *stash);
+	*stash = ft_calloc(20, sizeof(char));
+	//printf("stash size: %li\n", ft_strlen(buffer) - i + 1);
+	//printf("stash pointer: %p\n", *stash);
 	if (!*stash)
 		return (false);
 	while (buffer[i])
-		*stash[*stash_size++] = buffer[i++];
-	printf("stash string: %s\n", *stash);
+	{
+		(*stash)[*stash_size] = buffer[i];
+		(*stash_size)++;
+		i++;
+	}
+	//printf("stash string: %s\n", *stash);
 	return (true);
 }
 
-bool	read_stdin(char *operation)
+bool	read_stdin(char **operation, int fd, bool *is_EOF)
 {
 	static char *stash = NULL;
 	static int stash_size = 0;
 	char *buffer;
 
 	if (stash)
+	{
 		append_stash(operation, stash);
+		if(is_newline(stash))
+			return (true);
+	}
+	//printf("operation after adding stash: %s\n", *operation);
 	buffer = ft_calloc(5, sizeof(char));
 	if (!buffer)
 		return (false);
-	if (!read(0, buffer, 4))
+	if (!read(fd, buffer, 4))
 	{
 		if (stash)
 			free(stash);
+		free(buffer);
+		*is_EOF = true;
 		return (true);
 	}
-	printf("buffer: %s\n", buffer);
+	//printf("buffer: %s\n", buffer);
 	if (!is_newline(buffer))
 	{
 		if (stash)
@@ -136,7 +147,7 @@ bool	read_stdin(char *operation)
 		free(buffer);
 		return (false);
 	}
-	printf("stash: %s\n", stash);
+	//printf("stash: %s\n", stash);
 	free(buffer);
 	return (true);
 }
