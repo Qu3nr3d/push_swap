@@ -1,48 +1,12 @@
 #include "checker.h"
 #include <stdio.h>
 
-// static bool str_is_equal(char *s1, char *s2)
-// {
-// 	int	i;
+typedef struct s_operation {
+	char	*operation;
+	int		size;
+	int		capacity;
+} t_operation;
 
-// 	i = 0;
-// 	while (s1[i] && s2[i])
-// 	{
-// 		if (s1[i] != s2[i])
-// 			return (0);
-// 		i++;
-// 	}
-// 	if (s1[i] || s2[i])
-// 		return (false);
-// 	return (true);
-// }
-
-// static bool is_operation(char *s)
-// {
-// 	if (str_is_equal(s, "sa\n"))
-// 		return (true);
-// 	if (str_is_equal(s, "sb\n"))
-// 		return (true);
-// 	if (str_is_equal(s, "ss\n"))
-// 		return (true);
-// 	if (str_is_equal(s, "pa\n"))
-// 		return (true);
-// 	if (str_is_equal(s, "pb\n"))
-// 		return (true);
-// 	if (str_is_equal(s, "ra\n"))
-// 		return (true);
-// 	if (str_is_equal(s, "rb\n"))
-// 		return (true);
-// 	if (str_is_equal(s, "rr\n"))
-// 		return (true);
-// 	if (str_is_equal(s, "rra\n"))
-// 		return (true);
-// 	if (str_is_equal(s, "rrb\n"))
-// 		return (true);
-// 	if (str_is_equal(s, "rrr\n"))
-// 		return (true);
-// 	return (false);
-// }
 
 static bool is_newline(char *s)
 {
@@ -58,39 +22,14 @@ static bool is_newline(char *s)
 	return (false);
 }
 
-static void append_stash(char **operation, char *stash)
-{
-	int i;
 
-	i = 0;
-	while(stash[i])
-	{
-		(*operation)[i] = stash[i];
-		i++;
-	}
-}
-
-static void append_until_endline(char **operation, char *buffer, int index)
-{
-	int i;
-
-	i = 0;
-	while (buffer[i] != '\n')
-		(*operation)[index++] = buffer[i++];
-	(*operation)[index++] = '\n';
-	(*operation)[index] = '\0';
-}
 
 static bool move_to_stash(char **stash, char *buffer, int *stash_size)
 {
 	int i;
 
 	i = 0;
-	if (*stash)
-	{
-		free(*stash);
-		*stash_size = 0;
-	}
+	*stash_size = 0;
 	while (buffer[i] != '\n')
 		i++;
 	i++;
@@ -109,45 +48,159 @@ static bool move_to_stash(char **stash, char *buffer, int *stash_size)
 	return (true);
 }
 
-bool	read_stdin(char **operation, int fd, bool *is_EOF)
+char	*ft_strdup(const char *s)
 {
+	size_t	size;
+	size_t	i;
+	char	*str;
+
+	size = ft_strlen(s) + 1;
+	i = 0;
+	str = malloc(size * sizeof(char));
+	if (str == 0)
+		return (0);
+	while (i != size)
+	{
+		str[i] = s[i];
+		i++;
+	}
+	return (str);
+}
+
+void *reallocate(void *ptr1, int prev_size, int new_size)
+{
+	void			*ptr2;
+	unsigned char	*pointer1;
+	unsigned char	*pointer2;
+	int				i;
+	int				size;
+	
+	i = 0;
+	ptr2 = ft_calloc(new_size, sizeof(char));
+	pointer1 = (unsigned char*) ptr1;
+	pointer2 = (unsigned char*) ptr2;
+	if (prev_size < new_size)
+		size = prev_size;
+	else
+		size = new_size;
+	while (i < size)
+	{
+		pointer2[i] = pointer1[i];
+		i++;
+	}
+	free(ptr1);
+	return (ptr2);
+}
+
+void remake_stash(char **stash, int *stash_size)
+{
+	char *old_stash;
+	int old_stash_size;
+	int i;
+
+	old_stash = ft_strdup(*stash);
+	old_stash_size = *stash_size;
+	*stash_size = 0;
+	free(*stash);
+	i = 0;
+	while (old_stash[i] != '\n')
+		i++;
+	i++;
+	if (!old_stash[i])
+	{
+		*stash = NULL;
+		return ;
+	}
+	*stash = ft_calloc(old_stash_size - i + 1, sizeof(char));
+	while (old_stash[i])
+		(*stash)[*stash_size++] = old_stash[i++];
+}
+
+static void initialize_operation(t_operation *operation)
+{
+	operation->capacity = 1024;
+	operation->size = 0;
+	operation->operation = NULL;
+}
+
+static void append(t_operation *operation, char *str)
+{
+	int i;
+
+	i = 0;
+	if (!operation->operation)
+		operation->operation = ft_calloc(operation->capacity, sizeof(char));
+	while (str[i])
+	{
+		operation->operation[operation->size] = str[i];
+		operation->size++;
+		if (operation->size > operation->capacity)
+		{
+			operation->operation = reallocate(operation->operation, operation->capacity, operation->capacity * 2);
+			operation->capacity *= 2;
+		}
+		if (str[i] == '\n')
+		{
+			operation->operation[operation->size] = '\0';
+			return ;
+		}
+		i++;
+	}
+	operation->operation[operation->size] = '\0';
+	return ;
+}
+
+char	*read_operation()
+{
+	t_operation operation;
 	static char *stash = NULL;
 	static int stash_size = 0;
 	char *buffer;
 
+	initialize_operation(&operation);
 	if (stash)
 	{
-		append_stash(operation, stash);
-		if(is_newline(stash))
-			return (true);
+		append(&operation, stash);
+		if(is_newline(operation.operation))
+		{
+			remake_stash(&stash, &stash_size);
+			return (operation.operation);
+		}
+		stash = NULL;
 	}
-	//printf("operation after adding stash: %s\n", *operation);
+	//printf("operation after adding stash, beginning: %s\n", operation.operation);
 	buffer = ft_calloc(5, sizeof(char));
-	if (!buffer)
-		return (false);
-	if (!read(fd, buffer, 4))
+	while (read(0, buffer, 4))
 	{
-		if (stash)
-			free(stash);
-		free(buffer);
-		*is_EOF = true;
-		return (true);
+		//printf("buffer: %s\n", buffer);
+		//printf("buffer_len: %li\n\n", ft_strlen(buffer));
+		append(&operation, buffer);
+		if (is_newline(operation.operation))
+		{
+			move_to_stash(&stash, buffer, &stash_size);
+			//printf("stash: %s\n", stash);
+			return (operation.operation);
+		}
+		ft_bzero(buffer, 4);
 	}
-	//printf("buffer: %s\n", buffer);
-	if (!is_newline(buffer))
-	{
-		if (stash)
-			free(stash);
-		free(buffer);
-		return (false);
-	}
-	append_until_endline(operation, buffer, stash_size);
-	if (!move_to_stash(&stash, buffer, &stash_size))
-	{
-		free(buffer);
-		return (false);
-	}
-	//printf("stash: %s\n", stash);
-	free(buffer);
-	return (true);
+	return (operation.operation);
 }
+
+// 	//printf("buffer: %s\n", buffer);
+// 	if (!is_newoperation(buffer))
+// 	{
+// 		if (stash)
+// 			free(stash);
+// 		free(buffer);
+// 		return (false);
+// 	}
+// 	append(operation, buffer, stash_size);
+// 	if (!move_to_stash(&stash, buffer, &stash_size))
+// 	{
+// 		free(buffer);
+// 		return (false);
+// 	}
+// 	//printf("stash: %s\n", stash);
+// 	free(buffer);
+// 	return (true);
+// }

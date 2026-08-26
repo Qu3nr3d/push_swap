@@ -29,7 +29,6 @@ int main(int argc, char *argv[])
 	t_stack stack_a;
 	t_stack stack_b;
 	char *operation;
-	bool is_EOF;
 
 	if (argc == 1)
 		return (3);
@@ -37,15 +36,33 @@ int main(int argc, char *argv[])
 	if (!parse(argc, argv, &stack_a))
 		return(put_error(&stack_a), 2);
 	display_stack(stack_a.first_node);
-	operation = ft_calloc(5, sizeof(char));
+	//int fd = open("steps.txt", O_RDONLY);
+	operation = read_operation();
+	//printf("operation: %s\n", operation);
 	if (!operation)
 		return(put_error(&stack_a), 1);
-	int fd = open("steps.txt", O_RDONLY);
-	is_EOF = false;
-	while (!is_EOF)
+	while (operation)
 	{
-		read_stdin(&operation, fd, &is_EOF);
-		printf("%s", operation);
+		//printf("operation: %s\n", operation);
+		if (!is_operation(operation))
+		{
+			printf("operation: %s\n", operation);
+			printf("goes here\n");
+			return(put_error(&stack_a), 1);
+		}
+		execute_operation(&stack_a, &stack_b, operation);
+		 operation = read_operation();
+		// if (str_is_equal(operation, ""))
+		// 	printf("Yeah, it gives back an empty string.\n");
+	}
+	printf("\n");
+	display_stack(stack_a.first_node);
+	if (is_sorted(stack_a)  && stack_b.first_node == NULL && stack_b.first_node == NULL)
+         printf("OK\n");
+  	else
+	{
+		printf("KO\n");
+		return(1);
 	}
 	return (0);
 }
@@ -58,14 +75,3 @@ int main(int argc, char *argv[])
 //         operation = get_next_line();
 //        //sprawdzic czy operacja jest okej, jak nie to error
 //     }
-//     if (is_sorted(stack_a)  && stack_b.first_node = NULL && stack_b.last_node = NULL)
-//     {
-//          printf("OK"\n);
-//          return (0);
-// }
-//   else
-// {
-//       printf("KO"\n);
-//       return(1);
-// }
-// }
