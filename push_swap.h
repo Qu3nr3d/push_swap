@@ -19,12 +19,13 @@
 # include <limits.h>
 # include <stdbool.h>
 
-typedef struct s_move
+typedef struct s_pass
 {
-	int	a_rot;
-	int	b_rot;
-	int	cost;
-}	t_move;
+	int	processed;
+	int	pair;
+	int	right_size;
+	int	i;
+}	t_pass;
 
 typedef struct s_merge
 {
@@ -96,6 +97,14 @@ typedef struct	s_str_ops
 	char	*str_rrr;
 }	t_str_ops;
 
+typedef struct s_medium
+{
+	t_stack	*a;
+	t_stack	*b;
+	t_ops	*ops;
+	int		is_bench;
+}	t_medium;
+
 bool	initialize_flags(int argc, char *args[], t_flags *flags);
 t_ops	initialize_ops(void);
 void	initialize_stacks(t_stack *stack_a, t_stack *stack_b);
@@ -137,5 +146,10 @@ int		find_max_number(t_stack stack);
 t_list	*find_node_with_first_max(t_stack stack, int max);
 t_list *find_node_with_prev_max(t_stack stack, int *next_max);
 t_list	*find_node_with_last_max(t_stack stack);
+int		get_orientation(int index, int level);
+void	sort_block(t_medium *m, int size, int ascending);
+void	merge_pass(t_medium *m, int total, int size, int level);
+long	round_float(double n);
+int		get_float_len(long x, int neg);
 
 #endif

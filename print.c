@@ -14,9 +14,7 @@
 
 static bool	is_error_in_allocation(t_str_ops str_ops)
 {
-	if (!str_ops.str_total_ops)
-		return (true);
-	if (!str_ops.str_pa)
+	if (!str_ops.str_total_ops || !str_ops.str_pa)
 		return (true);
 	if (!str_ops.str_pb)
 		return (true);

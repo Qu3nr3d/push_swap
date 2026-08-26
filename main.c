@@ -109,8 +109,8 @@ void	sort(t_stack *a, t_stack *b, t_ops *ops, t_flags flags)
 {
 	if (flags.is_simple)
 		simple_sort(a, b, ops, flags.is_bench);
-	// else if (flags.is_medium)
-	// 	medium_sort(a, b, ops, flags.is_bench);
+	 else if (flags.is_medium)
+	 	medium_sort(a, b, ops, flags.is_bench);
 	else
 		complex_sort(a, b, ops, flags.is_bench);
 }

@@ -56,3 +56,24 @@ char	*ft_itoa(int n)
 	}
 	return (str);
 }
+
+long	round_float(double n)
+{
+	if (n >= 0)
+		return ((long)(n * 100 + 0.5));
+	return ((long)(n * 100 - 0.5));
+}
+
+int	get_float_len(long x, int neg)
+{
+	int	len;
+
+	len = 1;
+	x /= 100;
+	while (x >= 10)
+	{
+		x /= 10;
+		len++;
+	}
+	return (len + 3 + neg);
+}

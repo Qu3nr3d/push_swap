@@ -52,13 +52,6 @@ void	choose_algorithm(t_flags *flags, float disorder)
 	}
 }
 
-static long	round_float(double n)
-{
-	if (n >= 0)
-		return ((long)(n * 100 + 0.5));
-	return ((long)(n * 100 - 0.5));
-}
-
 static int	put_num(char *s, long n, int i)
 {
 	long	d;
@@ -77,20 +70,6 @@ static int	put_num(char *s, long n, int i)
 		d /= 10;
 	}
 	return (i);
-}
-
-static int	get_len(long x, int neg)
-{
-	int	len;
-
-	len = 1;
-	x /= 100;
-	while (x >= 10)
-	{
-		x /= 10;
-		len++;
-	}
-	return (len + 3 + neg);
 }
 
 static void	fill_float(char *s, long x, int neg)
@@ -119,7 +98,7 @@ char	*float_to_str(double const n)
 	neg = x < 0;
 	if (neg)
 		x = -x;
-	len = get_len(x, neg);
+	len = get_float_len(x, neg);
 	s = malloc(len + 1);
 	if (!s)
 		return (NULL);

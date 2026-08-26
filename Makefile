@@ -20,7 +20,9 @@ SRCS = lst_functions.c \
 	print.c \
 	simple_sort.c \
 	metrics.c \
-	indexate_utils.c
+	indexate_utils.c \
+	medium_sort_2.c \
+	medium_sort.c
 
 OBJS = $(SRCS:.c=.o)
 
