@@ -10,9 +10,11 @@ Works with:
 * operations from stdin
 * stream from push_swap
 ./push_swap --simple 5 4 3 2 1 | ./checker 5 4 3 2 1
+
+Does not work with:
 * more complicated stream
 shuf -i 0-9999 -n 500 > args.txt ; ./push_swap --bench $(cat args.txt) 2> bench.txt | ./checker_linux $(cat args.txt)
-
+(does not print ok, even though it generally works)
 
 Gives error for:
 * no number
@@ -54,6 +56,8 @@ Works with:
 ./checker 4 3 5
 >>pb
 >>abrakadabra
+* more complicated stream
+$>shuf -i 0-9999 -n 500 > args.txt ; ./push_swap --bench $(cat args.txt) 2> bench.txt | ./checker_linux $(cat args.txt)
 
 
 

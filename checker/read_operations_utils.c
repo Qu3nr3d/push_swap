@@ -1,19 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_operations_utils.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/27 20:41:58 by akacpere          #+#    #+#             */
+/*   Updated: 2026/08/27 20:42:49 by akacpere         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "checker.h"
 
-void *reallocate(void *ptr1, int prev_size, int new_size)
+void	*reallocate(void *ptr1, int prev_size, int new_size)
 {
 	void			*ptr2;
 	unsigned char	*pointer1;
 	unsigned char	*pointer2;
 	int				i;
 	int				size;
-	
+
 	i = 0;
 	ptr2 = ft_calloc(new_size, sizeof(char));
 	if (!ptr2)
 		return (NULL);
-	pointer1 = (unsigned char*) ptr1;
-	pointer2 = (unsigned char*) ptr2;
+	pointer1 = (unsigned char *) ptr1;
+	pointer2 = (unsigned char *) ptr2;
 	if (prev_size < new_size)
 		size = prev_size;
 	else
@@ -46,9 +58,9 @@ char	*ft_strdup(const char *s)
 	return (str);
 }
 
-bool is_newline(char *s)
+bool	is_newline(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])

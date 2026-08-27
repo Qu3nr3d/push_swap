@@ -1,6 +1,5 @@
 #include "checker.h"
 #include <stdio.h>
-#include <fcntl.h>
 
 void	display_stack(t_list *tab)
 {
@@ -62,10 +61,12 @@ int main(int argc, char *argv[])
 			break ;
 	}
 	if (is_sorted(stack_a) && stack_b.first_node == NULL)
-         write(0, "OK\n", 3);
+	{
+        write(1, "OK\n", 3);
+	}
   	else
 	{
-		write(0, "KO\n", 3);
+		write(1, "KO\n", 3);
 		ft_lstclear(&stack_a.first_node);
 		if (stack_b.first_node)
 			ft_lstclear(&stack_b.first_node);

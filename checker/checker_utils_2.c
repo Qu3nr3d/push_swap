@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker_utils_2.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/27 20:39:17 by akacpere          #+#    #+#             */
+/*   Updated: 2026/08/27 20:39:49 by akacpere         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "checker.h"
 
-bool str_is_equal(char *s1, char *s2)
+bool	str_is_equal(char *s1, char *s2)
 {
 	int	i;
 
@@ -16,7 +28,7 @@ bool str_is_equal(char *s1, char *s2)
 	return (true);
 }
 
-bool is_operation(char *s)
+bool	is_operation(char *s)
 {
 	if (str_is_equal(s, "sa\n"))
 		return (true);
@@ -43,7 +55,7 @@ bool is_operation(char *s)
 	return (false);
 }
 
-void execute_operation(t_stack *a, t_stack *b, char *s)
+void	execute_operation(t_stack *a, t_stack *b, char *s)
 {
 	if (str_is_equal(s, "sa\n"))
 		sa(a);
@@ -70,13 +82,11 @@ void execute_operation(t_stack *a, t_stack *b, char *s)
 	return ;
 }
 
-int is_sorted(t_stack a)
+int	is_sorted(t_stack a)
 {
-	t_list *node;
+	t_list	*node;
 
 	node = a.first_node;
-	//printf("display stack in is_sorted:\n");
-	//display_stack(a.first_node);
 	while (node->next)
 	{
 		if (node->number > node->next->number)

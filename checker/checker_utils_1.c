@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker_utils_1.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/27 20:36:52 by akacpere          #+#    #+#             */
+/*   Updated: 2026/08/27 20:38:46 by akacpere         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "checker.h"
 
 bool	is_number(char *str)
@@ -44,27 +56,28 @@ int	ft_atoi(const char *nptr, int *error)
 	return ((int)number * sign);
 }
 
-void ft_bzero(void *ptr, size_t n)
+void	ft_bzero(void *ptr, size_t n)
 {
-    unsigned char *pointer;
-    size_t i;
+	unsigned char	*pointer;
+	size_t			i;
 
-    i = 0;
-    pointer = (unsigned char*) ptr;
-    while (i < n)
-        pointer[i++] = '\0';
+	i = 0;
+	pointer = (unsigned char *)ptr;
+	while (i < n)
+		pointer[i++] = '\0';
 }
 
-void *ft_calloc(size_t n, size_t size)
+void	*ft_calloc(size_t n, size_t size)
 {
-    void *ptr;
-    if (n * size > SIZE_MAX)
-        return (NULL);
-    if (n == 0 || size == 0)
-        return (NULL);
-    ptr = malloc(n *size);
-    ft_bzero(ptr, n * size);
-    return (ptr);
+	void	*ptr;
+
+	if (n * size > SIZE_MAX)
+		return (NULL);
+	if (n == 0 || size == 0)
+		return (NULL);
+	ptr = malloc(n * size);
+	ft_bzero(ptr, n * size);
+	return (ptr);
 }
 
 size_t	ft_strlen(const char *s)
@@ -73,8 +86,6 @@ size_t	ft_strlen(const char *s)
 
 	i = 0;
 	while (s[i])
-	{
 		i++;
-	}
 	return (i);
 }
