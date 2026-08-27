@@ -26,7 +26,7 @@ static bool append(t_operation *operation, char *str)
 		operation->operation[operation->size - 1] = str[i];
 		if (operation->size == operation->capacity)
 		{
-			//reallocate nie robi mi free na operation->operation
+			//reallocate robi mi free na operation->operation, uwazac
 			operation->operation = reallocate(operation->operation, operation->capacity, operation->capacity * 2);
 			if (!operation->operation)
 				return (false);
@@ -153,13 +153,19 @@ bool	read_operation(char **opr)
 				return (false);
 			}
 			*opr = ft_strdup(operation.operation);
+			free(operation.operation);
+			free(buffer);
 			return (true);
 		}
 		ft_bzero(buffer, 4);
 	}
 	if (operation.operation)
+	{
 		*opr = ft_strdup(operation.operation);
+		free(operation.operation);
+	}
 	else
 		*opr = NULL;
+	free(buffer);
 	return (true);
 }

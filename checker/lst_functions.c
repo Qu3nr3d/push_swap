@@ -4,7 +4,7 @@ t_list	*ft_lstnew(int number)
 {
 	t_list	*new_node;
 
-	new_node = calloc(1, sizeof(t_list));
+	new_node = ft_calloc(1, sizeof(t_list));
 	if (!new_node)
 		return (NULL);
 	new_node->number = number;
