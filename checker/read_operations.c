@@ -59,7 +59,6 @@ static bool update_stash(char **stash, int *stash_size)
 	i++;
 	if (!old_stash[i])
 	{
-		free(*stash);
 		*stash = NULL;
 		return (true);
 	}
@@ -80,6 +79,8 @@ static bool move_to_stash(char **stash, char *buffer, int *stash_size)
 	while (buffer[i] != '\n')
 		i++;
 	i++;
+	if (!buffer[i])
+		return (true);
 	*stash = ft_calloc(ft_strlen(buffer) - i + 1, sizeof(char));
 	if (!*stash)
 		return (false);
@@ -156,6 +157,9 @@ bool	read_operation(char **opr)
 		}
 		ft_bzero(buffer, 4);
 	}
-	*opr = ft_strdup(operation.operation);
+	if (operation.operation)
+		*opr = ft_strdup(operation.operation);
+	else
+		*opr = NULL;
 	return (true);
 }

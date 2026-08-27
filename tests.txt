@@ -2,3 +2,5 @@ valgrind ./push_swap 5 7 89 lol 12
 valgrind ./push_swap --benchmark 5 7 89 lol 12
 valgrind ./push_swap --complex 5 7 89 12 12
 valgrind ./push_swap --complex --benchmark 5 7 89 a 12
+
+ ARG="4 67 3 87 23"; ./push_swap --complex $ARG | ./checker_linux $ARG -> nie dziala

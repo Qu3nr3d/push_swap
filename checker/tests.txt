@@ -1,3 +1,35 @@
+Normal tests
+
+Works with:
+* no arguments
+./checker
+* one number
+./checker 5
+* two numbers
+./checker 12 5
+* operations from stdin
+* stream from push_swap
+./push_swap --simple 5 4 3 2 1 | ./checker 5 4 3 2 1
+* more complicated stream
+shuf -i 0-9999 -n 500 > args.txt ; ./push_swap --bench $(cat args.txt) 2> bench.txt | ./checker_linux $(cat args.txt)
+
+
+Gives error for:
+* no number
+./checker a
+* weird stuff between numbers
+./checker 12 34 one 3
+./checker 12 34 3 one  
+./checker one 12 34 3 
+* benches
+./checker --bench 12 34 3
+* duplicates
+./checker 45 5 5 6
+* weird stdin
+abrakadabra
+a
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas quis justo a libero pulvinar aliquet. Nam iaculis nisi id tellus sagittis, a accumsan massa scelerisque. Donec finibus malesuada dui ac sodales. Ut efficitur consectetur nulla eu accumsan. Nulla facilisi. Integer neque dolor, mollis ac tempus et, ullamcorper in ipsum.
+
 Error in parsing, how memory behaves:
 valgrind ./checker 5 7 89 lol 12
 valgrind ./checker 5 7 89 12 12
@@ -6,3 +38,5 @@ what if there are one or two numbers
 
 
 going between branches flawlessly
+
+It should work for Ctr+D, not Enter
