@@ -20,9 +20,15 @@ typedef struct s_stack
 	int		size;
 }	t_stack;
 
+typedef struct s_operation {
+	char	*operation;
+	int		size;
+	int		capacity;
+} t_operation;
+
 void	initialize_stacks(t_stack *stack_a, t_stack *stack_b);
 bool	parse(int argc, char *args[], t_stack *stack_a);
-char	*read_operation();
+bool	read_operation(char **opr);
 t_list	*ft_lstnew(int number);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
@@ -47,3 +53,7 @@ void	rrr(t_stack *a, t_stack *b);
 void	execute_operation(t_stack *a, t_stack *b, char *s);
 int		is_sorted(t_stack a);
 bool	str_is_equal(char *s1, char *s2);
+void *reallocate(void *ptr1, int prev_size, int new_size);
+char	*ft_strdup(const char *s);
+bool is_newline(char *s);
+

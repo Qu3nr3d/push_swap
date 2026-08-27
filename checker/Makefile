@@ -9,12 +9,13 @@ SRCS = main.c \
     lst_functions.c \
     initialize.c \
     checker_utils_1.c \
-    read_stdin.c \
+    read_operations.c \
     checker_utils_2.c \
     swap.c \
     push.c \
     rotate.c \
-    reverse_rotate.c
+    reverse_rotate.c \
+    read_operations_utils.c
 	
 
 all: $(NAME) 

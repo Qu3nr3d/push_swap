@@ -18,10 +18,21 @@ void	display_stack(t_list *tab)
 	printf("\n");
 }
 
-void put_error(t_stack *stack)
+static void free_and_exit(t_stack stack_a, t_stack stack_b)
 {
-	ft_lstclear(&stack->first_node);
+	if (stack_a.first_node)
+		ft_lstclear(&stack_a.first_node);
+	if (stack_b.first_node)
+		ft_lstclear(&stack_b.first_node);
 	write(2, "Error\n", 6);
+	exit(1);
+}
+
+static bool is_end_of_stdin(char *s)
+{
+	if (str_is_equal(s, "\n"))
+		return (true);
+	return (false);
 }
 
 int main(int argc, char *argv[])
@@ -34,28 +45,25 @@ int main(int argc, char *argv[])
 		return (3);
 	initialize_stacks(&stack_a, &stack_b);
 	if (!parse(argc, argv, &stack_a))
-		return(put_error(&stack_a), 2);
+		free_and_exit(stack_a, stack_b);
 	display_stack(stack_a.first_node);
-	//int fd = open("steps.txt", O_RDONLY);
-	operation = read_operation();
-	//printf("operation: %s\n", operation);
+	operation = NULL;
+	read_operation(&operation);
 	if (!operation)
-		return(put_error(&stack_a), 1);
+		free_and_exit(stack_a, stack_b);
 	while (operation)
 	{
-		//printf("operation: %s\n", operation);
+		if (is_end_of_stdin(operation))
+			break ;
 		if (!is_operation(operation))
-		{
-			printf("operation: %s\n", operation);
-			printf("goes here\n");
-			return(put_error(&stack_a), 1);
-		}
+			free_and_exit(stack_a, stack_b);
 		execute_operation(&stack_a, &stack_b, operation);
-		 operation = read_operation();
-		// if (str_is_equal(operation, ""))
-		// 	printf("Yeah, it gives back an empty string.\n");
+		free(operation);
+		operation = NULL;
+		read_operation(&operation);
+		if (!operation)
+			free_and_exit(stack_a, stack_b);
 	}
-	printf("\n");
 	display_stack(stack_a.first_node);
 	if (is_sorted(stack_a)  && stack_b.first_node == NULL && stack_b.first_node == NULL)
          printf("OK\n");
@@ -66,12 +74,3 @@ int main(int argc, char *argv[])
 	}
 	return (0);
 }
-    //jak nie wyjdzie z malloca albo zly inout to error trzeba wypisac tutaj
-    //get next line z readem ze stdinput
-//     operation = get_next_line()
-//     while(operation)
-//     {
-//         execute_operation(&stack_a, &stack_b);
-//         operation = get_next_line();
-//        //sprawdzic czy operacja jest okej, jak nie to error
-//     }

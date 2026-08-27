@@ -1,2 +1,8 @@
+Error in parsing, how memory behaves:
 valgrind ./checker 5 7 89 lol 12
 valgrind ./checker 5 7 89 12 12
+
+what if there are one or two numbers
+
+
+going between branches flawlessly
