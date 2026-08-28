@@ -21,7 +21,7 @@ SRCS = lst_functions.c \
 	simple_sort.c \
 	metrics.c \
 	indexate_utils.c \
-	medium_sort_2.c \
+	medium_sort_utils.c \
 	medium_sort.c \
 	functions_for_ARG.c \
 	ft_split.c
