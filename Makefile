@@ -4,6 +4,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = push_swap
 
+NAME_BONUS = checker_bonus
+
 SRCS = lst_functions.c \
 	push.c \
 	swap.c \
@@ -26,20 +28,44 @@ SRCS = lst_functions.c \
 	functions_for_ARG.c \
 	ft_split.c
 
+SRCS_BONUS = bonus_checker_bonus.c \
+    bonus_parse.c \
+    bonus_lst_functions.c \
+    bonus_initialize.c \
+    bonus_checker_utils_1.c \
+    bonus_read_operations.c \
+    bonus_checker_utils_2.c \
+    bonus_swap.c \
+    bonus_push.c \
+    bonus_rotate.c \
+    bonus_reverse_rotate.c \
+    bonus_read_operations_utils_1.c \
+    bonus_read_operations_utils_2.c
+
 OBJS = $(SRCS:.c=.o)
 
-all: $(NAME) 
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
+
+all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-%.o: %.c push_swap.h
-	@$(CC) -g $(CFLAGS) -c $< -o $@
+$(OBJS): $(SRCS) push_swap.h
+	@$(CC) -g $(CFLAGS) -c $(SRCS) -o $@
+
+bonus: $(NAME_BONUS)
+
+$(NAME_BONUS): $(OBJS_BONUS)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+
+$(OBJS_BONUS): $(SRCS_BONUS) bonus_checker.h
+	@$(CC) -g $(CFLAGS) -c $(SRCS_BONUS) -o $@
 
 clean:
-	@rm -f $(OBJS)
+	@rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
-	@rm -f $(NAME)
+	@rm -f $(NAME) $(NAME_BONUS)
 
 re: clean all
