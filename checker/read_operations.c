@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 19:13:58 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/28 19:38:41 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/28 20:57:41 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ static void	read_buffer(t_opr *opr, char **stash, char **buffer, t_stacks s)
 		}
 		ft_bzero(*buffer, 4);
 	}
+	return ;
 }
 
 char	*read_operation(t_stacks s)
