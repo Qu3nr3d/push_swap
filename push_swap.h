@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akacpere@student.42warsaw.pl <akacpere>    +#+  +:+       +#+        */
+/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:04:27 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/25 16:34:23 by akacpere@st      ###   ########.fr       */
+/*   Updated: 2026/08/28 19:28:40 by kgirczyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_stack
 	int		size;
 }	t_stack;
 
-typedef struct	s_str_ops
+typedef struct s_str_ops
 {
 	char	*str_total_ops;
 	char	*str_pa;
@@ -144,12 +144,15 @@ void	print_on_stderr(char *s);
 int		find_number_of_digits(int n);
 int		find_max_number(t_stack stack);
 t_list	*find_node_with_first_max(t_stack stack, int max);
-t_list *find_node_with_prev_max(t_stack stack, int *next_max);
+t_list	*find_node_with_prev_max(t_stack stack, int *next_max);
 t_list	*find_node_with_last_max(t_stack stack);
 int		get_orientation(int index, int level);
 void	sort_block(t_medium *m, int size, int ascending);
 void	merge_pass(t_medium *m, int total, int size, int level);
 long	round_float(double n);
 int		get_float_len(long x, int neg);
+char	*ft_strtrim(char const *s1, char const *set);
+bool	longer_string(char *str);
+char	**ft_split(char const *s, char c);
 
 #endif

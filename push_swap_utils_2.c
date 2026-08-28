@@ -6,7 +6,7 @@
 /*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:44:41 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/23 17:58:15 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/28 19:29:39 by kgirczyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,17 @@ int	get_float_len(long x, int neg)
 		len++;
 	}
 	return (len + 3 + neg);
+}
+
+bool	longer_string(char *str)
+{
+	char	**nums;
+	int		i;
+
+	i = 0;
+	nums = ft_split(ft_strtrim(str, " "), ' ');
+	while (nums[i] != NULL)
+		if (!is_number(nums[i++]))
+			return (false);
+	return (true);
 }

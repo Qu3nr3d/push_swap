@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   indexate_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kgirczyc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/28 17:50:57 by kgirczyc          #+#    #+#             */
+/*   Updated: 2026/08/28 17:52:31 by kgirczyc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-int find_number_of_digits(int n)
+int	find_number_of_digits(int n)
 {
-	int number_of_digits;
+	int	number_of_digits;
 
 	number_of_digits = 0;
 	while (n)
@@ -13,10 +25,10 @@ int find_number_of_digits(int n)
 	return (number_of_digits);
 }
 
-int find_max_number(t_stack stack)
+int	find_max_number(t_stack stack)
 {
-	int max_number;
-	t_list *node;
+	int		max_number;
+	t_list	*node;
 
 	max_number = INT_MIN;
 	node = stack.first_node;
@@ -31,7 +43,7 @@ int find_max_number(t_stack stack)
 
 t_list	*find_node_with_first_max(t_stack stack, int max)
 {
-	t_list *node;
+	t_list	*node;
 
 	node = stack.first_node;
 	while (node)
@@ -43,11 +55,11 @@ t_list	*find_node_with_first_max(t_stack stack, int max)
 	return (NULL);
 }
 
-t_list *find_node_with_prev_max(t_stack stack, int *next_max)
+t_list	*find_node_with_prev_max(t_stack stack, int *next_max)
 {
-	int max_number;
-	t_list *max_node;
-	t_list *node;
+	int		max_number;
+	t_list	*max_node;
+	t_list	*node;
 
 	max_number = INT_MIN;
 	max_node = NULL;
@@ -55,10 +67,10 @@ t_list *find_node_with_prev_max(t_stack stack, int *next_max)
 	while (node)
 	{
 		if (node->number < *next_max && max_number < node->number)
-			{
-				max_number = node->number;
-				max_node = node;
-			}
+		{
+			max_number = node->number;
+			max_node = node;
+		}
 		node = node->next;
 	}
 	*next_max = max_number;
@@ -67,7 +79,7 @@ t_list *find_node_with_prev_max(t_stack stack, int *next_max)
 
 t_list	*find_node_with_last_max(t_stack stack)
 {
-	t_list *node;
+	t_list	*node;
 
 	node = stack.first_node;
 	while (node)

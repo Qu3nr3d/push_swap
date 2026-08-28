@@ -6,7 +6,7 @@
 /*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/17 19:20:27 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/17 22:15:54 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/28 17:46:32 by kgirczyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static void	fill_float(char *s, long x, int neg)
 	i = 0;
 	if (neg)
 		s[i++] = '-';
-
 	i = put_num(s, x / 100, i);
 	s[i++] = '.';
 	s[i++] = '0' + x / 10 % 10;

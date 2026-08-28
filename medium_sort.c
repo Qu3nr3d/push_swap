@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   medium_sort.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kgirczyc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/28 17:54:48 by kgirczyc          #+#    #+#             */
+/*   Updated: 2026/08/28 17:55:02 by kgirczyc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static int	get_block_size(int size)
@@ -57,6 +69,7 @@ void	medium_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
 	int			block;
 	int			depth;
 	int			size;
+
 	if (a->size <= 1)
 		return ;
 	m.a = a;

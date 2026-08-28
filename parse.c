@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akacpere@student.42warsaw.pl <akacpere>    +#+  +:+       +#+        */
+/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:08:01 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/25 16:23:17 by akacpere@st      ###   ########.fr       */
+/*   Updated: 2026/08/28 19:30:37 by kgirczyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,25 @@ static bool	add_number(t_stack *stack_a, char *arg)
 	t_list	*node;
 	int		number;
 	int		error;
+	int		i;
+	char	**nums;
 
-	number = ft_atoi(arg, &error);
-	if (error)
-		return (false);
-	if (is_duplicate(stack_a, number))
-		return (false);
-	node = ft_lstnew(number);
-	if (!node)
-		return (false);
-	ft_lstadd_back(&stack_a->first_node, node);
-	stack_a->last_node = node;
-	stack_a->size++;
+	i = 0;
+	nums = ft_split(ft_strtrim(arg, " "), ' ');
+	while (nums[i])
+	{
+		number = ft_atoi(nums[i++], &error);
+		if (error)
+			return (false);
+		if (is_duplicate(stack_a, number))
+			return (false);
+		node = ft_lstnew(number);
+		if (!node)
+			return (false);
+		ft_lstadd_back(&stack_a->first_node, node);
+		stack_a->last_node = node;
+		stack_a->size++;
+	}
 	return (true);
 }
 
@@ -55,7 +62,7 @@ bool	parse(int argc, char *args[], t_stack *stack_a)
 	{
 		if (is_flag(args[i]))
 			i++;
-		else if (!is_number(args[i]))
+		else if (!longer_string(args[i]))
 			return (false);
 		else if (!add_number(stack_a, args[i++]))
 			return (false);

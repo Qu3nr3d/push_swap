@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   medium_sort_2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kgirczyc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/28 17:54:14 by kgirczyc          #+#    #+#             */
+/*   Updated: 2026/08/28 17:54:28 by kgirczyc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static int	find_extreme_pos(const t_stack *stack, int ascending)
@@ -29,6 +41,7 @@ void	sort_block(t_medium *m, int size, int ascending)
 {
 	int	i;
 	int	pos;
+
 	i = 0;
 	while (i++ < size)
 		pb(m->a, m->b, m->ops, m->is_bench);

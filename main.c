@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:09:43 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/27 16:44:34 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/28 19:31:24 by kgirczyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,16 @@ void	sort(t_stack *a, t_stack *b, t_ops *ops, t_flags flags)
 {
 	if (flags.is_simple)
 		simple_sort(a, b, ops, flags.is_bench);
-	 else if (flags.is_medium)
-	 	medium_sort(a, b, ops, flags.is_bench);
+	else if (flags.is_medium)
+		medium_sort(a, b, ops, flags.is_bench);
 	else
 		complex_sort(a, b, ops, flags.is_bench);
 }
 
-// robienie free na stacku w razie errorów (napisanie funckji która robi free i printuje błąd) + jeszcze raz valgrindem na koniec sprawdzic w roznych przypadkach
+// robienie free na stacku w razie errorów
+//(napisanie funckji która robi free i printuje błąd)
+// + jeszcze raz valgrindem na koniec sprawdzic
+// w roznych przypadkach
 int	main(int argc, char **argv)
 {
 	t_flags		flags;
@@ -129,7 +132,7 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\n", 6));
 	initialize_stacks(&stack_a, &stack_b);
 	if (!parse(argc, argv, &stack_a))
-		return (write(2, "Error\n", 6), 1);
+		return (ft_lstclear(&stack_a.first_node), write(2, "Error\n", 6), 1);
 	choose_algorithm(&flags, compute_disorder(stack_a));
 	if (flags.is_bench)
 		if (!initialize_metrics(&metrics, flags, stack_a))

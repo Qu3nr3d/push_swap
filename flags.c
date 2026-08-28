@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flags.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akacpere@student.42warsaw.pl <akacpere>    +#+  +:+       +#+        */
+/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:55:19 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/25 16:31:42 by akacpere@st      ###   ########.fr       */
+/*   Updated: 2026/08/28 17:47:27 by kgirczyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	check_strategy(t_flags *flags)
 {
 	if (flags->is_simple || flags->is_medium
 		|| flags->is_complex || flags->is_adaptive)
-			return (true);
+		return (true);
 	return (false);
 }
 
