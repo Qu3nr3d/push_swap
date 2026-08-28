@@ -1,45 +1,40 @@
 #include "checker.h"
 #include <stdio.h>
 
-static void initialize_operation_and_buffer(t_operation *operation, char **buffer)
+static void initialize_operation_and_buffer(t_operation *opr, char **buffer)
 {
-	operation->capacity = 1024;
-	operation->size = 0;
-	operation->operation = NULL;
+	opr->capacity = 1024;
+	opr->size = 0;
+	opr->operation = NULL;
 	*buffer = NULL;
 }
 
-static bool append(t_operation *operation, char *str)
+static bool append(t_operation *opr, char *str)
 {
 	int i;
 
 	i = 0;
-	if (!operation->operation)
+	if (!opr->operation)
 	{
-		operation->operation = ft_calloc(operation->capacity, sizeof(char));
-		if (!operation->operation)
+		opr->operation = ft_calloc(opr->capacity, sizeof(char));
+		if (!opr->operation)
 			return (false);
 	}
 	while (str[i])
 	{
-		operation->size++;
-		operation->operation[operation->size - 1] = str[i];
-		if (operation->size == operation->capacity)
+		opr->operation[opr->size++] = str[i];
+		if (opr->size == opr->capacity)
 		{
-			//reallocate robi mi free na operation->operation, uwazac
-			operation->operation = reallocate(operation->operation, operation->capacity, operation->capacity * 2);
-			if (!operation->operation)
+			opr->operation = reallocate(opr->operation, opr->capacity, opr->capacity * 2);
+			if (!opr->operation)
 				return (false);
-			operation->capacity *= 2;
+			opr->capacity *= 2;
 		}
 		if (str[i] == '\n')
-		{
-			operation->operation[operation->size] = '\0';
-			return (true);
-		}
+			break;
 		i++;
 	}
-	operation->operation[operation->size] = '\0';
+	opr->operation[opr->size] = '\0';
 	return (true);
 }
 
@@ -98,80 +93,80 @@ static bool move_to_stash(char **stash, char *buffer, int *stash_size)
 	return (true);
 }
 
-
-bool	read_operation(char **opr)
+static void free_all(char **operation, char **stash, char **buffer)
 {
-	t_operation operation;
+	if (*operation)
+	{
+		free(*operation);
+		*operation = NULL;
+	}
+	if (*stash)
+	{
+		free(*stash);
+		*stash = NULL;
+	}
+	if (*buffer)
+	{
+		free(*buffer);
+		*buffer = NULL;
+	}
+}
+
+static void free_opr_and_buff(char **operation, char **buffer)
+{
+	if (*operation)
+	{
+		free(*operation);
+		*operation = NULL;
+	}
+	if (*buffer)
+	{
+		free(*buffer);
+		*buffer = NULL;
+	}
+}
+
+bool	read_operation(char **str)
+{
+	t_operation opr;
 	static char *stash = NULL;
 	static int stash_size = 0;
 	char *buffer;
 
-	initialize_operation_and_buffer(&operation, &buffer);
+	initialize_operation_and_buffer(&opr, &buffer);
 	if (stash)
 	{
-		if (!append(&operation, stash))
-		{
-			free(stash);
-			if (operation.operation)
-				free(operation.operation);
-			return (false);
-		}
-		if(is_newline(operation.operation))
+		if (!append(&opr, stash))
+			return (free_all(&opr.operation, &stash, &buffer), false);
+		if(is_newline(opr.operation))
 		{
 			if (!update_stash(&stash, &stash_size))
-			{
-				free(operation.operation);
-				return (false);
-			}
-			*opr = ft_strdup(operation.operation);
-			free(operation.operation);
-			return (true);
+				return (free_all(&opr.operation, &stash, &buffer), false);
+			*str = ft_strdup(opr.operation);
+			return (free_opr_and_buff(&opr.operation, &buffer), true);
 		}
 		free(stash);
 		stash = NULL;
 	}
 	buffer = ft_calloc(5, sizeof(char));
 	if (!buffer)
-	{
-		if (stash)
-			free(stash);
-		if (operation.operation)
-			free(operation.operation);
-		return (false);
-	}
+		return (free_all(&opr.operation, &stash, &buffer), false);
 	while (read(0, buffer, 4))
 	{
-		if (!append(&operation, buffer))
-		{
-			if (stash)
-				free(stash);
-			free(buffer);
-			if (operation.operation)
-				free(operation.operation);
-			return (false);
-		}
-		if (is_newline(operation.operation))
+		if (!append(&opr, buffer))
+			return (free_all(&opr.operation, &stash, &buffer), false);
+		if (is_newline(opr.operation))
 		{
 			if (!move_to_stash(&stash, buffer, &stash_size))
-			{
-				free(buffer);
-				free(operation.operation);
-				return (false);
-			}
-			*opr = ft_strdup(operation.operation);
-			free(operation.operation);
-			free(buffer);
-			return (true);
+				return (free_all(&opr.operation, &stash, &buffer), false);
+			*str = ft_strdup(opr.operation);
+			return (free_opr_and_buff(&opr.operation, &buffer), true);
 		}
 		ft_bzero(buffer, 4);
 	}
-	if (operation.operation)
-	{
-		*opr = ft_strdup(operation.operation);
-		free(operation.operation);
-	}
+	if (opr.operation)
+		*str = ft_strdup(opr.operation);
 	else
-		*opr = NULL;
-	free(buffer);
-	return (true);
+		*str = NULL;
+	return (free_opr_and_buff(&opr.operation, &buffer), true);
 }

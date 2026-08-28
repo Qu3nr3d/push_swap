@@ -26,7 +26,7 @@ typedef struct s_operation {
 	int		capacity;
 } t_operation;
 
-void	initialize_stacks(t_stack *stack_a, t_stack *stack_b);
+void	initialize_stacks_and_operation(t_stack *a, t_stack *b, char **opr);
 bool	parse(int argc, char *args[], t_stack *stack_a);
 bool	read_operation(char **opr);
 t_list	*ft_lstnew(int number);
