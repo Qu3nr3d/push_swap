@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 20:56:40 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/28 20:58:44 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/28 22:12:48 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,17 @@ void	complex_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
 	size = a->size;
 	while (!is_sorted(*a) && (i < max_digits))
 	{
-		while (a->first_node && j < size)
+		while (a->first_node && j++ < size)
 		{
 			if ((a->first_node->index & (1 << i)) == 0)
 				pb(a, b, ops, is_bench);
 			else
 				ra(a, ops, is_bench);
-			j++;
 		}
 		while (b->first_node)
 			pa(a, b, ops, is_bench);
+		j = 0;
+		i++;
 	}
+	return ;
 }

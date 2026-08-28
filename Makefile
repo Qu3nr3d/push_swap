@@ -14,7 +14,7 @@ SRCS = lst_functions.c \
 	disorder.c \
 	flags.c \
 	main.c \
-	initialize.c \git 
+	initialize.c \
 	push_swap_utils_1.c \
 	push_swap_utils_2.c \
 	complex_sort.c \
@@ -29,18 +29,18 @@ SRCS = lst_functions.c \
 	ft_split.c
 
 SRCS_BONUS = bonus_checker_bonus.c \
-    bonus_parse.c \
-    bonus_lst_functions.c \
-    bonus_initialize.c \
-    bonus_checker_utils_1.c \
-    bonus_read_operations.c \
-    bonus_checker_utils_2.c \
-    bonus_swap.c \
-    bonus_push.c \
-    bonus_rotate.c \
-    bonus_reverse_rotate.c \
-    bonus_read_operations_utils_1.c \
-    bonus_read_operations_utils_2.c
+	bonus_parse.c \
+	bonus_lst_functions.c \
+	bonus_initialize.c \
+	bonus_checker_utils_1.c \
+	bonus_read_operations.c \
+	bonus_checker_utils_2.c \
+	bonus_swap.c \
+	bonus_push.c \
+	bonus_rotate.c \
+	bonus_reverse_rotate.c \
+	bonus_read_operations_utils_1.c \
+	bonus_read_operations_utils_2.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -51,21 +51,26 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-$(OBJS): $(SRCS) push_swap.h
-	@$(CC) -g $(CFLAGS) -c $(SRCS) -o $@
-
 bonus: $(NAME_BONUS)
 
 $(NAME_BONUS): $(OBJS_BONUS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS_BONUS) -o $(NAME_BONUS)
 
-$(OBJS_BONUS): $(SRCS_BONUS) bonus_checker.h
-	@$(CC) -g $(CFLAGS) -c $(SRCS_BONUS) -o $@
+%.o: %.c push_swap.h bonus_checker.h
+	@$(CC) -g $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm -f $(OBJS) $(OBJS_BONUS)
+	@rm -f $(OBJS)
 
 fclean: clean
-	@rm -f $(NAME) $(NAME_BONUS)
+	@rm -f $(NAME)
 
 re: clean all
+
+bonus_clean:
+	@rm -f $(OBJS_BONUS)
+
+bonus_fclean: bonus_clean
+	@rm -f $(NAME_BONUS)
+
+bonus_re: bonus_clean bonus

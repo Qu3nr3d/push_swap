@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:08:01 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/28 19:30:37 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/28 22:15:36 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static bool	add_number(t_stack *stack_a, char *arg)
 		stack_a->last_node = node;
 		stack_a->size++;
 	}
+	free(nums);
 	return (true);
 }
 
