@@ -1,65 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/28 19:14:42 by akacpere          #+#    #+#             */
+/*   Updated: 2026/08/28 19:43:46 by akacpere         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "checker.h"
-#include <stdio.h>
 
-void	display_stack(t_list *tab)
+static void	free_all_and_exit(t_stack stack_a, t_stack stack_b, char *operation)
 {
-	t_list	*node;
-
-	node = tab;
-	while (node)
-	{
-		printf("| ");
-		printf("%d", node->number);
-		printf(" |");
-		node = node->next;
-		printf("\n");
-	}
-	printf("\n");
-}
-
-static void free_and_exit(t_stack stack_a, t_stack stack_b, char *operation)
-{
-	if (stack_a.first_node)
-		ft_lstclear(&stack_a.first_node);
-	if (stack_b.first_node)
-		ft_lstclear(&stack_b.first_node);
 	if (operation)
 		free(operation);
-	write(2, "Error\n", 6);
-	exit(1);
+	free_stacks_and_exit(stack_a, stack_b);
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-	t_stack stack_a;
-	t_stack stack_b;
-	char *operation;
+	t_stacks	s;
+	char		*operation;
 
 	if (argc == 1)
 		return (3);
-	initialize_stacks_and_operation(&stack_a, &stack_b, &operation);
-	if (!parse(argc, argv, &stack_a))
-		free_and_exit(stack_a, stack_b, operation);
-	if (!read_operation(&operation))
-		free_and_exit(stack_a, stack_b, operation);
+	initialize_stacks_and_operation(&s.stack_a, &s.stack_b, &operation);
+	if (!parse(argc, argv, &s.stack_a))
+		free_all_and_exit(s.stack_a, s.stack_b, operation);
+	operation = read_operation(s);
 	while (operation)
 	{
 		if (!is_operation(operation))
-			free_and_exit(stack_a, stack_b, operation);
-		execute_operation(&stack_a, &stack_b, operation);
+			free_all_and_exit(s.stack_a, s.stack_b, operation);
+		execute_operation(&s.stack_a, &s.stack_b, operation);
 		free(operation);
-		operation = NULL;
-		if (!read_operation(&operation))
-			free_and_exit(stack_a, stack_b, operation);
+		operation = read_operation(s);
 		if (!operation)
 			break ;
 	}
-	if (is_sorted(stack_a) && stack_b.first_node == NULL)
-        write(1, "OK\n", 3);
-  	else
+	if (s.stack_b.first_node == NULL && is_sorted(s.stack_a))
+		write(1, "OK\n", 3);
+	else
 		write(1, "KO\n", 3);
-	ft_lstclear(&stack_a.first_node);
-	if (stack_b.first_node)
-			ft_lstclear(&stack_b.first_node);
+	free_stacks(s.stack_a, s.stack_b);
 	return (0);
 }

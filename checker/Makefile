@@ -15,7 +15,8 @@ SRCS = main.c \
     push.c \
     rotate.c \
     reverse_rotate.c \
-    read_operations_utils.c
+    read_operations_utils_1.c \
+    read_operations_utils_2.c
 	
 
 all: $(NAME) 
