@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   bonus_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/27 20:36:15 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/27 20:36:20 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/28 21:13:53 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "bonus_checker.h"
 
 static bool	is_duplicate(t_stack *stack, int number)
 {

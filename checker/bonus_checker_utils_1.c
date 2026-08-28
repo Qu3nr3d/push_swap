@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker_utils_1.c                                  :+:      :+:    :+:   */
+/*   bonus_checker_utils_1.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/27 20:36:52 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/27 20:38:46 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/28 21:13:33 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "bonus_checker.h"
 
 bool	is_number(char *str)
 {

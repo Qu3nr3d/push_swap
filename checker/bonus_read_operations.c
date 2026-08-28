@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_operations.c                                  :+:      :+:    :+:   */
+/*   bonus_read_operations.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 19:13:58 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/28 20:57:41 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/28 21:14:13 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "bonus_checker.h"
 
 static bool	update_stash(char **stash)
 {

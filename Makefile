@@ -12,7 +12,7 @@ SRCS = lst_functions.c \
 	disorder.c \
 	flags.c \
 	main.c \
-	initialize.c \
+	initialize.c \git 
 	push_swap_utils_1.c \
 	push_swap_utils_2.c \
 	complex_sort.c \

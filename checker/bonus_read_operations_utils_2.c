@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_operations_utils_2.c                          :+:      :+:    :+:   */
+/*   bonus_read_operations_utils_2.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 19:09:47 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/28 19:10:30 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/28 21:14:06 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "bonus_checker.h"
 
 void	free_stacks(t_stack a, t_stack b)
 {

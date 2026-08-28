@@ -1,57 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   bonus_rotate.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/23 17:21:47 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/26 13:01:00 by akacpere         ###   ########.fr       */
+/*   Created: 2026/08/23 16:58:00 by kgirczyc          #+#    #+#             */
+/*   Updated: 2026/08/28 21:14:21 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "bonus_checker.h"
 
-static int	swap_stack(t_stack *stack)
+static int	rotate_stack(t_stack *stack)
 {
 	t_list	*first;
-	t_list	*second;
 
 	if (stack->size < 2)
 		return (0);
 	first = stack->first_node;
-	second = first->next;
-	first->next = second->next;
-	if (second->next)
-		second->next->prev = first;
-	else
-		stack->last_node = first;
-	second->next = first;
-	second->prev = NULL;
-	first->prev = second;
-	stack->first_node = second;
+	stack->first_node = first->next;
+	stack->first_node->prev = NULL;
+	first->next = NULL;
+	first->prev = stack->last_node;
+	stack->last_node->next = first;
+	stack->last_node = first;
 	return (1);
 }
 
-void	sa(t_stack *a)
+void	ra(t_stack *a)
 {
-	if (!swap_stack(a))
+	if (!rotate_stack(a))
 		return ;
 }
 
-void	sb(t_stack *b)
+void	rb(t_stack *b)
 {
-	if (!swap_stack(b))
+	if (!rotate_stack(b))
 		return ;
 }
 
-void	ss(t_stack *a, t_stack *b)
+void	rr(t_stack *a, t_stack *b)
 {
 	int	a_changed;
 	int	b_changed;
 
-	a_changed = swap_stack(a);
-	b_changed = swap_stack(b);
+	a_changed = rotate_stack(a);
+	b_changed = rotate_stack(b);
 	if (!a_changed && !b_changed)
 		return ;
 }

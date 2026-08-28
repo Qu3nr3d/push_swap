@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker_utils_2.c                                  :+:      :+:    :+:   */
+/*   bonus_checker_utils_2.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/27 20:39:17 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/27 20:39:49 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/28 21:13:37 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "bonus_checker.h"
 
 bool	str_is_equal(char *s1, char *s2)
 {
