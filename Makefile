@@ -17,6 +17,8 @@ SRCS = lst_functions.c \
 	initialize.c \
 	push_swap_utils_1.c \
 	push_swap_utils_2.c \
+	push_swap_utils_3.c \
+	push_swap_utils_4.c \
 	complex_sort.c \
 	parse.c \
 	print.c \
@@ -25,22 +27,24 @@ SRCS = lst_functions.c \
 	indexate_utils.c \
 	medium_sort_utils.c \
 	medium_sort.c \
-	functions_for_ARG.c \
-	ft_split.c
+	parse_utils.c
 
-SRCS_BONUS = bonus_checker_bonus.c \
+SRCS_BONUS = bonus_checker.c \
 	bonus_parse.c \
 	bonus_lst_functions.c \
 	bonus_initialize.c \
 	bonus_checker_utils_1.c \
 	bonus_read_operations.c \
 	bonus_checker_utils_2.c \
+	bonus_checker_utils_3.c \
+	bonus_checker_utils_4.c \
 	bonus_swap.c \
 	bonus_push.c \
 	bonus_rotate.c \
 	bonus_reverse_rotate.c \
 	bonus_read_operations_utils_1.c \
-	bonus_read_operations_utils_2.c
+	bonus_read_operations_utils_2.c \
+	bonus_parse_utils.c
 
 OBJS = $(SRCS:.c=.o)
 

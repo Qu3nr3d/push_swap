@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_utils_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akacpere@student.42warsaw.pl <akacpere>    +#+  +:+       +#+        */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:54:36 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/25 16:39:51 by akacpere@st      ###   ########.fr       */
+/*   Updated: 2026/08/29 18:16:18 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-bool	is_number(char *str)
-{
-	int	i;
-
-	if (!str || !str[0])
-		return (false);
-	i = 0;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	if (!str[i])
-		return (false);
-	while (str[i])
-	{
-		if (str[i] < '0' || str[i] > '9')
-			return (false);
-		i++;
-	}
-	return (true);
-}
 
 int	ft_atoi(const char *nptr, int *error)
 {
@@ -56,7 +36,7 @@ int	ft_atoi(const char *nptr, int *error)
 	return ((int)number * sign);
 }
 
-static size_t	ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 

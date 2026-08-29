@@ -6,24 +6,20 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/27 20:36:15 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/28 21:13:53 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/29 18:48:28 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bonus_checker.h"
 
-static bool	is_duplicate(t_stack *stack, int number)
+static void	free_arr(char **arr)
 {
-	t_list	*node;
+	int	i;
 
-	node = stack->first_node;
-	while (node)
-	{
-		if (node->number == number)
-			return (true);
-		node = node->next;
-	}
-	return (false);
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
 }
 
 static bool	add_number(t_stack *stack_a, char *arg)
@@ -46,6 +42,32 @@ static bool	add_number(t_stack *stack_a, char *arg)
 	return (true);
 }
 
+static bool	add_arr(t_stack *stack_a, char *s)
+{
+	char	**arr;
+	int		i;
+
+	s = ft_strtrim(s, " ");
+	if (!s)
+		return (false);
+	arr = ft_split(s, ' ');
+	free(s);
+	if (!arr)
+		return (false);
+	i = 0;
+	while (arr[i])
+	{
+		if (!add_number(stack_a, arr[i]))
+		{
+			free_arr(arr);
+			return (false);
+		}
+		i++;
+	}
+	free_arr(arr);
+	return (true);
+}
+
 bool	parse(int argc, char *args[], t_stack *stack_a)
 {
 	int	i;
@@ -53,9 +75,17 @@ bool	parse(int argc, char *args[], t_stack *stack_a)
 	i = 1;
 	while (i < argc)
 	{
-		if (!is_number(args[i]))
-			return (false);
-		else if (!add_number(stack_a, args[i++]))
+		if (is_number(args[i]))
+		{
+			if (!add_number(stack_a, args[i++]))
+				return (false);
+		}
+		else if (is_num_arr(args[i]))
+		{
+			if (!add_arr(stack_a, args[i++]))
+				return (false);
+		}
+		else
 			return (false);
 	}
 	if (stack_a->size == 0)

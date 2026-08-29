@@ -6,31 +6,11 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/27 20:36:52 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/28 21:13:33 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/29 18:55:52 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bonus_checker.h"
-
-bool	is_number(char *str)
-{
-	int	i;
-
-	if (!str || !str[0])
-		return (false);
-	i = 0;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	if (!str[i])
-		return (false);
-	while (str[i])
-	{
-		if (str[i] < '0' || str[i] > '9')
-			return (false);
-		i++;
-	}
-	return (true);
-}
 
 int	ft_atoi(const char *nptr, int *error)
 {

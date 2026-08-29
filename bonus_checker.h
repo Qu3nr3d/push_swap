@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                          :+:      :+:    :+:   */
+/*   bonus_checker.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 19:15:45 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/28 19:17:40 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/29 18:51:17 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# define CHECKER_H
+#ifndef BONUS_CHECKER_H
+# define BONUS_CHECKER_H
 
 # include <stdlib.h>
 # include <stdbool.h>
@@ -54,7 +54,9 @@ t_list	*ft_lstnew(int number);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstclear(t_list **lst);
-bool	is_number(char *str);
+bool	is_num_arr(char *s);
+bool	is_duplicate(t_stack *stack, int number);
+bool	is_number(char *n);
 int		ft_atoi(const char *nptr, int *error);
 void	ft_bzero(void *ptr, size_t n);
 void	*ft_calloc(size_t n, size_t size);
@@ -80,5 +82,7 @@ bool	is_newline(char *s);
 void	free_stacks(t_stack a, t_stack b);
 void	free_stacks_and_exit(t_stack a, t_stack b);
 bool	append(t_opr *opr, char *str);
+char	*ft_strtrim(char const *s1, char const *set);
+char	**ft_split(char const *s, char c);
 
 #endif

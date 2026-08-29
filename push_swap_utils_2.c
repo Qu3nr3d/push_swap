@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:44:41 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/28 19:29:39 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/29 18:36:30 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,16 @@ int	get_float_len(long x, int neg)
 	return (len + 3 + neg);
 }
 
-bool	longer_string(char *str)
+bool	is_sorted(t_stack a)
 {
-	char	**nums;
-	int		i;
+	t_list	*node;
 
-	i = 0;
-	nums = ft_split(ft_strtrim(str, " "), ' ');
-	while (nums[i] != NULL)
-		if (!is_number(nums[i++]))
+	node = a.first_node;
+	while (node->next)
+	{
+		if (node->number > node->next->number)
 			return (false);
+		node = node->next;
+	}
 	return (true);
 }

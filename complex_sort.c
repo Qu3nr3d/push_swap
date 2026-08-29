@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 20:56:40 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/28 22:12:48 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/29 15:07:21 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,6 @@ void	indexate(t_stack *stack)
 			node = find_node_with_prev_max(*stack, &max_number);
 		node->index = number_of_elements;
 	}
-}
-
-static bool	is_sorted(t_stack a)
-{
-	t_list	*node;
-
-	node = a.first_node;
-	while (node->next)
-	{
-		if (node->number > node->next->number)
-			return (false);
-		node = node->next;
-	}
-	return (true);
 }
 
 void	complex_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench)

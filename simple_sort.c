@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   simple_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 17:53:17 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/28 17:53:37 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/29 15:09:45 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static bool	is_sorted(t_stack *a)
-{
-	t_list	*node;
-
-	node = a->first_node;
-	while (node && node->next)
-	{
-		if (node->number > node->next->number)
-			return (false);
-		node = node->next;
-	}
-	return (true);
-}
 
 static int	find_min_pos(t_stack *a)
 {
@@ -74,7 +60,7 @@ static void	push_min(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
 
 void	simple_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
 {
-	if (a->size <= 1 || is_sorted(a))
+	if (a->size <= 1 || is_sorted(*a))
 		return ;
 	while (a->size > 0)
 		push_min(a, b, ops, is_bench);

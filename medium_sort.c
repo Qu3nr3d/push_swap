@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   medium_sort.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 17:54:48 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/28 17:55:02 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/29 15:10:24 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	medium_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
 	int			depth;
 	int			size;
 
-	if (a->size <= 1)
+	if (a->size <= 1 || is_sorted(*a))
 		return ;
 	m.a = a;
 	m.b = b;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:04:27 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/28 19:28:40 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/29 18:27:58 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,11 @@ int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstclear(t_list **lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
+bool	is_num_arr(char *s);
+bool	is_duplicate(t_stack *stack, int number);
 bool	is_number(char *n);
 int		ft_atoi(const char *nptr, int *error);
+size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);
 char	*ft_itoa(int n);
 char	*ft_strjoin(char const *s1, char const *s2);
@@ -151,8 +154,8 @@ void	sort_block(t_medium *m, int size, int ascending);
 void	merge_pass(t_medium *m, int total, int size, int level);
 long	round_float(double n);
 int		get_float_len(long x, int neg);
+bool	is_sorted(t_stack a);
 char	*ft_strtrim(char const *s1, char const *set);
-bool	longer_string(char *str);
 char	**ft_split(char const *s, char c);
 
 #endif
