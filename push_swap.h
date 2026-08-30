@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:04:27 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/29 18:27:58 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 00:51:06 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,19 @@ typedef struct s_stack
 	t_list	*last_node;
 	int		size;
 }	t_stack;
+
+typedef struct s_stacks
+{
+	t_stack	stack_a;
+	t_stack	stack_b;
+}	t_stacks;
+
+typedef struct s_opr
+{
+	char	*opr;
+	int		size;
+	int		space;
+}	t_opr;
 
 typedef struct s_str_ops
 {

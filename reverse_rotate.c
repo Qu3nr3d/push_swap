@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   reverse_rotate.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:57:42 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/23 16:57:45 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/31 00:52:01 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	reverse_rotate_stack(t_stack *stack)
+int	reverse_rotate_stack(t_stack *stack)
 {
 	t_list	*last;
 

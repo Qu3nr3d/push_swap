@@ -6,77 +6,11 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:44:41 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/29 18:36:30 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 01:06:59 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static size_t	nbr_len(int n)
-{
-	size_t	len;
-
-	len = 0;
-	if (n < 0)
-	{
-		len++;
-		n = -n;
-	}
-	while (n > 0)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
-}
-
-char	*ft_itoa(int n)
-{
-	int		i;
-	char	*str;
-
-	if (n == 0)
-		return (ft_strdup("0"));
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	i = nbr_len(n);
-	str = malloc(i + 1);
-	if (!str)
-		return (NULL);
-	if (n < 0)
-	{
-		str[0] = '-';
-		n = -n;
-	}
-	str[i--] = '\0';
-	while (n > 0)
-	{
-		str[i--] = (char){n % 10 + 48};
-		n /= 10;
-	}
-	return (str);
-}
-
-long	round_float(double n)
-{
-	if (n >= 0)
-		return ((long)(n * 100 + 0.5));
-	return ((long)(n * 100 - 0.5));
-}
-
-int	get_float_len(long x, int neg)
-{
-	int	len;
-
-	len = 1;
-	x /= 100;
-	while (x >= 10)
-	{
-		x /= 10;
-		len++;
-	}
-	return (len + 3 + neg);
-}
 
 bool	is_sorted(t_stack a)
 {
@@ -90,4 +24,60 @@ bool	is_sorted(t_stack a)
 		node = node->next;
 	}
 	return (true);
+}
+
+void	*ft_realloc(void *ptr1, int prev_size, int new_size)
+{
+	void			*ptr2;
+	unsigned char	*pointer1;
+	unsigned char	*pointer2;
+	int				i;
+	int				size;
+
+	i = 0;
+	ptr2 = ft_calloc(new_size, sizeof(char));
+	if (!ptr2)
+		return (NULL);
+	pointer1 = (unsigned char *) ptr1;
+	pointer2 = (unsigned char *) ptr2;
+	if (prev_size < new_size)
+		size = prev_size;
+	else
+		size = new_size;
+	while (i < size)
+	{
+		pointer2[i] = pointer1[i];
+		i++;
+	}
+	free(ptr1);
+	return (ptr2);
+}
+
+bool	is_newline(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '\n')
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+void	free_stacks(t_stack a, t_stack b)
+{
+	if (a.first_node)
+		ft_lstclear(&a.first_node);
+	if (b.first_node)
+		ft_lstclear(&b.first_node);
+}
+
+void	free_stacks_and_exit(t_stack a, t_stack b)
+{
+	free_stacks(a, b);
+	write(2, "Error\n", 6);
+	exit(1);
 }

@@ -6,65 +6,67 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 19:13:58 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/28 21:14:13 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 01:37:23 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bonus_checker.h"
+#include "push_swap.h"
 
-static bool	update_stash(char **stash)
-{
-	char	*old_stash;
-	int		i;
-	int		j;
-
-	old_stash = ft_strdup(*stash);
-	free(*stash);
-	i = 0;
-	while (old_stash[i] != '\n')
-		i++;
-	i++;
-	if (!old_stash[i])
-	{
-		*stash = NULL;
-		return (free(old_stash), true);
-	}
-	*stash = ft_calloc(ft_strlen(*stash) - i + 1, sizeof(char));
-	if (!*stash)
-	{
-		return (free(old_stash), false);
-	}
-	j = 0;
-	while (old_stash[i])
-		(*stash)[j++] = old_stash[i++];
-	return (free(old_stash), true);
-}
-
-static bool	move_to_stash(char **stash, char *buffer)
+static char	*update_stash(t_opr opr, char *buffer, t_stacks s)
 {
 	int	i;
-	int	j;
+	int j;
+	char *new_stash
 
 	i = 0;
 	while (buffer[i] != '\n')
 		i++;
 	i++;
 	if (!buffer[i])
-		return (true);
-	*stash = ft_calloc(ft_strlen(buffer) - i + 1, sizeof(char));
-	if (!*stash)
-		return (false);
+		return (NULL);
+	new_stash = ft_calloc(ft_strlen(buffer) - i + 1, sizeof(char));
+	if (!new_stash)
+	{
+		free(opr.opr);
+		free(buffer);
+		free_stacks_and_exit(s);
+	}
 	j = 0;
 	while (buffer[i])
+		new_stash[j++] = buffer[i++];
+	return (new_stash);
+}
+
+bool	append(t_opr *opr, char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!opr->opr)
 	{
-		(*stash)[j] = buffer[i];
-		j++;
+		opr->opr = ft_calloc(opr->space, sizeof(char));
+		if (!opr->opr)
+			return (false);
+	}
+	while (str[i])
+	{
+		opr->opr[opr->size++] = str[i];
+		if (opr->size == opr->space)
+		{
+			opr->opr = ft_realloc(opr->opr, opr->space, opr->space * 2);
+			if (!opr->opr)
+				return (false);
+			opr->space *= 2;
+		}
+		if (str[i] == '\n')
+			break ;
 		i++;
 	}
+	opr->opr[opr->size] = '\0';
 	return (true);
 }
 
-static bool	read_stash(t_opr *opr, char **stash, t_stacks s)
+static bool	read_stash(t_opr *opr, char **stash, char **buffer, t_stacks s)
 {
 	if (*stash)
 	{
@@ -76,12 +78,8 @@ static bool	read_stash(t_opr *opr, char **stash, t_stacks s)
 		}
 		if (is_newline(opr->opr))
 		{
-			if (!update_stash(stash))
-			{
-				free(opr->opr);
-				free(*stash);
-				free_stacks_and_exit(s.stack_a, s.stack_b);
-			}
+			free(*stash);
+			*stash = update_stash(*opr, *stash, s);
 			return (true);
 		}
 		free(*stash);
@@ -104,13 +102,8 @@ static void	read_buffer(t_opr *opr, char **stash, char **buffer, t_stacks s)
 		}
 		if (is_newline(opr->opr))
 		{
-			if (!move_to_stash(stash, *buffer))
-			{
-				free(opr->opr);
-				free(*stash);
-				free(*buffer);
-				free_stacks_and_exit(s.stack_a, s.stack_b);
-			}
+			free(*stash);
+			*stash = update_stash(*opr, *buffer, s);
 			return ;
 		}
 		ft_bzero(*buffer, 4);
@@ -127,6 +120,7 @@ char	*read_operation(t_stacks s)
 	opr.space = 1024;
 	opr.size = 0;
 	opr.opr = NULL;
+	buffer = NULL;
 	if (read_stash(&opr, &stash, s))
 		return (opr.opr);
 	buffer = ft_calloc(5, sizeof(char));

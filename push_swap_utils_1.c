@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:54:36 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/29 18:16:18 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 01:05:55 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,37 +36,6 @@ int	ft_atoi(const char *nptr, int *error)
 	return ((int)number * sign);
 }
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
-char	*ft_strdup(const char *s)
-{
-	size_t	size;
-	size_t	i;
-	char	*str;
-
-	size = ft_strlen(s) + 1;
-	i = 0;
-	str = malloc(size * sizeof(char));
-	if (str == 0)
-		return (0);
-	while (i != size)
-	{
-		str[i] = s[i];
-		i++;
-	}
-	return (str);
-}
-
 void	print_on_stderr(char *s)
 {
 	while (*s)
@@ -75,3 +44,44 @@ void	print_on_stderr(char *s)
 		s++;
 	}
 }
+
+static size_t	nbr_len(int n)
+{
+	size_t	len;
+
+	len = 0;
+	if (n < 0)
+	{
+		len++;
+		n = -n;
+	}
+	while (n > 0)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
+}
+
+long	round_float(double n)
+{
+	if (n >= 0)
+		return ((long)(n * 100 + 0.5));
+	return ((long)(n * 100 - 0.5));
+}
+
+int	get_float_len(long x, int neg)
+{
+	int	len;
+
+	len = 1;
+	x /= 100;
+	while (x >= 10)
+	{
+		x /= 10;
+		len++;
+	}
+	return (len + 3 + neg);
+}
+
+

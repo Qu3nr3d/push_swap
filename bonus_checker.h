@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 19:15:45 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/29 18:51:17 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 00:49:48 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,7 @@ typedef struct s_stack
 	int		size;
 }	t_stack;
 
-typedef struct s_stacks
-{
-	t_stack	stack_a;
-	t_stack	stack_b;
-}	t_stacks;
 
-typedef struct s_opr
-{
-	char	*opr;
-	int		size;
-	int		space;
-}	t_opr;
 
 void	initialize_stacks_and_operation(t_stack *a, t_stack *b, char **opr);
 bool	parse(int argc, char *args[], t_stack *stack_a);

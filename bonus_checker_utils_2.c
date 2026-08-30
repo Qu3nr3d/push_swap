@@ -6,27 +6,12 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/27 20:39:17 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/28 21:13:37 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 01:35:36 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bonus_checker.h"
 
-bool	str_is_equal(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-			return (0);
-		i++;
-	}
-	if (s1[i] || s2[i])
-		return (false);
-	return (true);
-}
 
 bool	is_operation(char *s)
 {
@@ -58,40 +43,37 @@ bool	is_operation(char *s)
 void	execute_operation(t_stack *a, t_stack *b, char *s)
 {
 	if (str_is_equal(s, "sa\n"))
-		sa(a);
+		swap_stack(a);
 	if (str_is_equal(s, "sb\n"))
-		sb(b);
+		swap_stack(b);
 	if (str_is_equal(s, "ss\n"))
-		ss(a, b);
+	{
+		swap_stack(a);
+		swap_stack(b);
+	}
 	if (str_is_equal(s, "pa\n"))
-		pa(a, b);
+		push_stack(a, b);
 	if (str_is_equal(s, "pb\n"))
-		pb(a, b);
+		push_stack(b, a);
 	if (str_is_equal(s, "ra\n"))
-		ra(a);
+		rotate_stack(a);
 	if (str_is_equal(s, "rb\n"))
-		rb(b);
+		rotate_stack(b);
 	if (str_is_equal(s, "rr\n"))
-		rr(a, b);
+	{
+		rotate_stack(a);
+		rotate_stack(b);
+	}
 	if (str_is_equal(s, "rra\n"))
-		rra(a);
+		reverse_rotate_stack(a);
 	if (str_is_equal(s, "rrb\n"))
-		rrb(b);
+		reverse_rotate_stack(b);
 	if (str_is_equal(s, "rrr\n"))
-		rrr(a, b);
+	{
+		reverse_rotate_stack(a);
+		reverse_rotate_stack(b);
+	}
 	return ;
 }
 
-int	is_sorted(t_stack a)
-{
-	t_list	*node;
 
-	node = a.first_node;
-	while (node->next)
-	{
-		if (node->number > node->next->number)
-			return (0);
-		node = node->next;
-	}
-	return (1);
-}

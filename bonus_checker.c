@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "bonus_checker.h"
+#include "push_swap.h"
 
 static void	free_all_and_exit(t_stack stack_a, t_stack stack_b, char *operation)
 {
@@ -22,11 +22,15 @@ static void	free_all_and_exit(t_stack stack_a, t_stack stack_b, char *operation)
 int	main(int argc, char *argv[])
 {
 	t_stacks	s;
+	int i;
 	char		*operation;
 
 	if (argc == 1)
 		return (3);
-	initialize_stacks_and_operation(&s.stack_a, &s.stack_b, &operation);
+	i = 0;
+	while (is_flag(argv[i++]))
+		return (2)
+	initialize_stacks(&s.stack_a, &s.stack_b);
 	if (!parse(argc, argv, &s.stack_a))
 		free_all_and_exit(s.stack_a, s.stack_b, operation);
 	operation = read_operation(s);
