@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 20:56:40 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/31 15:38:51 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 23:42:44 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	indexate(t_stack *stack)
 {
-	int		max_number;
+	int				max_number;
 	t_doubly_list	*node;
-	int		number_of_elements;
+	int				number_of_elements;
 
 	max_number = find_max_number(*stack);
 	node = find_node_with_first_max(*stack, max_number);

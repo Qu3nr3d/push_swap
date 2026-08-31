@@ -6,13 +6,13 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:40:14 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/31 15:32:13 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 23:41:53 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int push_stack(t_stack *pushed_to, t_stack *pushed_from)
+int	push_stack(t_stack *pushed_to, t_stack *pushed_from)
 {
 	t_doubly_list	*p;
 

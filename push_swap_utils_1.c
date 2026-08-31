@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:54:36 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/31 15:36:57 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 23:48:00 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,3 @@ int	get_float_len(long x, int neg)
 	}
 	return (len + 3 + neg);
 }
-
-void	initialize_stacks(t_stack *stack_a, t_stack *stack_b)
-{
-	stack_a->first_node = NULL;
-	stack_a->last_node = NULL;
-	stack_a->size = 0;
-	stack_b->first_node = NULL;
-	stack_b->last_node = NULL;
-	stack_b->size = 0;
-}
-

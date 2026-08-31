@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:07:30 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/31 16:34:44 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 23:46:08 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_doubly_list	*lstnew(int number)
 int	lstsize(t_doubly_list *lst)
 {
 	t_doubly_list	*current_node;
-	int		len;
+	int				len;
 
 	if (!lst)
 		return (0);
@@ -45,7 +45,7 @@ int	lstsize(t_doubly_list *lst)
 
 t_doubly_list	*lstlast(t_doubly_list *lst)
 {
-	int		len;
+	int				len;
 	t_doubly_list	*last_node;
 
 	if (!lst)

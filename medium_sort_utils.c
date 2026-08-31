@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 17:54:14 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/31 15:38:11 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 23:41:34 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static int	find_extreme_pos(const t_stack *stack, int ascending)
 {
 	t_doubly_list	*node;
-	int		extreme;
-	int		extreme_pos;
-	int		pos;
+	int				extreme;
+	int				extreme_pos;
+	int				pos;
 
 	node = stack->first_node;
 	extreme = node->number;

@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/17 19:20:27 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/31 15:31:35 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 23:43:01 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 float	compute_disorder(t_stack stack_a)
 {
-	int		mistakes;
-	int		total_pairs;
+	int				mistakes;
+	int				total_pairs;
 	t_doubly_list	*node;
 	t_doubly_list	*tmp;
 

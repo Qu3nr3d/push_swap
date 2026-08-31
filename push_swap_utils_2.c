@@ -6,11 +6,21 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:44:41 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/31 15:35:34 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 23:45:38 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	initialize_stacks(t_stack *stack_a, t_stack *stack_b)
+{
+	stack_a->first_node = NULL;
+	stack_a->last_node = NULL;
+	stack_a->size = 0;
+	stack_b->first_node = NULL;
+	stack_b->last_node = NULL;
+	stack_b->size = 0;
+}
 
 t_ops	initialize_ops(void)
 {
@@ -43,47 +53,3 @@ bool	is_sorted(t_stack a)
 	}
 	return (true);
 }
-
-
-
-void	*ft_realloc(void *ptr1, int prev_size, int new_size)
-{
-	void			*ptr2;
-	unsigned char	*pointer1;
-	unsigned char	*pointer2;
-	int				i;
-	int				size;
-
-	i = 0;
-	ptr2 = ft_calloc(new_size, sizeof(char));
-	if (!ptr2)
-		return (NULL);
-	pointer1 = (unsigned char *) ptr1;
-	pointer2 = (unsigned char *) ptr2;
-	if (prev_size < new_size)
-		size = prev_size;
-	else
-		size = new_size;
-	while (i < size)
-	{
-		pointer2[i] = pointer1[i];
-		i++;
-	}
-	free(ptr1);
-	return (ptr2);
-}
-
-bool	is_newline(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '\n')
-			return (true);
-		i++;
-	}
-	return (false);
-}
-

@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:08:01 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/31 15:30:40 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 23:41:23 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void	free_arr(char **arr)
 static bool	add_number(t_stack *stack_a, char *arg)
 {
 	t_doubly_list	*node;
-	int		number;
-	int		error;
+	int				number;
+	int				error;
 
 	number = ft_atoi_with_error(arg, &error);
 	if (error)

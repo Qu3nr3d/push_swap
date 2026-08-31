@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bonus_read_operations.c                            :+:      :+:    :+:   */
+/*   read_operations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/28 19:13:58 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/31 15:16:22 by akacpere         ###   ########.fr       */
+/*   Created: 2026/08/31 23:40:28 by akacpere          #+#    #+#             */
+/*   Updated: 2026/08/31 23:49:08 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static char	*update_stash(t_opr opr, char *buffer, t_stacks s)
 {
-	int	i;
-	int j;
-	char *new_stash;
+	int		i;
+	int		j;
+	char	*new_stash;
 
 	i = 0;
 	while (buffer[i] != '\n')
@@ -68,8 +68,8 @@ static bool	append(t_opr *opr, char *str)
 
 static bool	read_stash(t_opr *opr, char **stash, t_stacks s)
 {
-	char *new_stash;
-	
+	char	*new_stash;
+
 	new_stash = NULL;
 	if (*stash)
 	{

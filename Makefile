@@ -20,7 +20,6 @@ SRCS = lst_functions.c \
 	main.c \
 	push_swap_utils_1.c \
 	push_swap_utils_2.c \
-	push_swap_utils_3.c \
 	simple_sort.c \
 	medium_sort.c \
 	complex_sort.c \
@@ -30,9 +29,12 @@ SRCS = lst_functions.c \
 	indexate_utils.c \
 	medium_sort_utils.c \
 	parse_utils.c \
-	read_operations.c
 
-B_SRCS = checker.c
+B_SRCS = checker.c \
+	read_operations.c \
+	checker_utils_1.c \
+	checker_utils_2.c
+
 
 OBJS = $(SRCS:.c=.o)
 
