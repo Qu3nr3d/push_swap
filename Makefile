@@ -1,10 +1,14 @@
-CC = cc
+CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fPIE
 
 NAME = push_swap
 
-NAME_BONUS = checker_bonus
+BONUS = checker
+
+LIBFT_DIR = libft
+
+LIBFT = $(LIBFT_DIR)/libft.a
 
 SRCS = lst_functions.c \
 	push.c \
@@ -14,67 +18,48 @@ SRCS = lst_functions.c \
 	disorder.c \
 	flags.c \
 	main.c \
-	initialize.c \
 	push_swap_utils_1.c \
 	push_swap_utils_2.c \
 	push_swap_utils_3.c \
-	push_swap_utils_4.c \
+	simple_sort.c \
+	medium_sort.c \
 	complex_sort.c \
 	parse.c \
 	print.c \
-	simple_sort.c \
 	metrics.c \
 	indexate_utils.c \
 	medium_sort_utils.c \
-	medium_sort.c \
-	parse_utils.c
+	parse_utils.c \
+	read_operations.c
 
-SRCS_BONUS = bonus_checker.c \
-	bonus_parse.c \
-	bonus_lst_functions.c \
-	bonus_initialize.c \
-	bonus_checker_utils_1.c \
-	bonus_read_operations.c \
-	bonus_checker_utils_2.c \
-	bonus_checker_utils_3.c \
-	bonus_checker_utils_4.c \
-	bonus_swap.c \
-	bonus_push.c \
-	bonus_rotate.c \
-	bonus_reverse_rotate.c \
-	bonus_read_operations_utils_1.c \
-	bonus_read_operations_utils_2.c \
-	bonus_parse_utils.c
+B_SRCS = checker.c
 
 OBJS = $(SRCS:.c=.o)
 
-OBJS_BONUS = $(SRCS_BONUS:.c=.o)
+B_OBJS = $(B_SRCS:.c=.o)
+
+SHARED_FILES = $(filter-out main.o, $(OBJS))
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+bonus: $(BONUS)
 
-bonus: $(NAME_BONUS)
+$(BONUS): $(B_OBJS) $(SHARED_FILES) $(LIBFT)
+	@$(CC) $(CFLAGS) $(SHARED_FILES) $(B_OBJS) $(LIBFT) -o $(BONUS)
 
-$(NAME_BONUS): $(OBJS_BONUS)
-	@$(CC) $(CFLAGS) $(OBJS_BONUS) -o $(NAME_BONUS)
+$(NAME): $(OBJS) $(LIBFT)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
-%.o: %.c push_swap.h bonus_checker.h
+$(LIBFT):
+	@$(MAKE) -C $(LIBFT_DIR) all
+
+%.o: %.c push_swap.h
 	@$(CC) -g $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm -f $(OBJS)
+	@rm -f $(OBJS) $(B_OBJS)
+	@$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
-	@rm -f $(NAME)
-
-re: clean all
-
-bonus_clean:
-	@rm -f $(OBJS_BONUS)
-
-bonus_fclean: bonus_clean
-	@rm -f $(NAME_BONUS)
-
-bonus_re: bonus_clean bonus
+	@rm -f $(NAME) $(BONUS)
+	@$(MAKE) -C $(LIBFT_DIR) fclean

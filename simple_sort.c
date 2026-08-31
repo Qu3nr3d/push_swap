@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 17:53:17 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/29 15:09:45 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 15:37:50 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	find_min_pos(t_stack *a)
 {
-	t_list	*node;
+	t_doubly_list	*node;
 	int		min;
 	int		pos;
 	int		min_pos;

@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:58:00 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/31 00:51:55 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 15:32:29 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	rotate_stack(t_stack *stack)
 {
-	t_list	*first;
+	t_doubly_list	*first;
 
 	if (stack->size < 2)
 		return (0);

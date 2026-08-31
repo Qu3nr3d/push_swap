@@ -5,72 +5,90 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/29 18:20:45 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/29 18:21:07 by akacpere         ###   ########.fr       */
+/*   Created: 2026/08/27 20:39:17 by akacpere          #+#    #+#             */
+/*   Updated: 2026/08/31 16:33:29 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static unsigned int	min(unsigned int i, unsigned int j)
+
+bool	is_operation(char *s)
 {
-	if (i <= j)
-		return (i);
-	return (j);
+	if (str_is_equal(s, "sa\n"))
+		return (true);
+	if (str_is_equal(s, "sb\n"))
+		return (true);
+	if (str_is_equal(s, "ss\n"))
+		return (true);
+	if (str_is_equal(s, "pa\n"))
+		return (true);
+	if (str_is_equal(s, "pb\n"))
+		return (true);
+	if (str_is_equal(s, "ra\n"))
+		return (true);
+	if (str_is_equal(s, "rb\n"))
+		return (true);
+	if (str_is_equal(s, "rr\n"))
+		return (true);
+	if (str_is_equal(s, "rra\n"))
+		return (true);
+	if (str_is_equal(s, "rrb\n"))
+		return (true);
+	if (str_is_equal(s, "rrr\n"))
+		return (true);
+	return (false);
 }
 
-static char	*ft_substr(char const *s, unsigned int start, size_t len)
+void	execute_operation(t_stack *a, t_stack *b, char *s)
 {
-	unsigned int	len_s;
-	unsigned int	j;
-	size_t			k;
-	unsigned int	real_len;
-	char			*ptr;	
-
-	len_s = 0;
-	j = 0;
-	k = 0;
-	while (s[len_s])
-		len_s++;
-	if (len_s < start)
-		return (ft_strdup(""));
-	real_len = min(len, (len_s - start));
-	ptr = (char *)malloc(sizeof(char) * (real_len + 1));
-	if (!ptr)
-		return (NULL);
-	while (s[start + j] && k < real_len)
+	if (str_is_equal(s, "sa\n"))
+		swap_stack(a);
+	if (str_is_equal(s, "sb\n"))
+		swap_stack(b);
+	if (str_is_equal(s, "ss\n"))
 	{
-		ptr[j] = s[start + j];
-		j++;
-		k++;
+		swap_stack(a);
+		swap_stack(b);
 	}
-	ptr[j] = '\0';
-	return (ptr);
-}
-
-static int	in_set(char c, char const *set)
-{
-	while (*set)
+	if (str_is_equal(s, "pa\n"))
+		push_stack(a, b);
+	if (str_is_equal(s, "pb\n"))
+		push_stack(b, a);
+	if (str_is_equal(s, "ra\n"))
+		rotate_stack(a);
+	if (str_is_equal(s, "rb\n"))
+		rotate_stack(b);
+	if (str_is_equal(s, "rr\n"))
 	{
-		if (*set == c)
-			return (1);
-		set++;
+		rotate_stack(a);
+		rotate_stack(b);
 	}
-	return (0);
+	if (str_is_equal(s, "rra\n"))
+		reverse_rotate_stack(a);
+	if (str_is_equal(s, "rrb\n"))
+		reverse_rotate_stack(b);
+	if (str_is_equal(s, "rrr\n"))
+	{
+		reverse_rotate_stack(a);
+		reverse_rotate_stack(b);
+	}
+	return ;
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+void free_stacks(t_stack a, t_stack b)
 {
-	size_t	start;
-	size_t	end;
-
-	start = 0;
-	end = ft_strlen((char *)s1);
-	if (!s1 || !set)
-		return (NULL);
-	while (s1[start] && in_set(s1[start], set))
-		start++;
-	while (end > start && in_set(s1[end - 1], set))
-		end--;
-	return (ft_substr(s1, start, end - start));
+	if (a.first_node)
+		lstclear(&a.first_node);
+	if (b.first_node)
+		lstclear(&b.first_node);
 }
+
+void	free_stacks_and_exit(t_stack a, t_stack b)
+{
+	free_stacks(a, b);
+	write(2, "Error\n", 6);
+	exit(1);
+}
+
+

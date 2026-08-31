@@ -6,18 +6,16 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:04:27 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/31 00:51:06 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 16:34:25 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include <stdlib.h>
-# include <stddef.h>
-# include <unistd.h>
 # include <limits.h>
 # include <stdbool.h>
+# include "libft/libft.h"
 
 typedef struct s_pass
 {
@@ -66,18 +64,18 @@ typedef struct s_flags
 	int	is_adaptive;
 }	t_flags;
 
-typedef struct s_list
+typedef struct s_doubly_list
 {
 	int				number;
-	struct s_list	*next;
-	struct s_list	*prev;
+	struct s_doubly_list	*next;
+	struct s_doubly_list	*prev;
 	int				index;
-}	t_list;
+}	t_doubly_list;
 
 typedef struct s_stack
 {
-	t_list	*first_node;
-	t_list	*last_node;
+	t_doubly_list	*first_node;
+	t_doubly_list	*last_node;
 	int		size;
 }	t_stack;
 
@@ -127,6 +125,10 @@ float	compute_disorder(t_stack stack_a);
 void	choose_algorithm(t_flags *flags, float disorder);
 void	update_metrics(t_metrics *metrics);
 bool	print_benchmark(t_metrics metrics);
+int	swap_stack(t_stack *stack);
+int push_stack(t_stack *pushed_to, t_stack *pushed_from);
+int	rotate_stack(t_stack *stack);
+int	reverse_rotate_stack(t_stack *stack);
 void	sa(t_stack *a, t_ops *ops, int is_bench);
 void	sb(t_stack *b, t_ops *ops, int is_bench);
 void	ss(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
@@ -141,34 +143,37 @@ void	rrr(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
 void	simple_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
 void	medium_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
 void	complex_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
-t_list	*ft_lstnew(int number);
-int		ft_lstsize(t_list *lst);
-t_list	*ft_lstlast(t_list *lst);
-void	ft_lstclear(t_list **lst);
-void	ft_lstadd_back(t_list **lst, t_list *new);
+t_doubly_list	*lstnew(int number);
+int		lstsize(t_doubly_list *lst);
+t_doubly_list	*lstlast(t_doubly_list *lst);
+void	lstclear(t_doubly_list **lst);
+void	lstadd_back(t_doubly_list **lst, t_doubly_list *new);
 bool	is_num_arr(char *s);
 bool	is_duplicate(t_stack *stack, int number);
 bool	is_number(char *n);
-int		ft_atoi(const char *nptr, int *error);
+int		ft_atoi_with_error(const char *nptr, int *error);
 size_t	ft_strlen(const char *s);
-char	*ft_strdup(const char *s);
-char	*ft_itoa(int n);
-char	*ft_strjoin(char const *s1, char const *s2);
 bool	is_flag(char *str);
 char	*float_to_str(double n);
 void	print_on_stderr(char *s);
 int		find_number_of_digits(int n);
 int		find_max_number(t_stack stack);
-t_list	*find_node_with_first_max(t_stack stack, int max);
-t_list	*find_node_with_prev_max(t_stack stack, int *next_max);
-t_list	*find_node_with_last_max(t_stack stack);
+t_doubly_list	*find_node_with_first_max(t_stack stack, int max);
+t_doubly_list	*find_node_with_prev_max(t_stack stack, int *next_max);
+t_doubly_list	*find_node_with_last_max(t_stack stack);
 int		get_orientation(int index, int level);
 void	sort_block(t_medium *m, int size, int ascending);
 void	merge_pass(t_medium *m, int total, int size, int level);
 long	round_float(double n);
 int		get_float_len(long x, int neg);
 bool	is_sorted(t_stack a);
-char	*ft_strtrim(char const *s1, char const *set);
-char	**ft_split(char const *s, char c);
+bool	is_operation(char *s);
+void	execute_operation(t_stack *a, t_stack *b, char *s);
+void	*ft_realloc(void *ptr1, int prev_size, int new_size);
+bool	is_newline(char *s);
+void	free_stacks(t_stack a, t_stack b);
+void	free_stacks_and_exit(t_stack a, t_stack b);
+char	*read_operation(t_stacks s);
+bool str_is_equal(char *s1, char *s2);
 
 #endif

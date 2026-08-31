@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   flags.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:55:19 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/28 17:47:27 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/31 15:36:42 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static bool	str_is_equal(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-			return (false);
-		i++;
-	}
-	if (s1[i] || s2[i])
-		return (false);
-	return (true);
-}
 
 static int	check_strategy(t_flags *flags)
 {

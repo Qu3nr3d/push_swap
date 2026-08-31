@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 18:20:17 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/29 18:21:16 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 15:39:42 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_duplicate(t_stack *stack, int number)
 {
-	t_list	*node;
+	t_doubly_list	*node;
 
 	node = stack->first_node;
 	while (node)

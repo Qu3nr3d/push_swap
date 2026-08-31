@@ -6,15 +6,33 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:44:41 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/31 01:06:59 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 15:35:34 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+t_ops	initialize_ops(void)
+{
+	t_ops	ops;
+
+	ops.use_pa = 0;
+	ops.use_pb = 0;
+	ops.use_sa = 0;
+	ops.use_sb = 0;
+	ops.use_ss = 0;
+	ops.use_ra = 0;
+	ops.use_rb = 0;
+	ops.use_rr = 0;
+	ops.use_rra = 0;
+	ops.use_rrb = 0;
+	ops.use_rrr = 0;
+	return (ops);
+}
+
 bool	is_sorted(t_stack a)
 {
-	t_list	*node;
+	t_doubly_list	*node;
 
 	node = a.first_node;
 	while (node->next)
@@ -25,6 +43,8 @@ bool	is_sorted(t_stack a)
 	}
 	return (true);
 }
+
+
 
 void	*ft_realloc(void *ptr1, int prev_size, int new_size)
 {
@@ -67,17 +87,3 @@ bool	is_newline(char *s)
 	return (false);
 }
 
-void	free_stacks(t_stack a, t_stack b)
-{
-	if (a.first_node)
-		ft_lstclear(&a.first_node);
-	if (b.first_node)
-		ft_lstclear(&b.first_node);
-}
-
-void	free_stacks_and_exit(t_stack a, t_stack b)
-{
-	free_stacks(a, b);
-	write(2, "Error\n", 6);
-	exit(1);
-}

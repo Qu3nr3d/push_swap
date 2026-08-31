@@ -6,13 +6,38 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:54:36 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/31 01:05:55 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 15:36:57 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_atoi(const char *nptr, int *error)
+void	print_on_stderr(char *s)
+{
+	while (*s)
+	{
+		write(2, s, 1);
+		s++;
+	}
+}
+
+bool	str_is_equal(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (false);
+		i++;
+	}
+	if (s1[i] || s2[i])
+		return (false);
+	return (true);
+}
+
+int	ft_atoi_with_error(const char *nptr, int *error)
 {
 	long long	number;
 	int			sign;
@@ -36,33 +61,6 @@ int	ft_atoi(const char *nptr, int *error)
 	return ((int)number * sign);
 }
 
-void	print_on_stderr(char *s)
-{
-	while (*s)
-	{
-		write(2, s, 1);
-		s++;
-	}
-}
-
-static size_t	nbr_len(int n)
-{
-	size_t	len;
-
-	len = 0;
-	if (n < 0)
-	{
-		len++;
-		n = -n;
-	}
-	while (n > 0)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
-}
-
 long	round_float(double n)
 {
 	if (n >= 0)
@@ -84,4 +82,13 @@ int	get_float_len(long x, int neg)
 	return (len + 3 + neg);
 }
 
+void	initialize_stacks(t_stack *stack_a, t_stack *stack_b)
+{
+	stack_a->first_node = NULL;
+	stack_a->last_node = NULL;
+	stack_a->size = 0;
+	stack_b->first_node = NULL;
+	stack_b->last_node = NULL;
+	stack_b->size = 0;
+}
 

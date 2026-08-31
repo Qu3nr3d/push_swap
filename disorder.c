@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   disorder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/17 19:20:27 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/28 17:46:32 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/31 15:31:35 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ float	compute_disorder(t_stack stack_a)
 {
 	int		mistakes;
 	int		total_pairs;
-	t_list	*node;
-	t_list	*tmp;
+	t_doubly_list	*node;
+	t_doubly_list	*tmp;
 
 	mistakes = 0;
 	node = stack_a.first_node;

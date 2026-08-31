@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   medium_sort_2.c                                    :+:      :+:    :+:   */
+/*   medium_sort_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 17:54:14 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/28 17:54:28 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/31 15:38:11 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	find_extreme_pos(const t_stack *stack, int ascending)
 {
-	t_list	*node;
+	t_doubly_list	*node;
 	int		extreme;
 	int		extreme_pos;
 	int		pos;

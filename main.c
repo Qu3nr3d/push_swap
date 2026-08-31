@@ -6,16 +6,16 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:09:43 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/29 19:14:56 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/08/31 18:05:12 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-void	display_stack(t_list *tab)
+void	display_stack(t_doubly_list *tab)
 {
-	t_list	*node;
+	t_doubly_list	*node;
 
 	node = tab;
 	while (node)
@@ -52,7 +52,7 @@ int	main(int argc, char **argv)
 		return (write(2, "Error\n", 6));
 	initialize_stacks(&stack_a, &stack_b);
 	if (!parse(argc, argv, &stack_a))
-		return (ft_lstclear(&stack_a.first_node), write(2, "Error\n", 6), 1);
+		return (lstclear(&stack_a.first_node), write(2, "Error\n", 6), 1);
 	choose_algorithm(&flags, compute_disorder(stack_a));
 	if (flags.is_bench)
 		if (!initialize_metrics(&metrics, flags, stack_a))
@@ -64,6 +64,6 @@ int	main(int argc, char **argv)
 		if (!print_benchmark(metrics))
 			return (write(2, "Error\n", 6), 1);
 	}
-	ft_lstclear(&stack_a.first_node);
+	lstclear(&stack_a.first_node);
 	return (0);
 }
