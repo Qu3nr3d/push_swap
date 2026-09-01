@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   metrics.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akacpere@student.42warsaw.pl <akacpere>    +#+  +:+       +#+        */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:00:00 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/25 16:33:29 by akacpere@st      ###   ########.fr       */
+/*   Updated: 2026/09/01 13:25:53 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ static char	*create_strategy_str(t_flags flags)
 	return (strategy);
 }
 
-bool	initialize_metrics(t_metrics *metrics, t_flags flags, t_stack stack_a)
+bool	init_metrics(t_metrics *metrics, t_flags flags, t_stack a)
 {
-	metrics->disorder = compute_disorder(stack_a);
+	metrics->disorder = compute_disorder(a);
 	metrics->strategy = create_strategy_str(flags);
 	if (!metrics->strategy)
 		return (false);
 	metrics->total_ops = 0;
-	metrics->ops = initialize_ops();
+	metrics->ops = init_ops();
 	return (true);
 }
 

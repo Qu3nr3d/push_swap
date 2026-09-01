@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:07:30 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/31 23:46:08 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/09/01 14:42:30 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_doubly_list	*lstnew(int number)
 	new_node->number = number;
 	new_node->next = NULL;
 	new_node->prev = NULL;
-	new_node->index = 0;
+	new_node->index = -1;
 	return (new_node);
 }
 

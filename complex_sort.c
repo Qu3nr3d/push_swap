@@ -6,30 +6,51 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 20:56:40 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/31 23:42:44 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/09/01 14:53:02 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	indexate(t_stack *stack)
+static int	find_number_of_digits(int n)
 {
-	int				max_number;
-	t_doubly_list	*node;
-	int				number_of_elements;
+	int	number_of_digits;
 
-	max_number = find_max_number(*stack);
-	node = find_node_with_first_max(*stack, max_number);
-	number_of_elements = lstsize(stack->first_node);
-	node->index = number_of_elements;
-	while (--number_of_elements)
+	number_of_digits = 0;
+	while (n)
 	{
-		if (number_of_elements == 1)
-			node = find_node_with_last_max(*stack);
-		else
-			node = find_node_with_prev_max(*stack, &max_number);
-		node->index = number_of_elements;
+		n /= 2;
+		number_of_digits++;
 	}
+	return (number_of_digits);
+}
+
+static void	indexate(t_stack *a)
+{
+	int				i;
+	t_doubly_list	*tmp;
+	t_doubly_list	*node;
+
+	i = 0;
+	node = NULL;
+	tmp = a->first_node;
+	while (i < a->size)
+	{
+		while (tmp)
+		{
+			if (tmp->index == -1)
+			{
+				if (!node || node->number < tmp->number)
+					node = tmp;
+			}
+			tmp = tmp->next;
+		}
+		node->index = a->size - i - 1;
+		node = NULL;
+		tmp = a->first_node;
+		i++;
+	}
+	return ;
 }
 
 void	complex_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench)

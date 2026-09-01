@@ -26,7 +26,6 @@ SRCS = lst_functions.c \
 	parse.c \
 	print.c \
 	metrics.c \
-	indexate_utils.c \
 	medium_sort_utils.c \
 	parse_utils.c \
 

@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:04:27 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/31 23:48:38 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/09/01 14:51:18 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,18 @@ typedef struct s_medium
 	int		is_bench;
 }	t_medium;
 
-bool			initialize_flags(int argc, char *args[], t_flags *flags);
-t_ops			initialize_ops(void);
-void			initialize_stacks(t_stack *stack_a, t_stack *stack_b);
+bool			init_flags(int argc, char *args[], t_flags *flags);
+t_ops			init_ops(void);
+void			init_stacks(t_stack *stack_a, t_stack *stack_b);
 bool			parse(int argc, char *args[], t_stack *stack_a);
-bool			initialize_metrics(t_metrics *metrics, t_flags flags, t_stack stack_a);
+bool			init_metrics(t_metrics *metrics, t_flags flags, t_stack a);
 float			compute_disorder(t_stack stack_a);
 void			choose_algorithm(t_flags *flags, float disorder);
 void			update_metrics(t_metrics *metrics);
 bool			print_benchmark(t_metrics metrics);
+void			simple_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
+void			medium_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
+void			complex_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
 int				swap_stack(t_stack *stack);
 int				push_stack(t_stack *pushed_to, t_stack *pushed_from);
 int				rotate_stack(t_stack *stack);
@@ -140,40 +143,34 @@ void			rr(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
 void			rra(t_stack *a, t_ops *ops, int is_bench);
 void			rrb(t_stack *b, t_ops *ops, int is_bench);
 void			rrr(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
-void			simple_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
-void			medium_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
-void			complex_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench);
 t_doubly_list	*lstnew(int number);
 int				lstsize(t_doubly_list *lst);
 t_doubly_list	*lstlast(t_doubly_list *lst);
 void			lstclear(t_doubly_list **lst);
 void			lstadd_back(t_doubly_list **lst, t_doubly_list *new);
-bool			is_num_arr(char *s);
-bool			is_duplicate(t_stack *stack, int number);
-bool			is_number(char *n);
-int				ft_atoi_with_error(const char *nptr, int *error);
-size_t			ft_strlen(const char *s);
-bool			is_flag(char *str);
-char			*float_to_str(double n);
-void			print_on_stderr(char *s);
-int				find_number_of_digits(int n);
-int				find_max_number(t_stack stack);
-t_doubly_list	*find_node_with_first_max(t_stack stack, int max);
-t_doubly_list	*find_node_with_prev_max(t_stack stack, int *next_max);
-t_doubly_list	*find_node_with_last_max(t_stack stack);
 int				get_orientation(int index, int level);
 void			sort_block(t_medium *m, int size, int ascending);
 void			merge_pass(t_medium *m, int total, int size, int level);
+void			print_on_stderr(char *s);
+bool			str_is_equal(char *s1, char *s2);
+int				ft_atoi_with_error(const char *nptr, int *error);
 long			round_float(double n);
 int				get_float_len(long x, int neg);
 bool			is_sorted(t_stack a);
-bool			is_operation(char *s);
-void			execute_operation(t_stack *a, t_stack *b, char *s);
+int				find_max_number(t_stack stack);
+int				find_min_number(t_stack stack);
+bool			is_duplicate(t_stack *stack, int number);
+bool			is_num_arr(char *s);
+bool			is_number(char *n);
+bool			is_flag(char *str);
+char			*float_to_str(double n);
+char			*read_operation(t_stacks s);
 void			*ft_realloc(void *ptr1, int prev_size, int new_size);
 bool			is_newline(char *s);
 void			free_stacks(t_stack a, t_stack b);
 void			free_stacks_and_exit(t_stack a, t_stack b);
-char			*read_operation(t_stacks s);
-bool			str_is_equal(char *s1, char *s2);
+bool			is_operation(char *s);
+void			execute_operation_1(t_stack *a, t_stack *b, char *s);
+void			execute_operation_2(t_stack *a, t_stack *b, char *s);
 
 #endif

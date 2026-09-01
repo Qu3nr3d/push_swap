@@ -3,30 +3,31 @@ Normal tests
 Works with:
 * no arguments
 ./checker
+valgrind ./checker
 * one number
-./checker 5
+valgrind ./checker 5
 * two numbers
-./checker 12 5
+valgrind ./checker 12 5
 * operations from stdin
 * stream from push_swap
-./push_swap --simple 5 4 3 2 1 | ./checker 5 4 3 2 1
+valgrind ./push_swap --simple 5 4 3 2 1 | ./checker 5 4 3 2 1
 
 Does not work with:
 * more complicated stream
-shuf -i 0-9999 -n 500 > args.txt ; ./push_swap --bench $(cat args.txt) 2> bench.txt | ./checker_linux $(cat args.txt)
+shuf -i 0-9999 -n 500 > args.txt ; valgrind ./push_swap --bench $(cat args.txt) 2> bench.txt | ./checker $(cat args.txt)
 (does not print ok, even though it generally works)
 
 Gives error for:
 * no number
-./checker a
+valgrind ./checker a
 * weird stuff between numbers
-./checker 12 34 one 3
-./checker 12 34 3 one  
-./checker one 12 34 3 
+valgrind ./checker 12 34 one 3
+valgrind ./checker 12 34 3 one  
+valgrind ./checker one 12 34 3 
 * benches
-./checker --bench 12 34 3
+valgrind ./checker --bench 12 34 3
 * duplicates
-./checker 45 5 5 6
+valgrind ./checker 45 5 5 6
 * weird stdin
 abrakadabra
 a

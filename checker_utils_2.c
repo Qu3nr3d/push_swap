@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 23:39:49 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/31 23:49:21 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/09/01 13:34:16 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	is_operation(char *s)
 	return (false);
 }
 
-void	execute_operation(t_stack *a, t_stack *b, char *s)
+void	execute_operation_1(t_stack *a, t_stack *b, char *s)
 {
 	if (str_is_equal(s, "sa\n"))
 		swap_stack(a);
@@ -54,6 +54,11 @@ void	execute_operation(t_stack *a, t_stack *b, char *s)
 		push_stack(a, b);
 	if (str_is_equal(s, "pb\n"))
 		push_stack(b, a);
+	return ;
+}
+
+void	execute_operation_2(t_stack *a, t_stack *b, char *s)
+{
 	if (str_is_equal(s, "ra\n"))
 		rotate_stack(a);
 	if (str_is_equal(s, "rb\n"))

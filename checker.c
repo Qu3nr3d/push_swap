@@ -6,11 +6,28 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 23:39:39 by akacpere          #+#    #+#             */
-/*   Updated: 2026/08/31 23:42:27 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/09/01 14:15:56 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static bool	arg_is_flag(int argc, char *args[])
+{
+	int	i;
+
+	i = 0;
+	while (i < argc)
+	{
+		if (is_flag(args[i]) || str_is_equal("--bench", args[i]))
+		{
+			write(2, "Error\n", 6);
+			return (true);
+		}
+		i++;
+	}
+	return (false);
+}
 
 static void	free_all_and_exit(t_stack stack_a, t_stack stack_b, char *operation)
 {
@@ -22,33 +39,26 @@ static void	free_all_and_exit(t_stack stack_a, t_stack stack_b, char *operation)
 int	main(int argc, char *argv[])
 {
 	t_stacks	s;
-	int			i;
 	char		*operation;
 
-	if (argc == 1)
-		return (3);
-	i = 0;
-	operation = NULL;
-	while (is_flag(argv[i++]))
-		return (2);
-	initialize_stacks(&s.stack_a, &s.stack_b);
+	while (argc == 1 || arg_is_flag(argc, argv))
+		return (1);
+	operation = read_operation(s);
+	init_stacks(&s.stack_a, &s.stack_b);
 	if (!parse(argc, argv, &s.stack_a))
 		free_all_and_exit(s.stack_a, s.stack_b, operation);
-	operation = read_operation(s);
 	while (operation)
 	{
 		if (!is_operation(operation))
 			free_all_and_exit(s.stack_a, s.stack_b, operation);
-		execute_operation(&s.stack_a, &s.stack_b, operation);
+		execute_operation_1(&s.stack_a, &s.stack_b, operation);
+		execute_operation_2(&s.stack_a, &s.stack_b, operation);
 		free(operation);
 		operation = read_operation(s);
-		if (!operation)
-			break ;
 	}
 	if (s.stack_b.first_node == NULL && is_sorted(s.stack_a))
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
-	free_stacks(s.stack_a, s.stack_b);
-	return (0);
+	return (free_stacks(s.stack_a, s.stack_b), 0);
 }

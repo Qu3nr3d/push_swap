@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:55:19 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/31 15:36:42 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/09/01 13:25:23 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static bool	check_flags(char *str, t_flags *flags)
 	return (true);
 }
 
-bool	initialize_flags(int argc, char *args[], t_flags *flags)
+bool	init_flags(int argc, char *args[], t_flags *flags)
 {
 	int	i;
 

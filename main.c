@@ -6,7 +6,7 @@
 /*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:09:43 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/31 18:05:12 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/09/01 13:25:30 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,37 @@ void	display_stack(t_doubly_list *tab)
 	printf("\n");
 }
 
+void	small_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
+{
+	int	max_number;
+	int	min_number;
+
+	if (is_sorted(*a))
+		return ;
+	min_number = 0;
+	while (a->size > 3)
+	{
+		min_number = find_min_number(*a);
+		while (a->first_node->number != min_number)
+			ra(a, ops, is_bench);
+		pb(a, b, ops, is_bench);
+	}
+	max_number = (find_max_number(*a));
+	if (a->first_node->number == max_number)
+		ra(a, ops, is_bench);
+	if (a->first_node->next->number == max_number)
+		rra(a, ops, is_bench);
+	if (a->first_node->number > a->first_node->next->number)
+		sa(a, ops, is_bench);
+	while (b->first_node != NULL)
+		pa(a, b, ops, is_bench);
+}
+
 void	sort(t_stack *a, t_stack *b, t_ops *ops, t_flags flags)
 {
-	if (flags.is_simple)
+	if (a->size <= 5)
+		small_sort(a, b, ops, flags.is_bench);
+	else if (flags.is_simple)
 		simple_sort(a, b, ops, flags.is_bench);
 	else if (flags.is_medium)
 		medium_sort(a, b, ops, flags.is_bench);
@@ -48,14 +76,14 @@ int	main(int argc, char **argv)
 
 	if (argc == 1)
 		return (2);
-	if (!initialize_flags(argc, argv, &flags))
+	if (!init_flags(argc, argv, &flags))
 		return (write(2, "Error\n", 6));
-	initialize_stacks(&stack_a, &stack_b);
+	init_stacks(&stack_a, &stack_b);
 	if (!parse(argc, argv, &stack_a))
 		return (lstclear(&stack_a.first_node), write(2, "Error\n", 6), 1);
 	choose_algorithm(&flags, compute_disorder(stack_a));
 	if (flags.is_bench)
-		if (!initialize_metrics(&metrics, flags, stack_a))
+		if (!init_metrics(&metrics, flags, stack_a))
 			return (write(2, "Error\n", 6), 1);
 	sort(&stack_a, &stack_b, &metrics.ops, flags);
 	if (flags.is_bench)
