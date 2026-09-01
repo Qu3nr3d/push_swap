@@ -3,33 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:09:43 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/09/01 13:25:30 by akacpere         ###   ########.fr       */
+/*   Updated: 2026/09/01 17:45:26 by kgirczyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-void	display_stack(t_doubly_list *tab)
-{
-	t_doubly_list	*node;
-
-	node = tab;
-	while (node)
-	{
-		printf("| ");
-		printf("%d", node->number);
-		printf(" |");
-		node = node->next;
-		printf("\n");
-	}
-	printf("\n");
-}
-
-void	small_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
+static void	small_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
 {
 	int	max_number;
 	int	min_number;
@@ -55,7 +39,7 @@ void	small_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
 		pa(a, b, ops, is_bench);
 }
 
-void	sort(t_stack *a, t_stack *b, t_ops *ops, t_flags flags)
+static void	sort(t_stack *a, t_stack *b, t_ops *ops, t_flags flags)
 {
 	if (a->size <= 5)
 		small_sort(a, b, ops, flags.is_bench);

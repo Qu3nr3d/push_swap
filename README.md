@@ -4,23 +4,26 @@
 
 ## Description
 
-Push Swap is a sorting challenge in which a stack of integers must be ordered in ascending order using a very limited set of operations. The goal is not just to sort the numbers, but to do it with the lowest number of moves possible and with a clear understanding of algorithmic trade-offs.
+Push Swap is a sorting algorithm challenge designed to teach algorithmic optimization and stack-based problem solving. The project requires sorting a stack of integers in ascending order using a limited set of operations, with the primary goal of minimizing the number of moves required.
 
-The project consists of two main components:
+The solver works with two stacks (`a` and `b`) and implements multiple sorting strategies, each optimized for different input characteristics:
+- **Simple Sort**: Quadratic approach for small or nearly sorted inputs
+- **Medium Sort**: Block-based partitioning for medium-sized inputs
+- **Complex Sort**: Radix-based algorithm for large or highly disordered inputs
+- **Adaptive Mode**: Automatically selects the best strategy based on input disorder
 
-- `push_swap`: the sorting program that generates the sequence of operations.
-- `checker`: a validation tool that checks whether a generated operation list successfully sorts the input stack.
+### Project Components
 
-The solver works with two stacks, `a` and `b`, and supports operations such as `sa`, `sb`, `ss`, `pa`, `pb`, `ra`, `rb`, `rr`, `rra`, `rrb`, and `rrr`. The input is parsed, validated, and then processed by one of several strategies depending on how disordered the stack is.
+- **push_swap**: The main program that generates an optimal sequence of operations to sort the input stack
+- **checker**: A validation program that verifies whether a sequence of operations successfully sorts a given input
 
-The project also includes benchmarking and strategy flags such as `--simple`, `--medium`, `--complex`, `--adaptive`, and `--bench`, which allow comparing different sorting approaches and measuring behavior on varied inputs.
+### Supported Operations
 
-### Work split
-
-This project was developed as a collaborative effort:
-
-- `kgirczyc`: simple sort, medium sort, and part of parsing/flag handling.
-- `akacpere`: complex sort, checker, and part of parsing/flag handling.
+The following stack operations are available:
+- `sa`, `sb`, `ss`: Swap the first two elements of stack a, stack b, or both
+- `pa`, `pb`: Push the top element from stack b to stack a (or vice versa)
+- `ra`, `rb`, `rr`: Rotate stack a, b, or both upward (move first element to end)
+- `rra`, `rrb`, `rrr`: Reverse rotate stack a, b, or both downward (move last element to front)
 
 ---
 
@@ -28,181 +31,146 @@ This project was developed as a collaborative effort:
 
 ### Compilation
 
-From the project root, build the main solver:
+Build the main push_swap program:
 
 ```bash
 make
 ```
 
-The repository also contains a checker implementation. To build it:
+Build the checker program:
 
 ```bash
-make -C checker
-```
-
-You can also use the provided binary in the repository root if present:
-
-```bash
-./checker_linux
+make bonus
 ```
 
 ### Execution
 
-Run the sorter with a list of integers:
+**Basic usage:**
 
 ```bash
 ./push_swap 3 2 1 4 5
 ```
 
-This prints a sequence of operations that sorts the stack. The output can then be validated with the checker:
+This outputs a sequence of operations that sorts the stack.
+
+**Validate a solution:**
 
 ```bash
 ./push_swap 3 2 1 4 5 | ./checker_linux 3 2 1 4 5
 ```
 
-or using the compiled checker from the `checker` directory:
+If the operations successfully sort the input, the checker prints `OK`; otherwise, it prints `KO`.
 
-```bash
-./push_swap 3 2 1 4 5 | ./checker 3 2 1 4 5
-```
+### Strategy Selection Flags
 
-### Strategy flags
+The program supports the following flags for strategy selection:
 
-The project supports strategy selection:
+- `--simple`: Use simple quadratic sorting (best for small/nearly sorted inputs)
+- `--medium`: Use block-based sorting (balanced performance for medium inputs)
+- `--complex`: Use radix-based sorting (optimal for large or disordered inputs)
+- `--adaptive`: Automatically choose strategy based on disorder metric
+- `--bench`: Benchmark mode for performance analysis and comparison
+
+**Examples:**
 
 ```bash
 ./push_swap --simple 4 3 2 1
 ./push_swap --medium 9 8 7 6 5 4 3 2 1
 ./push_swap --complex 50 40 30 20 10
 ./push_swap --adaptive 12 7 5 9 8 1 3
-```
-
-Benchmark mode:
-
-```bash
 ./push_swap --bench --adaptive 100 42 7 89 3 12
 ```
 
-The adaptive mode automatically chooses the strategy based on the computed disorder of the input stack.
+---
+
+## Algorithm Design and Justification
+
+### 1. Simple Sort Strategy
+
+**When to use:** Small inputs (typically < 10 elements) or nearly sorted stacks
+
+**Algorithm:**
+1. Find the minimum value in stack `a`
+2. Rotate stack `a` so the minimum reaches the top (using `ra` or `rra`)
+3. Push the minimum to stack `b` (using `pb`)
+4. Repeat until all elements are moved to `b`
+5. Push elements back to stack `a` in correct order (using `pa`)
+
+**Time Complexity:** O(n²)  
+**Why this approach:** Simplicity and reliability are prioritized over optimization for small inputs. Quadratic complexity is acceptable when the input size is small or close to sorted. The overhead of more sophisticated algorithms outweighs their benefits for tiny datasets.
+
+### 2. Medium Sort Strategy
+
+**When to use:** Medium-sized inputs (typically 10-500 elements) with moderate disorder
+
+**Algorithm:**
+1. Determine a block size based on the total number of elements (e.g., √n)
+2. Partition elements into ranges and sort each range using directional logic
+3. Use a two-pass approach with "level" and "orientation" mechanisms
+4. Push elements from appropriate ranges to stack `b` in the first pass
+5. Merge sorted sections progressively using `pa` and rotations
+
+**Time Complexity:** O(n√n)
+
+**Why this approach:** Balances performance and implementation complexity. Better than naive quadratic sorting while remaining practical to code and debug. The block-based approach reduces unnecessary rotations compared to simple sort while avoiding the overhead of bit-manipulation required by complex sort.
+
+### 3. Complex Sort Strategy (Radix-Based)
+
+**When to use:** Large inputs or highly disordered stacks (typically > 500 elements)
+
+**Algorithm:**
+1. Assign each value an index based on its sorted position (0 to n-1)
+2. Process indices bit by bit, from least significant to most significant
+3. For each bit position:
+   - Elements with bit = 0 are pushed from stack `a` to stack `b` (using `pb`)
+   - Elements with bit = 1 remain in stack `a` (rotated up if needed)
+4. Rotate stack `a` to maintain relative order of elements with bit = 1
+5. After processing all bits, push everything from `b` back to `a` in correct order
+
+**Time Complexity:** O(n log n)  
+**Why this approach:** Radix sorting is highly efficient because it avoids comparison-based sorting, which requires O(n log n) comparisons. Each pass processes a single bit position, exploiting the structure of integer keys. This is a natural fit for stack-based operations since we can easily partition elements based on a single bit without complex comparisons.
+
+### 4. Adaptive Strategy Selection
+
+**Algorithm:**
+- Calculate a "disorder metric" that measures how far the input is from sorted order
+- The metric counts inversions (pairs where a larger element appears before a smaller one)
+- Compare inversion count to maximum possible inversions for that size
+- Based on disorder percentage:
+  - Low disorder (< 20%) → Simple sort
+  - Medium disorder (20-50%) → Medium sort
+  - High disorder (>= 50%) → Complex sort
 
 ---
 
-## Algorithm design and justification
+## Technical Notes
 
-### 1. Simple sort
-
-The simple strategy is designed for small or nearly sorted stacks. It is intentionally straightforward and uses a repeated “find the minimum, rotate it to the top, push it to stack b, then rebuild stack a” pattern.
-
-How it works:
-
-- Find the minimum value in stack `a`.
-- Rotate `a` or reverse-rotate `a` so that the minimum reaches the top.
-- Push that value to stack `b`.
-- Repeat until `a` is empty.
-- Pop elements back from `b` to `a` in correct order.
-
-Why this algorithm:
-
-- Simplicity and reliability are more important than optimization for very small inputs.
-- Its complexity is quadratic, which is acceptable when the input is already close to sorted or small in size.
-- This makes it predictable and easy to debug.
-
-### 2. Medium sort
-
-The medium strategy is a block-based sorting approach inspired by merge-like partitioning. It is used for inputs that are larger than trivial cases but still not large enough to justify the fully optimized complex strategy.
-
-How it works:
-
-- Determine a block size based on the number of elements.
-- Split the stack into blocks and sort each block using directional logic.
-- Merge the sorted blocks progressively using additional passes.
-- The logic uses a “level” and “orientation” mechanism to decide whether operations should be done in increasing or decreasing order.
-
-Why this algorithm:
-
-- It reduces the number of operations compared with naive quadratic sorting.
-- It balances performance and implementation complexity.
-- It is a good middle point between the very simple and the more advanced radix-based strategy.
-
-This approach is especially useful when the stack is not completely sorted but still manageable without the highest-performance solution.
-
-### 3. Complex sort
-
-The complex strategy is the most advanced part of the project and is based on radix sort, adapted to the constraints of two stacks.
-
-How it works:
-
-- Each value is assigned an index based on its position in the ordering.
-- The algorithm processes the indices bit by bit.
-- Values whose current bit is `0` are pushed from `a` to `b`.
-- Values whose current bit is `1` stay in `a` or are rotated to the top in order to preserve order.
-- The process is repeated for each bit, gradually building a sorted arrangement.
-
-Why this algorithm:
-
-- Radix sorting is highly efficient for integer keys because each pass works on bits instead of comparisons.
-- It avoids the cost of full comparison-based sorting in large datasets.
-- It is a natural fit for constrained stack operations, where the algorithm can reorganize values using push and rotate operations.
-
-This is the preferred strategy for larger or highly disordered inputs, where a quadratic method would be too expensive.
-
-### 4. Adaptive strategy selection
-
-The project includes an adaptive mode driven by a disorder metric. The function `compute_disorder` measures how far the input is from sorted order by counting inversions relative to the total number of possible pairs.
-
-The logic is:
-
-- low disorder -> simple sort
-- medium disorder -> medium sort
-- high disorder -> complex sort
-
-Why this matters:
-
-- The same input set can behave very differently depending on its structure.
-- Not all random or partially ordered stacks need the same algorithm.
-- Adaptive selection gives more consistent performance while keeping the code easier to reason about and benchmark.
-
----
-
-## Project structure
-
-The source tree is organized around the different sorting strategies and support modules:
-
-- `main.c`: entry point and execution flow.
-- `flags.c`: parsing of global options and strategy selection.
-- `disorder.c`: disorder metric and adaptive sorting choice.
-- `simple_sort.c`: simple stack sorting method.
-- `medium_sort.c` and `medium_sort_2.c`: medium block-based strategy.
-- `complex_sort.c`: radix-like sorting algorithm.
-- `parse.c`: input validation and number parsing.
-- `checker/`: the checker program and its helpers.
-- `metrics.c`: benchmarking and operation counting.
+- **Input Validation:** All input is validated for duplicates, integer overflow, and invalid format. Duplicate values result in program termination.
+- **Memory Management:** The program uses dynamic memory allocation with proper cleanup. No memory leaks.
+- **Operation Tracking:** Each operation is counted to measure sorting efficiency and allow benchmarking.
+- **Checker Compatibility:** Output format strictly follows 42 specifications for compatibility with the official checker.
+- **Optimization Focus:** The project emphasizes algorithmic efficiency and operation count minimization over raw execution speed.
 
 ---
 
 ## Resources
 
-### Relevant references
+### Relevant References
 
-- 42 Project subject: Push Swap
-- Introduction to Algorithms, by Cormen, Leiserson, Rivest, Stein
-- Radix sort and bitwise sorting references
-- Sorting theory and stack-based algorithm design notes
-- Articles and tutorials on inversion counting and adaptive algorithm selection
+- **42 Project Subject:** Push Swap official specifications
+- **Radix Sort:**
+  - Wikipedia: Radix Sort
+  - Bit manipulation and bitwise operations
+  - youtube: https://www.youtube.com/watch?v=ujb2CIWE8zY
+- **Stack-Based Algorithms:**
+  - Constraint-based algorithm design
+  - wikipedia: chunking (computing)
+- **C Programming:**
+  - geek4geeks: C structures
 
-### AI usage
+### AI Usage
 
-AI was used only to help prepare this README file, mainly for:
+AI was used for README documentation creation
 
-- writing a clear and readable project description,
-- structuring the instructions and usage examples,
-- summarizing the algorithm choices in an understandable way,
-- improving the overall presentation of the documentation.
+The complete implementation, all algorithms, and the entire codebase were developed entirely by the project authors (kgirczyc and akacpere) through direct problem-solving and coding.
 
-No AI-generated solution was used as a substitute for the actual project implementation or algorithm design; the code and logic were developed directly by the project authors.
-
----
-
-## Final note
-
-This project is a strong example of how algorithm choice matters in real-world optimization problems: a better sorting strategy can drastically reduce the number of operations, especially when combined with adaptive selection based on measured disorder. It also demonstrates the importance of clean input validation, benchmarking, and modular project design in a competitive programming context.
