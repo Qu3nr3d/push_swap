@@ -6,12 +6,11 @@
 /*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:09:43 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/09/01 17:45:26 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/09/01 17:54:38 by kgirczyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 static void	small_sort(t_stack *a, t_stack *b, t_ops *ops, int is_bench)
 {
