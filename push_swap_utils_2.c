@@ -3,90 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:44:41 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/28 19:29:39 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/09/01 13:26:51 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static size_t	nbr_len(int n)
+void	init_stacks(t_stack *stack_a, t_stack *stack_b)
 {
-	size_t	len;
-
-	len = 0;
-	if (n < 0)
-	{
-		len++;
-		n = -n;
-	}
-	while (n > 0)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
+	stack_a->first_node = NULL;
+	stack_a->last_node = NULL;
+	stack_a->size = 0;
+	stack_b->first_node = NULL;
+	stack_b->last_node = NULL;
+	stack_b->size = 0;
 }
 
-char	*ft_itoa(int n)
+t_ops	init_ops(void)
 {
-	int		i;
-	char	*str;
+	t_ops	ops;
 
-	if (n == 0)
-		return (ft_strdup("0"));
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	i = nbr_len(n);
-	str = malloc(i + 1);
-	if (!str)
-		return (NULL);
-	if (n < 0)
-	{
-		str[0] = '-';
-		n = -n;
-	}
-	str[i--] = '\0';
-	while (n > 0)
-	{
-		str[i--] = (char){n % 10 + 48};
-		n /= 10;
-	}
-	return (str);
+	ops.use_pa = 0;
+	ops.use_pb = 0;
+	ops.use_sa = 0;
+	ops.use_sb = 0;
+	ops.use_ss = 0;
+	ops.use_ra = 0;
+	ops.use_rb = 0;
+	ops.use_rr = 0;
+	ops.use_rra = 0;
+	ops.use_rrb = 0;
+	ops.use_rrr = 0;
+	return (ops);
 }
 
-long	round_float(double n)
+bool	is_sorted(t_stack a)
 {
-	if (n >= 0)
-		return ((long)(n * 100 + 0.5));
-	return ((long)(n * 100 - 0.5));
-}
+	t_doubly_list	*node;
 
-int	get_float_len(long x, int neg)
-{
-	int	len;
-
-	len = 1;
-	x /= 100;
-	while (x >= 10)
+	node = a.first_node;
+	while (node->next)
 	{
-		x /= 10;
-		len++;
-	}
-	return (len + 3 + neg);
-}
-
-bool	longer_string(char *str)
-{
-	char	**nums;
-	int		i;
-
-	i = 0;
-	nums = ft_split(ft_strtrim(str, " "), ' ');
-	while (nums[i] != NULL)
-		if (!is_number(nums[i++]))
+		if (node->number > node->next->number)
 			return (false);
+		node = node->next;
+	}
 	return (true);
+}
+
+int	find_max_number(t_stack stack)
+{
+	int				max_number;
+	t_doubly_list	*node;
+
+	max_number = INT_MIN;
+	node = stack.first_node;
+	while (node)
+	{
+		if (max_number < node->number)
+			max_number = node->number;
+		node = node->next;
+	}
+	return (max_number);
+}
+
+int	find_min_number(t_stack stack)
+{
+	int				min_number;
+	t_doubly_list	*node;
+
+	min_number = INT_MAX;
+	node = stack.first_node;
+	while (node)
+	{
+		if (min_number > node->number)
+			min_number = node->number;
+		node = node->next;
+	}
+	return (min_number);
 }

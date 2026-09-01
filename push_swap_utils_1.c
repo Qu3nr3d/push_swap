@@ -3,36 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_utils_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akacpere@student.42warsaw.pl <akacpere>    +#+  +:+       +#+        */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 16:54:36 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/25 16:39:51 by akacpere@st      ###   ########.fr       */
+/*   Updated: 2026/08/31 23:48:00 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	is_number(char *str)
+void	print_on_stderr(char *s)
+{
+	while (*s)
+	{
+		write(2, s, 1);
+		s++;
+	}
+}
+
+bool	str_is_equal(char *s1, char *s2)
 {
 	int	i;
 
-	if (!str || !str[0])
-		return (false);
 	i = 0;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	if (!str[i])
-		return (false);
-	while (str[i])
+	while (s1[i] && s2[i])
 	{
-		if (str[i] < '0' || str[i] > '9')
+		if (s1[i] != s2[i])
 			return (false);
 		i++;
 	}
+	if (s1[i] || s2[i])
+		return (false);
 	return (true);
 }
 
-int	ft_atoi(const char *nptr, int *error)
+int	ft_atoi_with_error(const char *nptr, int *error)
 {
 	long long	number;
 	int			sign;
@@ -56,42 +61,23 @@ int	ft_atoi(const char *nptr, int *error)
 	return ((int)number * sign);
 }
 
-static size_t	ft_strlen(const char *s)
+long	round_float(double n)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
-	return (i);
+	if (n >= 0)
+		return ((long)(n * 100 + 0.5));
+	return ((long)(n * 100 - 0.5));
 }
 
-char	*ft_strdup(const char *s)
+int	get_float_len(long x, int neg)
 {
-	size_t	size;
-	size_t	i;
-	char	*str;
+	int	len;
 
-	size = ft_strlen(s) + 1;
-	i = 0;
-	str = malloc(size * sizeof(char));
-	if (str == 0)
-		return (0);
-	while (i != size)
+	len = 1;
+	x /= 100;
+	while (x >= 10)
 	{
-		str[i] = s[i];
-		i++;
+		x /= 10;
+		len++;
 	}
-	return (str);
-}
-
-void	print_on_stderr(char *s)
-{
-	while (*s)
-	{
-		write(2, s, 1);
-		s++;
-	}
+	return (len + 3 + neg);
 }

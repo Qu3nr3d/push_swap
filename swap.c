@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kgirczyc <kgirczyc@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:21:47 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/23 17:24:20 by kgirczyc         ###   ########.fr       */
+/*   Updated: 2026/08/31 15:32:34 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	swap_stack(t_stack *stack)
+int	swap_stack(t_stack *stack)
 {
-	t_list	*first;
-	t_list	*second;
+	t_doubly_list	*first;
+	t_doubly_list	*second;
 
 	if (stack->size < 2)
 		return (0);

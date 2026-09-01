@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akacpere@student.42warsaw.pl <akacpere>    +#+  +:+       +#+        */
+/*   By: akacpere <akacpere@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/23 17:17:02 by kgirczyc          #+#    #+#             */
-/*   Updated: 2026/08/25 16:35:01 by akacpere@st      ###   ########.fr       */
+/*   Updated: 2026/08/29 18:34:56 by akacpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,30 +88,30 @@ static void	print_operations(t_str_ops str_ops)
 
 static void	free_str_ops(t_str_ops *str_ops)
 {
-	free(str_ops->str_total_ops);
-	str_ops->str_total_ops = NULL;
-	free(str_ops->str_pa);
-	str_ops->str_pa = NULL;
-	free(str_ops->str_pb);
-	str_ops->str_pb = NULL;
-	free(str_ops->str_sa);
-	str_ops->str_sa = NULL;
-	free(str_ops->str_sb);
-	str_ops->str_sb = NULL;
-	free(str_ops->str_ss);
-	str_ops->str_ss = NULL;
-	free(str_ops->str_ra);
-	str_ops->str_ra = NULL;
-	free(str_ops->str_rb);
-	str_ops->str_rb = NULL;
-	free(str_ops->str_rr);
-	str_ops->str_rr = NULL;
-	free(str_ops->str_rra);
-	str_ops->str_rra = NULL;
-	free(str_ops->str_rrb);
-	str_ops->str_rrb = NULL;
-	free(str_ops->str_rrr);
-	str_ops->str_rrr = NULL;
+	if (str_ops->str_total_ops)
+		free(str_ops->str_total_ops);
+	if (str_ops->str_pa)
+		free(str_ops->str_pa);
+	if (str_ops->str_pb)
+		free(str_ops->str_pb);
+	if (str_ops->str_sa)
+		free(str_ops->str_sa);
+	if (str_ops->str_sb)
+		free(str_ops->str_sb);
+	if (str_ops->str_ss)
+		free(str_ops->str_ss);
+	if (str_ops->str_ra)
+		free(str_ops->str_ra);
+	if (str_ops->str_rb)
+		free(str_ops->str_rb);
+	if (str_ops->str_rr)
+		free(str_ops->str_rr);
+	if (str_ops->str_rra)
+		free(str_ops->str_rra);
+	if (str_ops->str_rrb)
+		free(str_ops->str_rrb);
+	if (str_ops->str_rrr)
+		free(str_ops->str_rrr);
 }
 
 bool	print_benchmark(t_metrics metrics)
@@ -123,7 +123,10 @@ bool	print_benchmark(t_metrics metrics)
 	if (!disorder)
 		return (false);
 	if (!convert_ops_to_str(metrics, &str_ops))
+	{
+		free_str_ops(&str_ops);
 		return (false);
+	}
 	print_on_stderr("[bench] disorder: ");
 	print_on_stderr(disorder);
 	print_on_stderr("%\n");
